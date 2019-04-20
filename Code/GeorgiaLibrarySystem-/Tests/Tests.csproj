@@ -17,4 +17,8 @@
     <Folder Include="Acceptance tests\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GtlService\GtlService.csproj" />
+  </ItemGroup>
+
 </Project>
