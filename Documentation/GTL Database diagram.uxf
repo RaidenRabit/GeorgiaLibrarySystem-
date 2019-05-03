@@ -4,7 +4,7 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>770</x>
+      <x>777</x>
       <y>273</y>
       <w>70</w>
       <h>84</h>
@@ -22,10 +22,10 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>399</x>
+      <x>406</x>
       <y>273</y>
       <w>70</w>
-      <h>91</h>
+      <h>98</h>
     </coordinates>
     <panel_attributes>Person
 -
@@ -34,13 +34,14 @@ MemberCardID
 AddressID
 Campus
 Phone
-Type</panel_attributes>
+Type
+OnboardDate</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>238</x>
+      <x>245</x>
       <y>308</y>
       <w>84</w>
       <h>70</h>
@@ -55,7 +56,7 @@ ExpirationDate</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>532</x>
+      <x>539</x>
       <y>259</y>
       <w>70</w>
       <h>91</h>
@@ -72,7 +73,7 @@ _ToDate_</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>399</x>
+      <x>406</x>
       <y>406</y>
       <w>70</w>
       <h>84</h>
@@ -88,7 +89,7 @@ AddressID
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>252</x>
+      <x>259</x>
       <y>392</y>
       <w>70</w>
       <h>98</h>
@@ -107,7 +108,7 @@ PostalCode</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>140</x>
+      <x>147</x>
       <y>385</y>
       <w>70</w>
       <h>91</h>
@@ -124,7 +125,7 @@ Type</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>315</x>
+      <x>322</x>
       <y>315</y>
       <w>98</w>
       <h>112</h>
@@ -135,7 +136,7 @@ Type</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>651</x>
+      <x>658</x>
       <y>259</y>
       <w>70</w>
       <h>91</h>
@@ -151,7 +152,7 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>315</x>
+      <x>322</x>
       <y>406</y>
       <w>98</w>
       <h>49</h>
@@ -162,7 +163,7 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>714</x>
+      <x>721</x>
       <y>287</y>
       <w>70</w>
       <h>21</h>
@@ -173,7 +174,7 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>315</x>
+      <x>322</x>
       <y>301</y>
       <w>98</w>
       <h>42</h>
@@ -184,7 +185,7 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>595</x>
+      <x>602</x>
       <y>273</y>
       <w>70</w>
       <h>21</h>
@@ -195,7 +196,7 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>462</x>
+      <x>469</x>
       <y>287</y>
       <w>84</w>
       <h>21</h>
@@ -206,7 +207,7 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>462</x>
+      <x>469</x>
       <y>301</y>
       <w>203</w>
       <h>140</h>
@@ -217,7 +218,7 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>203</x>
+      <x>210</x>
       <y>413</y>
       <w>63</w>
       <h>21</h>
