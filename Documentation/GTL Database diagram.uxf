@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
-  <zoom_level>7</zoom_level>
+  <zoom_level>11</zoom_level>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>777</x>
-      <y>273</y>
-      <w>70</w>
-      <h>84</h>
+      <x>1023</x>
+      <y>165</y>
+      <w>110</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>Book
 -
@@ -22,10 +22,10 @@ halign=left</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>406</x>
-      <y>273</y>
-      <w>70</w>
-      <h>98</h>
+      <x>440</x>
+      <y>165</y>
+      <w>110</w>
+      <h>154</h>
     </coordinates>
     <panel_attributes>Person
 -
@@ -41,10 +41,10 @@ OnboardDate</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>245</x>
-      <y>308</y>
-      <w>84</w>
-      <h>70</h>
+      <x>187</x>
+      <y>220</y>
+      <w>132</w>
+      <h>110</h>
     </coordinates>
     <panel_attributes>MemberCard
 -
@@ -56,10 +56,10 @@ ExpirationDate</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>539</x>
-      <y>259</y>
-      <w>70</w>
-      <h>91</h>
+      <x>649</x>
+      <y>143</y>
+      <w>110</w>
+      <h>143</h>
     </coordinates>
     <panel_attributes>halign=left
 Borrow
@@ -73,10 +73,10 @@ _ToDate_</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>406</x>
-      <y>406</y>
-      <w>70</w>
-      <h>84</h>
+      <x>440</x>
+      <y>374</y>
+      <w>110</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>halign=left
 Library
@@ -89,10 +89,10 @@ AddressID
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>259</x>
-      <y>392</y>
-      <w>70</w>
-      <h>98</h>
+      <x>209</x>
+      <y>352</y>
+      <w>110</w>
+      <h>154</h>
     </coordinates>
     <panel_attributes>halign=left
 Address
@@ -108,10 +108,10 @@ PostalCode</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>147</x>
-      <y>385</y>
-      <w>70</w>
-      <h>91</h>
+      <x>33</x>
+      <y>341</y>
+      <w>110</w>
+      <h>143</h>
     </coordinates>
     <panel_attributes>halign=left
 Librarian
@@ -125,10 +125,10 @@ Type</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>322</x>
-      <y>315</y>
-      <w>98</w>
-      <h>112</h>
+      <x>308</x>
+      <y>231</y>
+      <w>154</w>
+      <h>176</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;140.0;50.0;140.0;50.0;10.0;120.0;10.0</additional_attributes>
@@ -136,10 +136,10 @@ Type</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>658</x>
-      <y>259</y>
-      <w>70</w>
-      <h>91</h>
+      <x>836</x>
+      <y>143</y>
+      <w>110</w>
+      <h>143</h>
     </coordinates>
     <panel_attributes>Copy
 -
@@ -152,10 +152,10 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>322</x>
-      <y>406</y>
-      <w>98</w>
-      <h>49</h>
+      <x>308</x>
+      <y>374</y>
+      <w>154</w>
+      <h>77</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0;60.0;50.0;120.0;50.0</additional_attributes>
@@ -163,10 +163,10 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>721</x>
-      <y>287</y>
-      <w>70</w>
-      <h>21</h>
+      <x>935</x>
+      <y>187</y>
+      <w>110</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
@@ -174,10 +174,10 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>322</x>
-      <y>301</y>
-      <w>98</w>
-      <h>42</h>
+      <x>308</x>
+      <y>209</y>
+      <w>154</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;40.0;40.0;40.0;40.0;10.0;120.0;10.0</additional_attributes>
@@ -185,10 +185,10 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>602</x>
-      <y>273</y>
-      <w>70</w>
-      <h>21</h>
+      <x>748</x>
+      <y>165</y>
+      <w>110</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
@@ -196,10 +196,10 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>469</x>
-      <y>287</y>
-      <w>84</w>
-      <h>21</h>
+      <x>539</x>
+      <y>187</y>
+      <w>132</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
@@ -207,10 +207,10 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>469</x>
-      <y>301</y>
-      <w>203</w>
-      <h>140</h>
+      <x>539</x>
+      <y>209</y>
+      <w>319</w>
+      <h>220</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;180.0;240.0;180.0;240.0;10.0;270.0;10.0</additional_attributes>
@@ -218,10 +218,10 @@ halign=left</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>210</x>
-      <y>413</y>
-      <w>63</w>
-      <h>21</h>
+      <x>132</x>
+      <y>385</y>
+      <w>99</w>
+      <h>33</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
