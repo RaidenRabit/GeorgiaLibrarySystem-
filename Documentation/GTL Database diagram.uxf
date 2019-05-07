@@ -4,24 +4,6 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1143</x>
-      <y>666</y>
-      <w>90</w>
-      <h>108</h>
-    </coordinates>
-    <panel_attributes>Book
--
-_ISBN_
-_TypeName_
-Title
-Description
-Author
-halign=left</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
       <x>666</x>
       <y>666</y>
       <w>90</w>
@@ -45,7 +27,7 @@ OnboardDate</panel_attributes>
     </coordinates>
     <panel_attributes>MemberCard
 -
-_Number_
+_MemberCardID_
 Photo
 ExpirationDate</panel_attributes>
     <additional_attributes/>
@@ -58,8 +40,7 @@ ExpirationDate</panel_attributes>
       <w>90</w>
       <h>117</h>
     </coordinates>
-    <panel_attributes>halign=left
-Borrow
+    <panel_attributes>Borrow
 -
 _CopyID_
 _SSN_
@@ -78,9 +59,8 @@ _ToDate_</panel_attributes>
     <panel_attributes>halign=left
 Library
 -
-_Name_
-AddressID
-</panel_attributes>
+_LibraryName_
+AddressID</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -129,8 +109,7 @@ TypeName</panel_attributes>
 _CopyID_
 ISBN
 TypeName
-LibraryName
-halign=left</panel_attributes>
+LibraryName</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -192,12 +171,12 @@ halign=left</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>747</x>
-      <y>702</y>
+      <y>711</y>
       <w>261</w>
-      <h>225</h>
+      <h>216</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;230.0;240.0;230.0;240.0;10.0;270.0;10.0</additional_attributes>
+    <additional_attributes>10.0;220.0;240.0;220.0;240.0;10.0;270.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -248,8 +227,7 @@ NrOfBooks</panel_attributes>
     <panel_attributes>BookType
 -
 _TypeName_
-Lendable
-halign=left</panel_attributes>
+Lendable</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -274,8 +252,7 @@ halign=left</panel_attributes>
     <panel_attributes>halign=left
 LibrarianType
 -
-_TypeName_
-</panel_attributes>
+_TypeName_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -779,7 +756,7 @@ group=2</panel_attributes>
       <w>108</w>
       <h>36</h>
     </coordinates>
-    <panel_attributes>_Number_</panel_attributes>
+    <panel_attributes>_MemberCardID_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -1059,7 +1036,7 @@ group=3</panel_attributes>
       <w>108</w>
       <h>36</h>
     </coordinates>
-    <panel_attributes>_Name_</panel_attributes>
+    <panel_attributes>_LibraryName_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -2558,7 +2535,7 @@ group=5</panel_attributes>
       <w>108</w>
       <h>36</h>
     </coordinates>
-    <panel_attributes>_Number_</panel_attributes>
+    <panel_attributes>_MemberCardID_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -2714,7 +2691,7 @@ group=6</panel_attributes>
       <w>108</w>
       <h>36</h>
     </coordinates>
-    <panel_attributes>_Name_</panel_attributes>
+    <panel_attributes>_LibraryName_</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -3475,5 +3452,22 @@ group=6</panel_attributes>
     </coordinates>
     <panel_attributes/>
     <additional_attributes>10.0;230.0;170.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>1143</x>
+      <y>666</y>
+      <w>81</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>Book
+-
+_ISBN_
+_TypeName_
+Title
+Description
+Author</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
