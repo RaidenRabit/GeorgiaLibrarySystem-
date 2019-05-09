@@ -1,0 +1,828 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GTLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PostalCode" Type="int" Nullable="false" />
+          <Property Name="Street" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Borrow">
+          <Key>
+            <PropertyRef Name="CopyID" />
+            <PropertyRef Name="SSN" />
+            <PropertyRef Name="FromDate" />
+          </Key>
+          <Property Name="CopyID" Type="int" Nullable="false" />
+          <Property Name="SSN" Type="int" Nullable="false" />
+          <Property Name="FromDate" Type="date" Nullable="false" />
+          <Property Name="ToDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Copy">
+          <Key>
+            <PropertyRef Name="CopyID" />
+          </Key>
+          <Property Name="CopyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ISBN" Type="varchar" MaxLength="50" />
+          <Property Name="TypeName" Type="varchar" MaxLength="50" />
+          <Property Name="LibraryName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Librarian">
+          <Key>
+            <PropertyRef Name="SSN" />
+          </Key>
+          <Property Name="SSN" Type="int" Nullable="false" />
+          <Property Name="TypeName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LibrarianType">
+          <Key>
+            <PropertyRef Name="TypeName" />
+          </Key>
+          <Property Name="TypeName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Library">
+          <Key>
+            <PropertyRef Name="LibraryName" />
+          </Key>
+          <Property Name="LibraryName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressID" Type="int" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="Author" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MaterialType">
+          <Key>
+            <PropertyRef Name="TypeName" />
+          </Key>
+          <Property Name="TypeName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lendable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="SSN" />
+          </Key>
+          <Property Name="SSN" Type="int" Nullable="false" />
+          <Property Name="MemberCardID" Type="int" />
+          <Property Name="TypeName" Type="varchar" MaxLength="50" />
+          <Property Name="OnboardDate" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberCard">
+          <Key>
+            <PropertyRef Name="MemberCardID" />
+          </Key>
+          <Property Name="MemberCardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Photo" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ExpirationDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberType">
+          <Key>
+            <PropertyRef Name="TypeName" />
+          </Key>
+          <Property Name="TypeName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LendingLenght" Type="int" Nullable="false" />
+          <Property Name="GracePeriod" Type="int" Nullable="false" />
+          <Property Name="NrOfBooks" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="SSN" />
+          </Key>
+          <Property Name="SSN" Type="int" Nullable="false" />
+          <Property Name="AddressID" Type="int" />
+          <Property Name="CampusID" Type="int" />
+          <Property Name="Phone" Type="int" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Borrow__CopyID__571DF1D5">
+          <End Role="Copy" Type="Self.Copy" Multiplicity="1" />
+          <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Copy">
+              <PropertyRef Name="CopyID" />
+            </Principal>
+            <Dependent Role="Borrow">
+              <PropertyRef Name="CopyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Borrow__SSN__5812160E">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="SSN" />
+            </Principal>
+            <Dependent Role="Borrow">
+              <PropertyRef Name="SSN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Copy__ISBN__52593CB8">
+          <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+          <End Role="Copy" Type="Self.Copy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="Copy">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Copy__LibraryNam__5441852A">
+          <End Role="Library" Type="Self.Library" Multiplicity="0..1" />
+          <End Role="Copy" Type="Self.Copy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Library">
+              <PropertyRef Name="LibraryName" />
+            </Principal>
+            <Dependent Role="Copy">
+              <PropertyRef Name="LibraryName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Copy__TypeName__534D60F1">
+          <End Role="MaterialType" Type="Self.MaterialType" Multiplicity="0..1" />
+          <End Role="Copy" Type="Self.Copy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialType">
+              <PropertyRef Name="TypeName" />
+            </Principal>
+            <Dependent Role="Copy">
+              <PropertyRef Name="TypeName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Librarian__SSN__4222D4EF">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Librarian" Type="Self.Librarian" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="SSN" />
+            </Principal>
+            <Dependent Role="Librarian">
+              <PropertyRef Name="SSN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Librarian__TypeN__4316F928">
+          <End Role="LibrarianType" Type="Self.LibrarianType" Multiplicity="0..1" />
+          <End Role="Librarian" Type="Self.Librarian" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LibrarianType">
+              <PropertyRef Name="TypeName" />
+            </Principal>
+            <Dependent Role="Librarian">
+              <PropertyRef Name="TypeName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Library__Address__398D8EEE">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Library" Type="Self.Library" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Library">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Member__MemberCa__4AB81AF0">
+          <End Role="MemberCard" Type="Self.MemberCard" Multiplicity="0..1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberCard">
+              <PropertyRef Name="MemberCardID" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="MemberCardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Member__SSN__49C3F6B7">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="SSN" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="SSN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Member__TypeName__4BAC3F29">
+          <End Role="MemberType" Type="Self.MemberType" Multiplicity="0..1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberType">
+              <PropertyRef Name="TypeName" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="TypeName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Person__AddressI__3C69FB99">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Person__CampusID__3D5E1FD2">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="CampusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GTLModelStoreContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Borrow" EntityType="Self.Borrow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Copy" EntityType="Self.Copy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Librarian" EntityType="Self.Librarian" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LibrarianType" EntityType="Self.LibrarianType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Library" EntityType="Self.Library" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialType" EntityType="Self.MaterialType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberCard" EntityType="Self.MemberCard" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberType" EntityType="Self.MemberType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Borrow__CopyID__571DF1D5" Association="Self.FK__Borrow__CopyID__571DF1D5">
+            <End Role="Copy" EntitySet="Copy" />
+            <End Role="Borrow" EntitySet="Borrow" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Borrow__SSN__5812160E" Association="Self.FK__Borrow__SSN__5812160E">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Borrow" EntitySet="Borrow" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Copy__ISBN__52593CB8" Association="Self.FK__Copy__ISBN__52593CB8">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="Copy" EntitySet="Copy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Copy__LibraryNam__5441852A" Association="Self.FK__Copy__LibraryNam__5441852A">
+            <End Role="Library" EntitySet="Library" />
+            <End Role="Copy" EntitySet="Copy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Copy__TypeName__534D60F1" Association="Self.FK__Copy__TypeName__534D60F1">
+            <End Role="MaterialType" EntitySet="MaterialType" />
+            <End Role="Copy" EntitySet="Copy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Librarian__SSN__4222D4EF" Association="Self.FK__Librarian__SSN__4222D4EF">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Librarian" EntitySet="Librarian" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Librarian__TypeN__4316F928" Association="Self.FK__Librarian__TypeN__4316F928">
+            <End Role="LibrarianType" EntitySet="LibrarianType" />
+            <End Role="Librarian" EntitySet="Librarian" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Library__Address__398D8EEE" Association="Self.FK__Library__Address__398D8EEE">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Library" EntitySet="Library" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Member__MemberCa__4AB81AF0" Association="Self.FK__Member__MemberCa__4AB81AF0">
+            <End Role="MemberCard" EntitySet="MemberCard" />
+            <End Role="Member" EntitySet="Member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Member__SSN__49C3F6B7" Association="Self.FK__Member__SSN__49C3F6B7">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Member" EntitySet="Member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Member__TypeName__4BAC3F29" Association="Self.FK__Member__TypeName__4BAC3F29">
+            <End Role="MemberType" EntitySet="MemberType" />
+            <End Role="Member" EntitySet="Member" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Person__AddressI__3C69FB99" Association="Self.FK__Person__AddressI__3C69FB99">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Person__CampusID__3D5E1FD2" Association="Self.FK__Person__CampusID__3D5E1FD2">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GTLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PostalCode" Type="Int32" Nullable="false" />
+          <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Libraries" Relationship="Self.FK__Library__Address__398D8EEE" FromRole="Address" ToRole="Library" />
+          <NavigationProperty Name="People" Relationship="Self.FK__Person__AddressI__3C69FB99" FromRole="Address" ToRole="Person" />
+          <NavigationProperty Name="People1" Relationship="Self.FK__Person__CampusID__3D5E1FD2" FromRole="Address" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Borrow">
+          <Key>
+            <PropertyRef Name="CopyID" />
+            <PropertyRef Name="SSN" />
+            <PropertyRef Name="FromDate" />
+          </Key>
+          <Property Name="CopyID" Type="Int32" Nullable="false" />
+          <Property Name="SSN" Type="Int32" Nullable="false" />
+          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Copy" Relationship="Self.FK__Borrow__CopyID__571DF1D5" FromRole="Borrow" ToRole="Copy" />
+          <NavigationProperty Name="Member" Relationship="Self.FK__Borrow__SSN__5812160E" FromRole="Borrow" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="Copy">
+          <Key>
+            <PropertyRef Name="CopyID" />
+          </Key>
+          <Property Name="CopyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LibraryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Borrows" Relationship="Self.FK__Borrow__CopyID__571DF1D5" FromRole="Copy" ToRole="Borrow" />
+          <NavigationProperty Name="Material" Relationship="Self.FK__Copy__ISBN__52593CB8" FromRole="Copy" ToRole="Material" />
+          <NavigationProperty Name="Library" Relationship="Self.FK__Copy__LibraryNam__5441852A" FromRole="Copy" ToRole="Library" />
+          <NavigationProperty Name="MaterialType" Relationship="Self.FK__Copy__TypeName__534D60F1" FromRole="Copy" ToRole="MaterialType" />
+        </EntityType>
+        <EntityType Name="Librarian">
+          <Key>
+            <PropertyRef Name="SSN" />
+          </Key>
+          <Property Name="SSN" Type="Int32" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__Librarian__SSN__4222D4EF" FromRole="Librarian" ToRole="Person" />
+          <NavigationProperty Name="LibrarianType" Relationship="Self.FK__Librarian__TypeN__4316F928" FromRole="Librarian" ToRole="LibrarianType" />
+        </EntityType>
+        <EntityType Name="LibrarianType">
+          <Key>
+            <PropertyRef Name="TypeName" />
+          </Key>
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Librarians" Relationship="Self.FK__Librarian__TypeN__4316F928" FromRole="LibrarianType" ToRole="Librarian" />
+        </EntityType>
+        <EntityType Name="Library">
+          <Key>
+            <PropertyRef Name="LibraryName" />
+          </Key>
+          <Property Name="LibraryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressID" Type="Int32" />
+          <NavigationProperty Name="Address" Relationship="Self.FK__Library__Address__398D8EEE" FromRole="Library" ToRole="Address" />
+          <NavigationProperty Name="Copies" Relationship="Self.FK__Copy__LibraryNam__5441852A" FromRole="Library" ToRole="Copy" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Copies" Relationship="Self.FK__Copy__ISBN__52593CB8" FromRole="Material" ToRole="Copy" />
+        </EntityType>
+        <EntityType Name="MaterialType">
+          <Key>
+            <PropertyRef Name="TypeName" />
+          </Key>
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lendable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Copies" Relationship="Self.FK__Copy__TypeName__534D60F1" FromRole="MaterialType" ToRole="Copy" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="SSN" />
+          </Key>
+          <Property Name="SSN" Type="Int32" Nullable="false" />
+          <Property Name="MemberCardID" Type="Int32" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OnboardDate" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Borrows" Relationship="Self.FK__Borrow__SSN__5812160E" FromRole="Member" ToRole="Borrow" />
+          <NavigationProperty Name="MemberCard" Relationship="Self.FK__Member__MemberCa__4AB81AF0" FromRole="Member" ToRole="MemberCard" />
+          <NavigationProperty Name="Person" Relationship="Self.FK__Member__SSN__49C3F6B7" FromRole="Member" ToRole="Person" />
+          <NavigationProperty Name="MemberType" Relationship="Self.FK__Member__TypeName__4BAC3F29" FromRole="Member" ToRole="MemberType" />
+        </EntityType>
+        <EntityType Name="MemberCard">
+          <Key>
+            <PropertyRef Name="MemberCardID" />
+          </Key>
+          <Property Name="MemberCardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Members" Relationship="Self.FK__Member__MemberCa__4AB81AF0" FromRole="MemberCard" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="MemberType">
+          <Key>
+            <PropertyRef Name="TypeName" />
+          </Key>
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LendingLenght" Type="Int32" Nullable="false" />
+          <Property Name="GracePeriod" Type="Int32" Nullable="false" />
+          <Property Name="NrOfBooks" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Members" Relationship="Self.FK__Member__TypeName__4BAC3F29" FromRole="MemberType" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="SSN" />
+          </Key>
+          <Property Name="SSN" Type="Int32" Nullable="false" />
+          <Property Name="AddressID" Type="Int32" />
+          <Property Name="CampusID" Type="Int32" />
+          <Property Name="Phone" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Address" Relationship="Self.FK__Person__AddressI__3C69FB99" FromRole="Person" ToRole="Address" />
+          <NavigationProperty Name="Address1" Relationship="Self.FK__Person__CampusID__3D5E1FD2" FromRole="Person" ToRole="Address" />
+          <NavigationProperty Name="Librarian" Relationship="Self.FK__Librarian__SSN__4222D4EF" FromRole="Person" ToRole="Librarian" />
+          <NavigationProperty Name="Member" Relationship="Self.FK__Member__SSN__49C3F6B7" FromRole="Person" ToRole="Member" />
+        </EntityType>
+        <Association Name="FK__Library__Address__398D8EEE">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Library" Type="Self.Library" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Library">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Person__AddressI__3C69FB99">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Person__CampusID__3D5E1FD2">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="AddressID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="CampusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Borrow__CopyID__571DF1D5">
+          <End Role="Copy" Type="Self.Copy" Multiplicity="1" />
+          <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Copy">
+              <PropertyRef Name="CopyID" />
+            </Principal>
+            <Dependent Role="Borrow">
+              <PropertyRef Name="CopyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Borrow__SSN__5812160E">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="SSN" />
+            </Principal>
+            <Dependent Role="Borrow">
+              <PropertyRef Name="SSN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Copy__ISBN__52593CB8">
+          <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
+          <End Role="Copy" Type="Self.Copy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="Copy">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Copy__LibraryNam__5441852A">
+          <End Role="Library" Type="Self.Library" Multiplicity="0..1" />
+          <End Role="Copy" Type="Self.Copy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Library">
+              <PropertyRef Name="LibraryName" />
+            </Principal>
+            <Dependent Role="Copy">
+              <PropertyRef Name="LibraryName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Copy__TypeName__534D60F1">
+          <End Role="MaterialType" Type="Self.MaterialType" Multiplicity="0..1" />
+          <End Role="Copy" Type="Self.Copy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MaterialType">
+              <PropertyRef Name="TypeName" />
+            </Principal>
+            <Dependent Role="Copy">
+              <PropertyRef Name="TypeName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Librarian__SSN__4222D4EF">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Librarian" Type="Self.Librarian" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="SSN" />
+            </Principal>
+            <Dependent Role="Librarian">
+              <PropertyRef Name="SSN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Librarian__TypeN__4316F928">
+          <End Role="LibrarianType" Type="Self.LibrarianType" Multiplicity="0..1" />
+          <End Role="Librarian" Type="Self.Librarian" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LibrarianType">
+              <PropertyRef Name="TypeName" />
+            </Principal>
+            <Dependent Role="Librarian">
+              <PropertyRef Name="TypeName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Member__MemberCa__4AB81AF0">
+          <End Role="MemberCard" Type="Self.MemberCard" Multiplicity="0..1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberCard">
+              <PropertyRef Name="MemberCardID" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="MemberCardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Member__SSN__49C3F6B7">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="SSN" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="SSN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Member__TypeName__4BAC3F29">
+          <End Role="MemberType" Type="Self.MemberType" Multiplicity="0..1" />
+          <End Role="Member" Type="Self.Member" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberType">
+              <PropertyRef Name="TypeName" />
+            </Principal>
+            <Dependent Role="Member">
+              <PropertyRef Name="TypeName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GTLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="Borrows" EntityType="Self.Borrow" />
+          <EntitySet Name="Copies" EntityType="Self.Copy" />
+          <EntitySet Name="Librarians" EntityType="Self.Librarian" />
+          <EntitySet Name="LibrarianTypes" EntityType="Self.LibrarianType" />
+          <EntitySet Name="Libraries" EntityType="Self.Library" />
+          <EntitySet Name="Materials" EntityType="Self.Material" />
+          <EntitySet Name="MaterialTypes" EntityType="Self.MaterialType" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="MemberCards" EntityType="Self.MemberCard" />
+          <EntitySet Name="MemberTypes" EntityType="Self.MemberType" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <AssociationSet Name="FK__Library__Address__398D8EEE" Association="Self.FK__Library__Address__398D8EEE">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Library" EntitySet="Libraries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Person__AddressI__3C69FB99" Association="Self.FK__Person__AddressI__3C69FB99">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Person__CampusID__3D5E1FD2" Association="Self.FK__Person__CampusID__3D5E1FD2">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Borrow__CopyID__571DF1D5" Association="Self.FK__Borrow__CopyID__571DF1D5">
+            <End Role="Copy" EntitySet="Copies" />
+            <End Role="Borrow" EntitySet="Borrows" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Borrow__SSN__5812160E" Association="Self.FK__Borrow__SSN__5812160E">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Borrow" EntitySet="Borrows" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Copy__ISBN__52593CB8" Association="Self.FK__Copy__ISBN__52593CB8">
+            <End Role="Material" EntitySet="Materials" />
+            <End Role="Copy" EntitySet="Copies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Copy__LibraryNam__5441852A" Association="Self.FK__Copy__LibraryNam__5441852A">
+            <End Role="Library" EntitySet="Libraries" />
+            <End Role="Copy" EntitySet="Copies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Copy__TypeName__534D60F1" Association="Self.FK__Copy__TypeName__534D60F1">
+            <End Role="MaterialType" EntitySet="MaterialTypes" />
+            <End Role="Copy" EntitySet="Copies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Librarian__SSN__4222D4EF" Association="Self.FK__Librarian__SSN__4222D4EF">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Librarian" EntitySet="Librarians" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Librarian__TypeN__4316F928" Association="Self.FK__Librarian__TypeN__4316F928">
+            <End Role="LibrarianType" EntitySet="LibrarianTypes" />
+            <End Role="Librarian" EntitySet="Librarians" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Member__MemberCa__4AB81AF0" Association="Self.FK__Member__MemberCa__4AB81AF0">
+            <End Role="MemberCard" EntitySet="MemberCards" />
+            <End Role="Member" EntitySet="Members" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Member__SSN__49C3F6B7" Association="Self.FK__Member__SSN__49C3F6B7">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Member" EntitySet="Members" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Member__TypeName__4BAC3F29" Association="Self.FK__Member__TypeName__4BAC3F29">
+            <End Role="MemberType" EntitySet="MemberTypes" />
+            <End Role="Member" EntitySet="Members" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GTLModelStoreContainer" CdmEntityContainer="GTLEntities">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="GTLModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Borrows">
+            <EntityTypeMapping TypeName="GTLModel.Borrow">
+              <MappingFragment StoreEntitySet="Borrow">
+                <ScalarProperty Name="CopyID" ColumnName="CopyID" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Copies">
+            <EntityTypeMapping TypeName="GTLModel.Copy">
+              <MappingFragment StoreEntitySet="Copy">
+                <ScalarProperty Name="CopyID" ColumnName="CopyID" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="LibraryName" ColumnName="LibraryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Librarians">
+            <EntityTypeMapping TypeName="GTLModel.Librarian">
+              <MappingFragment StoreEntitySet="Librarian">
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LibrarianTypes">
+            <EntityTypeMapping TypeName="GTLModel.LibrarianType">
+              <MappingFragment StoreEntitySet="LibrarianType">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Libraries">
+            <EntityTypeMapping TypeName="GTLModel.Library">
+              <MappingFragment StoreEntitySet="Library">
+                <ScalarProperty Name="LibraryName" ColumnName="LibraryName" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materials">
+            <EntityTypeMapping TypeName="GTLModel.Material">
+              <MappingFragment StoreEntitySet="Material">
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialTypes">
+            <EntityTypeMapping TypeName="GTLModel.MaterialType">
+              <MappingFragment StoreEntitySet="MaterialType">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Lendable" ColumnName="Lendable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="GTLModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="MemberCardID" ColumnName="MemberCardID" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="OnboardDate" ColumnName="OnboardDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberCards">
+            <EntityTypeMapping TypeName="GTLModel.MemberCard">
+              <MappingFragment StoreEntitySet="MemberCard">
+                <ScalarProperty Name="MemberCardID" ColumnName="MemberCardID" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberTypes">
+            <EntityTypeMapping TypeName="GTLModel.MemberType">
+              <MappingFragment StoreEntitySet="MemberType">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="LendingLenght" ColumnName="LendingLenght" />
+                <ScalarProperty Name="GracePeriod" ColumnName="GracePeriod" />
+                <ScalarProperty Name="NrOfBooks" ColumnName="NrOfBooks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="GTLModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="CampusID" ColumnName="CampusID" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
