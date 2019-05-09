@@ -12,17 +12,35 @@ namespace GtlService.Model
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using System.Data.Entity.Migrations;
+
     public partial class GTLEntities : DbContext
     {
-        public GTLEntities()
-            : base("name=GTLEntities")
+        public GTLEntities(): base("name=GTLEntities")
         {
+            Seed();
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
+        }
+
+        private void Seed()
+        {
+            #region Clear all info
+            //this.Database.ExecuteSqlCommand("EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL'");
+            this.Database.ExecuteSqlCommand("EXEC sp_MSForEachTable 'DELETE FROM ?'");
+            //this.Database.ExecuteSqlCommand("EXEC sp_MSForEachTable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL'");
+            #endregion
+
+            this.Addresses.AddOrUpdate(
+                new Address { City = "Aalborg", PostalCode = 9200, Street = "Nibevej", Number = 12},
+                new Address { City = "Aalborg", PostalCode = 9200, Street = "Sofiendalsvej", Number = 60},
+                new Address { City = "Berlin", PostalCode = 10117, Street = "In den Ministergärten"}
+            );
+
+            this.SaveChanges();
         }
     
         public virtual DbSet<Address> Addresses { get; set; }
