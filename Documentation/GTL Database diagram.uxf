@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
-  <zoom_level>16</zoom_level>
+  <zoom_level>12</zoom_level>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>656</x>
-      <y>240</y>
-      <w>160</w>
-      <h>224</h>
+      <x>492</x>
+      <y>180</y>
+      <w>120</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>Member
 -
@@ -20,10 +20,10 @@ OnboardDate</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>288</x>
-      <y>320</y>
-      <w>192</w>
-      <h>160</h>
+      <x>216</x>
+      <y>240</y>
+      <w>144</w>
+      <h>120</h>
     </coordinates>
     <panel_attributes>MemberCard
 -
@@ -35,10 +35,10 @@ ExpirationDate</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>960</x>
-      <y>208</y>
-      <w>160</w>
-      <h>208</h>
+      <x>720</x>
+      <y>156</y>
+      <w>120</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>Borrow
 -
@@ -51,10 +51,10 @@ ToDate</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>656</x>
-      <y>624</y>
-      <w>160</w>
-      <h>192</h>
+      <x>492</x>
+      <y>468</y>
+      <w>120</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>halign=left
 Library
@@ -66,10 +66,10 @@ AddressID</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>320</x>
-      <y>512</y>
-      <w>160</w>
-      <h>224</h>
+      <x>240</x>
+      <y>384</y>
+      <w>120</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>halign=left
 Address
@@ -84,10 +84,10 @@ Number</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>64</x>
-      <y>496</y>
-      <w>160</w>
-      <h>208</h>
+      <x>48</x>
+      <y>372</y>
+      <w>120</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>halign=left
 Librarian
@@ -99,10 +99,10 @@ TypeName</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1232</x>
-      <y>208</y>
-      <w>160</w>
-      <h>208</h>
+      <x>924</x>
+      <y>156</y>
+      <w>120</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>Copy
 -
@@ -115,10 +115,10 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>464</x>
-      <y>544</y>
-      <w>224</w>
-      <h>192</h>
+      <x>348</x>
+      <y>408</y>
+      <w>168</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;60.0;10.0;60.0;100.0;120.0;100.0</additional_attributes>
@@ -126,10 +126,10 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1376</x>
-      <y>272</y>
-      <w>160</w>
-      <h>48</h>
+      <x>1032</x>
+      <y>204</y>
+      <w>120</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
@@ -137,10 +137,10 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>464</x>
-      <y>304</y>
-      <w>224</w>
-      <h>96</h>
+      <x>348</x>
+      <y>228</y>
+      <w>168</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;40.0;40.0;40.0;40.0;10.0;120.0;10.0</additional_attributes>
@@ -148,10 +148,10 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1104</x>
-      <y>240</y>
-      <w>160</w>
-      <h>48</h>
+      <x>828</x>
+      <y>180</y>
+      <w>120</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
@@ -159,10 +159,10 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>800</x>
-      <y>272</y>
-      <w>192</w>
-      <h>48</h>
+      <x>600</x>
+      <y>204</y>
+      <w>144</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
@@ -170,10 +170,10 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>800</x>
-      <y>320</y>
-      <w>464</w>
-      <h>384</h>
+      <x>600</x>
+      <y>240</y>
+      <w>348</w>
+      <h>288</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;220.0;240.0;220.0;240.0;10.0;270.0;10.0</additional_attributes>
@@ -181,10 +181,10 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>208</x>
-      <y>112</y>
-      <w>224</w>
-      <h>464</h>
+      <x>156</x>
+      <y>84</y>
+      <w>168</w>
+      <h>348</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>120.0;10.0;20.0;10.0;20.0;270.0;10.0;270.0</additional_attributes>
@@ -192,10 +192,10 @@ LibraryName</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>960</x>
-      <y>432</y>
-      <w>160</w>
-      <h>224</h>
+      <x>720</x>
+      <y>324</y>
+      <w>120</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>MemberType
 -
@@ -208,10 +208,10 @@ NrOfBooks</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>800</x>
-      <y>336</y>
-      <w>192</w>
-      <h>176</h>
+      <x>600</x>
+      <y>252</y>
+      <w>144</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>100.0;90.0;60.0;90.0;60.0;10.0;10.0;10.0</additional_attributes>
@@ -219,10 +219,10 @@ NrOfBooks</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1504</x>
-      <y>464</y>
-      <w>160</w>
-      <h>192</h>
+      <x>1128</x>
+      <y>348</y>
+      <w>120</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>MaterialType
 -
@@ -233,10 +233,10 @@ Lendable</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1376</x>
-      <y>304</y>
-      <w>160</w>
-      <h>240</h>
+      <x>1032</x>
+      <y>228</y>
+      <w>120</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>80.0;130.0;50.0;130.0;50.0;10.0;10.0;10.0</additional_attributes>
@@ -244,10 +244,10 @@ Lendable</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>64</x>
-      <y>240</y>
-      <w>160</w>
-      <h>208</h>
+      <x>48</x>
+      <y>180</y>
+      <w>120</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>halign=left
 LibrarianType
@@ -259,9 +259,9 @@ _TypeName_</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>0</x>
-      <y>272</y>
-      <w>96</w>
-      <h>336</h>
+      <y>204</y>
+      <w>72</w>
+      <h>252</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>40.0;10.0;10.0;10.0;10.0;190.0;40.0;190.0</additional_attributes>
@@ -269,10 +269,10 @@ _TypeName_</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>400</x>
-      <y>80</y>
-      <w>160</w>
-      <h>224</h>
+      <x>300</x>
+      <y>60</y>
+      <w>120</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>Person
 -
@@ -287,10 +287,10 @@ Password</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>544</x>
-      <y>112</y>
-      <w>144</w>
-      <h>208</h>
+      <x>408</x>
+      <y>84</y>
+      <w>108</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;40.0;10.0;40.0;110.0;70.0;110.0</additional_attributes>
@@ -298,21 +298,21 @@ Password</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>256</x>
-      <y>144</y>
-      <w>176</w>
-      <h>448</h>
+      <x>180</x>
+      <y>108</y>
+      <w>144</w>
+      <h>348</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>40.0;260.0;10.0;260.0;10.0;10.0;90.0;10.0</additional_attributes>
+    <additional_attributes>50.0;270.0;10.0;270.0;10.0;10.0;100.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1504</x>
-      <y>240</y>
-      <w>144</w>
-      <h>176</h>
+      <x>1128</x>
+      <y>180</y>
+      <w>108</w>
+      <h>132</h>
     </coordinates>
     <panel_attributes>Material
 -
@@ -325,12 +325,12 @@ Author</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>256</x>
-      <y>144</y>
-      <w>176</w>
-      <h>448</h>
+      <x>192</x>
+      <y>120</y>
+      <w>132</w>
+      <h>324</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>40.0;260.0;10.0;260.0;10.0;20.0;90.0;10.0</additional_attributes>
+    <additional_attributes>40.0;250.0;10.0;250.0;10.0;10.0;90.0;10.0</additional_attributes>
   </element>
 </diagram>
