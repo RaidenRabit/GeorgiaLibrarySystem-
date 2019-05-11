@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GtlService.Model;
 
-namespace GtlService.DataManagement
+namespace GtlService.DataAccess
 {
     class TestClass
     {
