@@ -8,14 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GtlWebsite.ServiceReference1 {
+namespace GtlWebsite.ExampleReference {
     using System.Runtime.Serialization;
     using System;
     
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.datacontract.org/2004/07/GtlService")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CompositeType", Namespace="http://schemas.datacontract.org/2004/07/GtlService.Controller.iController")]
     [System.SerializableAttribute()]
     public partial class CompositeType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -75,7 +75,7 @@ namespace GtlWebsite.ServiceReference1 {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ExampleReference.IService1")]
     public interface IService1 {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetData", ReplyAction="http://tempuri.org/IService1/GetDataResponse")]
@@ -85,19 +85,19 @@ namespace GtlWebsite.ServiceReference1 {
         System.Threading.Tasks.Task<string> GetDataAsync(int value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService1/GetDataUsingDataContractResponse")]
-        GtlWebsite.ServiceReference1.CompositeType GetDataUsingDataContract(GtlWebsite.ServiceReference1.CompositeType composite);
+        GtlWebsite.ExampleReference.CompositeType GetDataUsingDataContract(GtlWebsite.ExampleReference.CompositeType composite);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IService1/GetDataUsingDataContractResponse")]
-        System.Threading.Tasks.Task<GtlWebsite.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(GtlWebsite.ServiceReference1.CompositeType composite);
+        System.Threading.Tasks.Task<GtlWebsite.ExampleReference.CompositeType> GetDataUsingDataContractAsync(GtlWebsite.ExampleReference.CompositeType composite);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IService1Channel : GtlWebsite.ServiceReference1.IService1, System.ServiceModel.IClientChannel {
+    public interface IService1Channel : GtlWebsite.ExampleReference.IService1, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class Service1Client : System.ServiceModel.ClientBase<GtlWebsite.ServiceReference1.IService1>, GtlWebsite.ServiceReference1.IService1 {
+    public partial class Service1Client : System.ServiceModel.ClientBase<GtlWebsite.ExampleReference.IService1>, GtlWebsite.ExampleReference.IService1 {
         
         public Service1Client() {
         }
@@ -126,11 +126,11 @@ namespace GtlWebsite.ServiceReference1 {
             return base.Channel.GetDataAsync(value);
         }
         
-        public GtlWebsite.ServiceReference1.CompositeType GetDataUsingDataContract(GtlWebsite.ServiceReference1.CompositeType composite) {
+        public GtlWebsite.ExampleReference.CompositeType GetDataUsingDataContract(GtlWebsite.ExampleReference.CompositeType composite) {
             return base.Channel.GetDataUsingDataContract(composite);
         }
         
-        public System.Threading.Tasks.Task<GtlWebsite.ServiceReference1.CompositeType> GetDataUsingDataContractAsync(GtlWebsite.ServiceReference1.CompositeType composite) {
+        public System.Threading.Tasks.Task<GtlWebsite.ExampleReference.CompositeType> GetDataUsingDataContractAsync(GtlWebsite.ExampleReference.CompositeType composite) {
             return base.Channel.GetDataUsingDataContractAsync(composite);
         }
     }

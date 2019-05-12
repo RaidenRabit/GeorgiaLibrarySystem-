@@ -29,10 +29,21 @@ namespace GtlService.Model
         private void Seed()
         {
             #region Clear all info
-            //this.Database.ExecuteSqlCommand("EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL'");
+            this.Database.ExecuteSqlCommand("EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL'");
             this.Database.ExecuteSqlCommand("EXEC sp_MSForEachTable 'DELETE FROM ?'");
-            //this.Database.ExecuteSqlCommand("EXEC sp_MSForEachTable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL'");
+            this.Database.ExecuteSqlCommand("EXEC sp_MSForEachTable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL'");
             #endregion
+
+            this.People.AddOrUpdate(
+                new Person
+                {
+                    SSN = 1, 
+                    Address = new Address { City = "Aalborg", PostalCode = 9200, Street = "Nibevej", Number = 12},
+                    Address1 = new Address { City = "Aalborg", PostalCode = 9200, Street = "Nibevej", Number = 12},
+                    Password = "test",
+                    Phone = 12345678
+                }
+            );
 
             this.Addresses.AddOrUpdate(
                 new Address { City = "Aalborg", PostalCode = 9200, Street = "Nibevej", Number = 12},

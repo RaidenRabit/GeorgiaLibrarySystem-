@@ -55,8 +55,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\iController\ILoginController.cs" />
     <Compile Include="Controller\iController\IService1.cs" />
+    <Compile Include="Controller\LoginController.cs" />
     <Compile Include="DataAccess\ExampleClass.cs" />
+    <Compile Include="DataAccess\LoginDA.cs" />
+    <Compile Include="DataManagement\iDataManagement\ILoginDM.cs" />
+    <Compile Include="DataManagement\LoginDM.cs" />
     <Compile Include="Model\Address.cs">
       <DependentUpon>GTLModel.tt</DependentUpon>
     </Compile>
@@ -122,9 +127,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataManagement\iDataManagement\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Model\GTLModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -139,6 +142,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
