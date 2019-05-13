@@ -1,5 +1,6 @@
 using System;
-using GtlService;
+using GtlService.Controller;
+using GtlService.Controller.iController;
 using NUnit.Framework;
 
 namespace Tests

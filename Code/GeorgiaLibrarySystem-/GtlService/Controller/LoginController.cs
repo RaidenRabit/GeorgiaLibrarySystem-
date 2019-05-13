@@ -7,13 +7,14 @@ using GtlService.Controller.iController;
 using GtlService.DataAccess;
 using GtlService.DataManagement;
 using GtlService.DataManagement.iDataManagement;
+using GtlService.Model;
 
 namespace GtlService.Controller
 {
     public class LoginController : ILoginController
     {
         //dependency injection!
-        private ILoginDM loginDM = new LoginDM(new LoginDA());
+        private ILoginDM loginDM = new LoginDM(new LoginDA(new GTLEntities()));
         //public LoginController(LoginDM loginDm)
         //{
         //    loginDM = loginDm;
