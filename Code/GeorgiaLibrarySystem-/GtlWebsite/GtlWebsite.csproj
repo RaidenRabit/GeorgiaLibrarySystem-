@@ -34,7 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -235,6 +235,12 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ExampleReference\" />
     <WCFMetadataStorage Include="Connected Services\LoginReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GtlService\GtlService.csproj">
+      <Project>{7c4eb51d-6ea3-45ad-8878-65f2ae79fc71}</Project>
+      <Name>GtlService</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
