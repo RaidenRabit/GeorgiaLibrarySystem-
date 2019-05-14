@@ -7,17 +7,22 @@ using System.Threading.Tasks;
 
 namespace GtlService.DataAccess
 {
-    public class LoginDA
+    public class LoginDa
     {
-        private GTLEntities context;
-        public LoginDA(GTLEntities context)
+        private readonly GTLEntities _context;
+        public LoginDa(GTLEntities context)
         {
-            context = this.context;
+            this._context = context;
         }
 
-        public bool Login(int ssn, string password)
+        public virtual bool Login(int ssn, string password)
         {
-            return context.People.Any(x => x.SSN == ssn && x.Password.Equals(password));
+            return _context.People.Any(x => x.SSN == ssn && x.Password.Equals(password));
+        }
+
+        public virtual bool LoginDB(int ssn, string password)
+        {
+            return _context.People.Any(x => x.SSN == ssn && x.Password.Equals(password));
         }
     }
 }

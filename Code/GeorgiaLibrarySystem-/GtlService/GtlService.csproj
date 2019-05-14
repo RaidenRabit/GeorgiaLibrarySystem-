@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -59,9 +60,10 @@
     <Compile Include="Controller\iController\IService1.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="DataAccess\ExampleClass.cs" />
-    <Compile Include="DataAccess\LoginDA.cs" />
-    <Compile Include="DataManagement\iDataManagement\ILoginDM.cs" />
-    <Compile Include="DataManagement\LoginDM.cs" />
+    <Compile Include="DataAccess\LoginDa.cs" />
+    <Compile Include="DataManagement\iDataManagement\ILoginDm.cs" />
+    <Compile Include="DataManagement\LoginDmCode.cs" />
+    <Compile Include="DataManagement\LoginDmDatabase.cs" />
     <Compile Include="Model\Address.cs">
       <DependentUpon>GTLModel.tt</DependentUpon>
     </Compile>

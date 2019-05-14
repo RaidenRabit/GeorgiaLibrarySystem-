@@ -1,27 +1,22 @@
 ﻿using GtlService.DataManagement.iDataManagement;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GtlService.DataAccess;
 
 namespace GtlService.DataManagement
 {
-    public class LoginDM : ILoginDM
+    public class LoginDmDatabase : ILoginDm
     {
-        private LoginDA loginDA;
+        private readonly LoginDa _loginDa;
 
-        public LoginDM(LoginDA loginDa)
+        public LoginDmDatabase(LoginDa loginDa)
         {
-            loginDA = loginDa;
+            this._loginDa = loginDa;
         }
 
         public bool Login(int ssn, string password)
         {
             try
             {
-                return loginDA.Login(ssn, password);
+                return _loginDa.Login(ssn, password);
             }
             catch
             {
@@ -30,3 +25,4 @@ namespace GtlService.DataManagement
         }
     }
 }
+

@@ -11,19 +11,14 @@ namespace GtlService.Model
 {
     using System;
     using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
     using System.Data.Entity.Migrations;
 
     public partial class GTLEntities : DbContext
     {
         public GTLEntities(): base("name=GTLEntities")
         {
-            Seed();
-        }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
+            //db frst no seeding expceted to be done
+            //Seed();
         }
 
         private void Seed()

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GtlService.Controller.iController;
+﻿using GtlService.Controller.iController;
 using GtlService.DataAccess;
 using GtlService.DataManagement;
 using GtlService.DataManagement.iDataManagement;
@@ -14,15 +9,31 @@ namespace GtlService.Controller
     public class LoginController : ILoginController
     {
         //dependency injection!
-        private ILoginDM loginDM = new LoginDM(new LoginDA(new GTLEntities()));
-        //public LoginController(LoginDM loginDm)
+        private readonly ILoginDm _loginDm = new LoginDmCode(new LoginDa(new GTLEntities()));
+        //public LoginController(LoginDmCode loginDm)
         //{
         //    loginDM = loginDm;
         //}
 
-        public bool Login(int ssn, string password)
+        public virtual bool Login(int ssn, string password)
         {
-            return loginDM.Login(ssn, password);
+            return _loginDm.Login(ssn, password);
+        }
+    }
+
+    public class LoginDmFactory
+    {
+        public ILoginDm Get(int id)
+        {
+            switch (id)
+            {
+                case 0:
+                    return new LoginDmCode(new LoginDa(new GTLEntities()));
+                case 1:
+                    return new Clerk();
+                default:
+                    return new Programmer();            
+            }
         }
     }
 }
