@@ -11,42 +11,20 @@ namespace GtlService.Model
 {
     using System;
     using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-
+    using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
+    
     public partial class GTLEntities : DbContext
     {
-        public GTLEntities(): base("name=GTLEntities")
+        public GTLEntities()
+            : base("name=GTLEntities")
         {
-            //db frst no seeding expceted to be done
-            //Seed();
         }
-
-        private void Seed()
+    
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            #region Clear all info
-            this.Database.ExecuteSqlCommand("EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL'");
-            this.Database.ExecuteSqlCommand("EXEC sp_MSForEachTable 'DELETE FROM ?'");
-            this.Database.ExecuteSqlCommand("EXEC sp_MSForEachTable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL'");
-            #endregion
-
-            this.People.AddOrUpdate(
-                new Person
-                {
-                    SSN = 1, 
-                    Address = new Address { City = "Aalborg", PostalCode = 9200, Street = "Nibevej", Number = 12},
-                    Address1 = new Address { City = "Aalborg", PostalCode = 9200, Street = "Nibevej", Number = 12},
-                    Password = "test",
-                    Phone = 12345678
-                }
-            );
-
-            this.Addresses.AddOrUpdate(
-                new Address { City = "Aalborg", PostalCode = 9200, Street = "Nibevej", Number = 12},
-                new Address { City = "Aalborg", PostalCode = 9200, Street = "Sofiendalsvej", Number = 60},
-                new Address { City = "Berlin", PostalCode = 10117, Street = "In den Ministergärten"}
-            );
-
-            this.SaveChanges();
+            throw new UnintentionalCodeFirstException();
         }
     
         public virtual DbSet<Address> Addresses { get; set; }
@@ -61,5 +39,19 @@ namespace GtlService.Model
         public virtual DbSet<MemberCard> MemberCards { get; set; }
         public virtual DbSet<MemberType> MemberTypes { get; set; }
         public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<Location> Locations { get; set; }
+    
+        public virtual ObjectResult<Nullable<int>> Login(Nullable<int> sSN, string password)
+        {
+            var sSNParameter = sSN.HasValue ?
+                new ObjectParameter("SSN", sSN) :
+                new ObjectParameter("SSN", typeof(int));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("Password", password) :
+                new ObjectParameter("Password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Login", sSNParameter, passwordParameter);
+        }
     }
 }

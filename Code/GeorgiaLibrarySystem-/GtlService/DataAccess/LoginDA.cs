@@ -22,7 +22,8 @@ namespace GtlService.DataAccess
 
         public virtual bool LoginDB(int ssn, string password)
         {
-            return _context.People.Any(x => x.SSN == ssn && x.Password.Equals(password));
+            //better?
+            return bool.Parse(_context.Login(ssn,password).ToString());
         }
     }
 }

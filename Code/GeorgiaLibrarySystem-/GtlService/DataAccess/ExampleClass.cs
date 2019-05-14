@@ -12,7 +12,6 @@ namespace GtlService.DataAccess
             {
                 Address a = new Address
                 {
-                    City = "Aalborg",
                     PostalCode = 9200,
                     Street = "Nibevej",
                     Number = 12

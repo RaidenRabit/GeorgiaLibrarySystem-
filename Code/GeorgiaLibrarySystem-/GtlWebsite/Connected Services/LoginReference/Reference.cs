@@ -16,10 +16,10 @@ namespace GtlWebsite.LoginReference {
     public interface ILoginController {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILoginController/Login", ReplyAction="http://tempuri.org/ILoginController/LoginResponse")]
-        string Login(int ssn, string password);
+        bool Login(int ssn, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILoginController/Login", ReplyAction="http://tempuri.org/ILoginController/LoginResponse")]
-        System.Threading.Tasks.Task<string> LoginAsync(int ssn, string password);
+        System.Threading.Tasks.Task<bool> LoginAsync(int ssn, string password);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,11 +49,11 @@ namespace GtlWebsite.LoginReference {
                 base(binding, remoteAddress) {
         }
         
-        public string Login(int ssn, string password) {
+        public bool Login(int ssn, string password) {
             return base.Channel.Login(ssn, password);
         }
         
-        public System.Threading.Tasks.Task<string> LoginAsync(int ssn, string password) {
+        public System.Threading.Tasks.Task<bool> LoginAsync(int ssn, string password) {
             return base.Channel.LoginAsync(ssn, password);
         }
     }

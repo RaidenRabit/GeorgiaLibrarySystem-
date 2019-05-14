@@ -30,6 +30,8 @@
         <AssociationConnector Association="GTLModel.FK__Member__MemberCa__4AB81AF0" ManuallyRouted="false" />
         <AssociationConnector Association="GTLModel.FK__Member__SSN__49C3F6B7" ManuallyRouted="false" />
         <AssociationConnector Association="GTLModel.FK__Member__TypeName__4BAC3F29" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GTLModel.Location" Width="1.5" PointX="0.75" PointY="3" />
+        <AssociationConnector Association="GTLModel.FK__Address__PostalC__3A81B327" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -4,14 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GTLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GTLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="AddressID" />
           </Key>
           <Property Name="AddressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="City" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="PostalCode" Type="int" Nullable="false" />
+          <Property Name="PostalCode" Type="int" />
           <Property Name="Street" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Number" Type="int" Nullable="false" />
         </EntityType>
@@ -54,6 +53,13 @@
           </Key>
           <Property Name="LibraryName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AddressID" Type="int" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="PostalCode" />
+          </Key>
+          <Property Name="PostalCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="City" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Material">
           <Key>
@@ -107,7 +113,19 @@
           <Property Name="Phone" Type="int" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="16" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Borrow__CopyID__571DF1D5">
+        <Association Name="FK__Address__PostalC__3A81B327">
+          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="PostalCode" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Borrow__CopyID__5AEE82B9">
           <End Role="Copy" Type="Self.Copy" Multiplicity="1" />
           <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
           <ReferentialConstraint>
@@ -119,7 +137,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Borrow__SSN__5812160E">
+        <Association Name="FK__Borrow__SSN__5BE2A6F2">
           <End Role="Member" Type="Self.Member" Multiplicity="1" />
           <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
           <ReferentialConstraint>
@@ -131,7 +149,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Copy__ISBN__52593CB8">
+        <Association Name="FK__Copy__ISBN__5629CD9C">
           <End Role="Material" Type="Self.Material" Multiplicity="0..1" />
           <End Role="Copy" Type="Self.Copy" Multiplicity="*" />
           <ReferentialConstraint>
@@ -143,7 +161,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Copy__LibraryNam__5441852A">
+        <Association Name="FK__Copy__LibraryNam__5812160E">
           <End Role="Library" Type="Self.Library" Multiplicity="0..1" />
           <End Role="Copy" Type="Self.Copy" Multiplicity="*" />
           <ReferentialConstraint>
@@ -155,7 +173,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Copy__TypeName__534D60F1">
+        <Association Name="FK__Copy__TypeName__571DF1D5">
           <End Role="MaterialType" Type="Self.MaterialType" Multiplicity="0..1" />
           <End Role="Copy" Type="Self.Copy" Multiplicity="*" />
           <ReferentialConstraint>
@@ -167,7 +185,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Librarian__SSN__4222D4EF">
+        <Association Name="FK__Librarian__SSN__45F365D3">
           <End Role="Person" Type="Self.Person" Multiplicity="1" />
           <End Role="Librarian" Type="Self.Librarian" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -179,7 +197,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Librarian__TypeN__4316F928">
+        <Association Name="FK__Librarian__TypeN__46E78A0C">
           <End Role="LibrarianType" Type="Self.LibrarianType" Multiplicity="0..1" />
           <End Role="Librarian" Type="Self.Librarian" Multiplicity="*" />
           <ReferentialConstraint>
@@ -191,7 +209,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Library__Address__398D8EEE">
+        <Association Name="FK__Library__Address__3D5E1FD2">
           <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
           <End Role="Library" Type="Self.Library" Multiplicity="*" />
           <ReferentialConstraint>
@@ -203,7 +221,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Member__MemberCa__4AB81AF0">
+        <Association Name="FK__Member__MemberCa__4E88ABD4">
           <End Role="MemberCard" Type="Self.MemberCard" Multiplicity="0..1" />
           <End Role="Member" Type="Self.Member" Multiplicity="*" />
           <ReferentialConstraint>
@@ -215,7 +233,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Member__SSN__49C3F6B7">
+        <Association Name="FK__Member__SSN__4D94879B">
           <End Role="Person" Type="Self.Person" Multiplicity="1" />
           <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
           <ReferentialConstraint>
@@ -227,7 +245,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Member__TypeName__4BAC3F29">
+        <Association Name="FK__Member__TypeName__4F7CD00D">
           <End Role="MemberType" Type="Self.MemberType" Multiplicity="0..1" />
           <End Role="Member" Type="Self.Member" Multiplicity="*" />
           <ReferentialConstraint>
@@ -239,7 +257,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Person__AddressI__3C69FB99">
+        <Association Name="FK__Person__AddressI__403A8C7D">
           <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
           <End Role="Person" Type="Self.Person" Multiplicity="*" />
           <ReferentialConstraint>
@@ -251,7 +269,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Person__CampusID__3D5E1FD2">
+        <Association Name="FK__Person__CampusID__412EB0B6">
           <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
           <End Role="Person" Type="Self.Person" Multiplicity="*" />
           <ReferentialConstraint>
@@ -263,6 +281,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSN" Type="int" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="GTLModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Borrow" EntityType="Self.Borrow" Schema="dbo" store:Type="Tables" />
@@ -270,67 +292,71 @@
           <EntitySet Name="Librarian" EntityType="Self.Librarian" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LibrarianType" EntityType="Self.LibrarianType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Library" EntityType="Self.Library" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaterialType" EntityType="Self.MaterialType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberCard" EntityType="Self.MemberCard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberType" EntityType="Self.MemberType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Borrow__CopyID__571DF1D5" Association="Self.FK__Borrow__CopyID__571DF1D5">
+          <AssociationSet Name="FK__Address__PostalC__3A81B327" Association="Self.FK__Address__PostalC__3A81B327">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Address" EntitySet="Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Borrow__CopyID__5AEE82B9" Association="Self.FK__Borrow__CopyID__5AEE82B9">
             <End Role="Copy" EntitySet="Copy" />
             <End Role="Borrow" EntitySet="Borrow" />
           </AssociationSet>
-          <AssociationSet Name="FK__Borrow__SSN__5812160E" Association="Self.FK__Borrow__SSN__5812160E">
+          <AssociationSet Name="FK__Borrow__SSN__5BE2A6F2" Association="Self.FK__Borrow__SSN__5BE2A6F2">
             <End Role="Member" EntitySet="Member" />
             <End Role="Borrow" EntitySet="Borrow" />
           </AssociationSet>
-          <AssociationSet Name="FK__Copy__ISBN__52593CB8" Association="Self.FK__Copy__ISBN__52593CB8">
+          <AssociationSet Name="FK__Copy__ISBN__5629CD9C" Association="Self.FK__Copy__ISBN__5629CD9C">
             <End Role="Material" EntitySet="Material" />
             <End Role="Copy" EntitySet="Copy" />
           </AssociationSet>
-          <AssociationSet Name="FK__Copy__LibraryNam__5441852A" Association="Self.FK__Copy__LibraryNam__5441852A">
+          <AssociationSet Name="FK__Copy__LibraryNam__5812160E" Association="Self.FK__Copy__LibraryNam__5812160E">
             <End Role="Library" EntitySet="Library" />
             <End Role="Copy" EntitySet="Copy" />
           </AssociationSet>
-          <AssociationSet Name="FK__Copy__TypeName__534D60F1" Association="Self.FK__Copy__TypeName__534D60F1">
+          <AssociationSet Name="FK__Copy__TypeName__571DF1D5" Association="Self.FK__Copy__TypeName__571DF1D5">
             <End Role="MaterialType" EntitySet="MaterialType" />
             <End Role="Copy" EntitySet="Copy" />
           </AssociationSet>
-          <AssociationSet Name="FK__Librarian__SSN__4222D4EF" Association="Self.FK__Librarian__SSN__4222D4EF">
+          <AssociationSet Name="FK__Librarian__SSN__45F365D3" Association="Self.FK__Librarian__SSN__45F365D3">
             <End Role="Person" EntitySet="Person" />
             <End Role="Librarian" EntitySet="Librarian" />
           </AssociationSet>
-          <AssociationSet Name="FK__Librarian__TypeN__4316F928" Association="Self.FK__Librarian__TypeN__4316F928">
+          <AssociationSet Name="FK__Librarian__TypeN__46E78A0C" Association="Self.FK__Librarian__TypeN__46E78A0C">
             <End Role="LibrarianType" EntitySet="LibrarianType" />
             <End Role="Librarian" EntitySet="Librarian" />
           </AssociationSet>
-          <AssociationSet Name="FK__Library__Address__398D8EEE" Association="Self.FK__Library__Address__398D8EEE">
+          <AssociationSet Name="FK__Library__Address__3D5E1FD2" Association="Self.FK__Library__Address__3D5E1FD2">
             <End Role="Address" EntitySet="Address" />
             <End Role="Library" EntitySet="Library" />
           </AssociationSet>
-          <AssociationSet Name="FK__Member__MemberCa__4AB81AF0" Association="Self.FK__Member__MemberCa__4AB81AF0">
+          <AssociationSet Name="FK__Member__MemberCa__4E88ABD4" Association="Self.FK__Member__MemberCa__4E88ABD4">
             <End Role="MemberCard" EntitySet="MemberCard" />
             <End Role="Member" EntitySet="Member" />
           </AssociationSet>
-          <AssociationSet Name="FK__Member__SSN__49C3F6B7" Association="Self.FK__Member__SSN__49C3F6B7">
+          <AssociationSet Name="FK__Member__SSN__4D94879B" Association="Self.FK__Member__SSN__4D94879B">
             <End Role="Person" EntitySet="Person" />
             <End Role="Member" EntitySet="Member" />
           </AssociationSet>
-          <AssociationSet Name="FK__Member__TypeName__4BAC3F29" Association="Self.FK__Member__TypeName__4BAC3F29">
+          <AssociationSet Name="FK__Member__TypeName__4F7CD00D" Association="Self.FK__Member__TypeName__4F7CD00D">
             <End Role="MemberType" EntitySet="MemberType" />
             <End Role="Member" EntitySet="Member" />
           </AssociationSet>
-          <AssociationSet Name="FK__Person__AddressI__3C69FB99" Association="Self.FK__Person__AddressI__3C69FB99">
+          <AssociationSet Name="FK__Person__AddressI__403A8C7D" Association="Self.FK__Person__AddressI__403A8C7D">
             <End Role="Address" EntitySet="Address" />
             <End Role="Person" EntitySet="Person" />
           </AssociationSet>
-          <AssociationSet Name="FK__Person__CampusID__3D5E1FD2" Association="Self.FK__Person__CampusID__3D5E1FD2">
+          <AssociationSet Name="FK__Person__CampusID__412EB0B6" Association="Self.FK__Person__CampusID__412EB0B6">
             <End Role="Address" EntitySet="Address" />
             <End Role="Person" EntitySet="Person" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GTLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -339,13 +365,13 @@
             <PropertyRef Name="AddressID" />
           </Key>
           <Property Name="AddressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PostalCode" Type="Int32" Nullable="false" />
+          <Property Name="PostalCode" Type="Int32" />
           <Property Name="Street" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Number" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Libraries" Relationship="Self.FK__Library__Address__398D8EEE" FromRole="Address" ToRole="Library" />
           <NavigationProperty Name="People" Relationship="Self.FK__Person__AddressI__3C69FB99" FromRole="Address" ToRole="Person" />
           <NavigationProperty Name="People1" Relationship="Self.FK__Person__CampusID__3D5E1FD2" FromRole="Address" ToRole="Person" />
+          <NavigationProperty Name="Location" Relationship="GTLModel.FK__Address__PostalC__3A81B327" FromRole="Address" ToRole="Location" />
         </EntityType>
         <EntityType Name="Borrow">
           <Key>
@@ -683,7 +709,36 @@
             <End Role="MemberType" EntitySet="MemberTypes" />
             <End Role="Member" EntitySet="Members" />
           </AssociationSet>
+          <EntitySet Name="Locations" EntityType="GTLModel.Location" />
+          <AssociationSet Name="FK__Address__PostalC__3A81B327" Association="GTLModel.FK__Address__PostalC__3A81B327">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <FunctionImport Name="Login" ReturnType="Collection(Int32)">
+            <Parameter Name="SSN" Mode="In" Type="Int32" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="PostalCode" />
+          </Key>
+          <Property Name="PostalCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Addresses" Relationship="GTLModel.FK__Address__PostalC__3A81B327" FromRole="Location" ToRole="Address" />
+        </EntityType>
+        <Association Name="FK__Address__PostalC__3A81B327">
+          <End Type="GTLModel.Location" Role="Location" Multiplicity="0..1" />
+          <End Type="GTLModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="PostalCode" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="PostalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -694,7 +749,6 @@
             <EntityTypeMapping TypeName="GTLModel.Address">
               <MappingFragment StoreEntitySet="Address">
                 <ScalarProperty Name="AddressID" ColumnName="AddressID" />
-                <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
@@ -802,6 +856,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="GTLModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Login" FunctionName="GTLModel.Store.Login" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

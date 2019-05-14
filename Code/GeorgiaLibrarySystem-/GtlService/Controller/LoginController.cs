@@ -15,12 +15,13 @@ namespace GtlService.Controller
         //    loginDM = loginDm;
         //}
 
-        public virtual bool Login(int ssn, string password)
+        public bool Login(int ssn, string password)
         {
             return _loginDm.Login(ssn, password);
         }
     }
 
+    //work here
     public class LoginDmFactory
     {
         public ILoginDm Get(int id)
@@ -30,9 +31,9 @@ namespace GtlService.Controller
                 case 0:
                     return new LoginDmCode(new LoginDa(new GTLEntities()));
                 case 1:
-                    return new Clerk();
+                    return null;
                 default:
-                    return new Programmer();            
+                    return null;            
             }
         }
     }

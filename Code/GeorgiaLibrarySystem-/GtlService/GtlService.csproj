@@ -97,6 +97,9 @@
     <Compile Include="Model\Library.cs">
       <DependentUpon>GTLModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Location.cs">
+      <DependentUpon>GTLModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Material.cs">
       <DependentUpon>GTLModel.tt</DependentUpon>
     </Compile>

@@ -23,8 +23,7 @@ namespace GtlService.Model
         }
     
         public int AddressID { get; set; }
-        public string City { get; set; }
-        public int PostalCode { get; set; }
+        public Nullable<int> PostalCode { get; set; }
         public string Street { get; set; }
         public int Number { get; set; }
     
@@ -34,5 +33,6 @@ namespace GtlService.Model
         public virtual ICollection<Person> People { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Person> People1 { get; set; }
+        public virtual Location Location { get; set; }
     }
 }
