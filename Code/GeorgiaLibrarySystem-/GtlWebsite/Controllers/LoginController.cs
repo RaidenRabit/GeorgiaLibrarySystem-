@@ -18,8 +18,11 @@ namespace GtlWebsite.Controllers
         {
             //new InstanceContext(this)
             LoginControllerClient client = new LoginControllerClient();
-            if(client.Login(person.SSN, person.Password))
+            if (client.Login(person.SSN, person.Password))
+            {
+                Session["SSN"] = person.SSN;
                 return RedirectToAction("Index", "Home");
+            }
             return View();
         }
     }
