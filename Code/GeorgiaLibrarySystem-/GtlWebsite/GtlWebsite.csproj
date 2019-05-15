@@ -117,12 +117,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Connected Services\ExampleReference\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\LoginReference\Reference.cs">
+    <Compile Include="Connected Services\LoginServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -135,31 +130,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\ExampleReference\ExampleService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\ExampleReference\ExampleService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\ExampleReference\ExampleService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="Connected Services\ExampleReference\GtlWebsite.ExampleReference.CompositeType.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <None Include="Connected Services\ExampleReference\Service1.wsdl" />
-    <None Include="Connected Services\ExampleReference\ExampleService.disco" />
-    <None Include="Connected Services\ExampleReference\configuration91.svcinfo" />
-    <None Include="Connected Services\ExampleReference\configuration.svcinfo" />
-    <None Include="Connected Services\ExampleReference\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Connected Services\LoginReference\LoginController.wsdl" />
-    <None Include="Connected Services\LoginReference\LoginService.disco" />
-    <None Include="Connected Services\LoginReference\configuration91.svcinfo" />
-    <None Include="Connected Services\LoginReference\configuration.svcinfo" />
-    <None Include="Connected Services\LoginReference\Reference.svcmap">
+    <None Include="Connected Services\LoginServiceReference\LoginService.disco" />
+    <None Include="Connected Services\LoginServiceReference\configuration91.svcinfo" />
+    <None Include="Connected Services\LoginServiceReference\configuration.svcinfo" />
+    <None Include="Connected Services\LoginServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -172,12 +146,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <None Include="Connected Services\LoginReference\LoginService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\LoginReference\LoginService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -200,6 +168,13 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <None Include="Connected Services\LoginServiceReference\LoginService.wsdl" />
+    <None Include="Connected Services\LoginServiceReference\LoginService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\LoginServiceReference\LoginService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -257,20 +232,19 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\ExampleReference\" />
-    <WCFMetadataStorage Include="Connected Services\LoginReference\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GtlService\GtlService.csproj">
-      <Project>{7c4eb51d-6ea3-45ad-8878-65f2ae79fc71}</Project>
-      <Name>GtlService</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{fe4e31b7-7f6f-4134-9d6e-9f902f3cf81d}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\LoginServiceReference\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

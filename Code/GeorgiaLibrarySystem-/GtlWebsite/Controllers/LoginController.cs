@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
-using GtlService.Model;
-using GtlWebsite.LoginReference;
+using Core;
+using GtlWebsite.LoginServiceReference;
 
 namespace GtlWebsite.Controllers
 {
@@ -17,8 +17,8 @@ namespace GtlWebsite.Controllers
         public ActionResult Index(Person person)
         {
             //new InstanceContext(this)
-            LoginControllerClient client = new LoginControllerClient();
-            if (client.Login(person.SSN, person.Password, 0))
+            LoginServiceClient client = new LoginServiceClient();
+            if (client.Login(person.SSN, person.Password))
             {
                 Session["SSN"] = person.SSN;
                 return RedirectToAction("Index", "Home");

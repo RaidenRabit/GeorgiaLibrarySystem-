@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using GtlWebsite.ExampleReference;
+﻿using System.Web.Mvc;
 
 namespace GtlWebsite.Controllers
 {
     public class HomeController : Controller
     {
-        public string ContactService(int a)
-        {
-            Service1Client b = new Service1Client();
-            return b.GetData(a);
-        }
-
         public ActionResult Index()
         {
             return View();

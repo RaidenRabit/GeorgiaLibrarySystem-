@@ -1,13 +1,11 @@
-﻿using System;
-using System.Linq;
-using GtlService.Controller;
-using NUnit.Framework;
-using GtlService.DataAccess;
-using GtlService.DataManagement;
-using GtlService.Model;
+﻿using NUnit.Framework;
 using Moq;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
+using Core;
+using GtlService.DataAccess.Database;
+using GtlService.DataManagement.Database;
+using GTLService.Controller;
 
 namespace Tests.IntegrationTest
 {
@@ -17,17 +15,17 @@ namespace Tests.IntegrationTest
         public void Login_CorrectSSNAndPassword()
         {
             //Arrange
-            var mock = new Mock<GTLEntities>();
+            var mock = new Mock<Context>();
             
             var myMockedObjectResult = new Mock<ObjectResult<int?>>();
             myMockedObjectResult.Setup(x => x.GetEnumerator()).Returns(new List<int?> {1}.GetEnumerator());
 
             mock.Setup(x => x.Login(It.IsAny<int>(), It.IsAny<string>()))
                 .Returns(myMockedObjectResult.Object);
-            var repo = new LoginController(new LoginDmDatabase(new LoginDaDatabase(mock.Object)));
+            var repo = new LoginService(new LoginDm_Database(new LoginDa_Database(mock.Object)));
 
             //Act
-            var result = repo.Login(10000000,"Test",0);
+            var result = repo.Login(10000000,"Test");
 
             //Assert
             Assert.IsTrue(result);
@@ -42,7 +40,7 @@ namespace Tests.IntegrationTest
     //            .Returns(true);
     //        //mock.Setup(x => x.People.Find(It.IsAny<int>()))
     //        //    .Returns(new Person{Password = "test"});
-    //        var repo = new LoginDaDatabase(mock.Object);
+    //        var repo = new LoginDa_Database(mock.Object);
 
     //        //Act
     //        var result = repo.Login(1, "test");

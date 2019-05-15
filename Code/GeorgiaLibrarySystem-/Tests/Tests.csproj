@@ -89,9 +89,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GtlService\GtlService.csproj">
-      <Project>{7c4eb51d-6ea3-45ad-8878-65f2ae79fc71}</Project>
-      <Name>GtlService</Name>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{fe4e31b7-7f6f-4134-9d6e-9f902f3cf81d}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GTLService\GTLService.csproj">
+      <Project>{2b066e04-4cc6-45f4-bf07-e5d88ad1070d}</Project>
+      <Name>GTLService</Name>
     </ProjectReference>
     <ProjectReference Include="..\GtlWebsite\GtlWebsite.csproj">
       <Project>{8bfcd83e-0c9f-4fb6-bf5a-b90390d06c37}</Project>

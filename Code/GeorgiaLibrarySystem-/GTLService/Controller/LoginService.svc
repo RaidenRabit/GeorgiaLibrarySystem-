@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="GTLService.Controller.LoginService" CodeBehind="LoginService.svc.cs" %>

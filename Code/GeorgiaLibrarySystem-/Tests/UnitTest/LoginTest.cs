@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using GtlService.DataAccess;
-using GtlService.DataManagement;
+using GtlService.DataAccess.Code;
+using GtlService.DataManagement.Code;
 using Moq;
 
 namespace Tests.UnitTest
@@ -8,16 +8,16 @@ namespace Tests.UnitTest
     public class LoginTest
     {
         [Test]
-        [TestCase(55555555, "test")]
-        [TestCase(99999999, "testtesttesttest")]
-        [TestCase(10000000, "t")]
+        [TestCase(555555555, "test")]
+        [TestCase(999999999, "testtesttesttest")]
+        [TestCase(100000000, "t")]
         public void Login_CorrectSSNAndPassword(int ssn, string password)
         {
             //Arrange
-            var mock = new Mock<LoginDaDatabase>(null);
+            var mock = new Mock<LoginDa_Code>(null);
             mock.Setup(x => x.Login(It.IsAny<int>(),It.IsAny<string>()))
                 .Returns(true);
-            var repo = new LoginDmCode(mock.Object);
+            var repo = new LoginDm_Code(mock.Object);
 
             //Act
             var result = repo.Login(ssn, password);
@@ -33,10 +33,10 @@ namespace Tests.UnitTest
         public void Login_FalseSSNOrPassword(int ssn, string password)
         {
             //Arrange
-            var mock = new Mock<LoginDaDatabase>(null);
+            var mock = new Mock<LoginDa_Code>(null);
             mock.Setup(x => x.Login(It.IsAny<int>(),It.IsAny<string>()))
                 .Returns(true);
-            var repo = new LoginDmCode(mock.Object);
+            var repo = new LoginDm_Code(mock.Object);
 
             //Act
             var result = repo.Login(ssn, password);
@@ -54,7 +54,7 @@ namespace Tests.UnitTest
     //            .Returns(true);
     //        //mock.Setup(x => x.People.Find(It.IsAny<int>()))
     //        //    .Returns(new Person{Password = "test"});
-    //        var repo = new LoginDaDatabase(mock.Object);
+    //        var repo = new LoginDa_Database(mock.Object);
 
     //        //Act
     //        var result = repo.Login(1, "test");
