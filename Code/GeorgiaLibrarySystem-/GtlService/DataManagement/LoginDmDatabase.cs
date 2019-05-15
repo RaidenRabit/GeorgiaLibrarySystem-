@@ -1,13 +1,14 @@
-﻿using GtlService.DataManagement.iDataManagement;
-using GtlService.DataAccess;
+﻿using System;
+using GtlService.DataManagement.iDataManagement;
+using GtlService.DataAccess.IDataAccess;
 
 namespace GtlService.DataManagement
 {
     public class LoginDmDatabase : ILoginDm
     {
-        private readonly LoginDa _loginDa;
+        private readonly ILoginDa _loginDa;
 
-        public LoginDmDatabase(LoginDa loginDa)
+        public LoginDmDatabase(ILoginDa loginDa)
         {
             this._loginDa = loginDa;
         }
@@ -18,7 +19,7 @@ namespace GtlService.DataManagement
             {
                 return _loginDa.Login(ssn, password);
             }
-            catch
+            catch(Exception e)
             {
                 return false;
             }

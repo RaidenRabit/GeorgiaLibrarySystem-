@@ -8,20 +8,20 @@ namespace GtlService.Controller
 {
     public class LoginController : ILoginController
     {
-        //dependency injection!
-        private readonly ILoginDm _loginDm = new LoginDmCode(new LoginDa(new GTLEntities()));
-        //public LoginController(LoginDmCode loginDm)
-        //{
-        //    loginDM = loginDm;
-        //}
-
-        public bool Login(int ssn, string password)
+        private ILoginDm _loginDm;
+        public LoginController(ILoginDm loginDm)
         {
+            _loginDm = loginDm;
+        }
+        //fix here!
+        public bool Login(int ssn, string password, int id)
+        {
+            //ILoginDm loginDm = new LoginDmFactory().Get(id);
             return _loginDm.Login(ssn, password);
         }
     }
-
-    //work here
+    
+    //new file?
     public class LoginDmFactory
     {
         public ILoginDm Get(int id)
@@ -29,9 +29,9 @@ namespace GtlService.Controller
             switch (id)
             {
                 case 0:
-                    return new LoginDmCode(new LoginDa(new GTLEntities()));
+                    return new LoginDmDatabase(new LoginDaDatabase(new GTLEntities()));
                 case 1:
-                    return null;
+                    return new LoginDmCode(new LoginDaCode(new GTLEntities()));;
                 default:
                     return null;            
             }

@@ -60,7 +60,9 @@
     <Compile Include="Controller\iController\IService1.cs" />
     <Compile Include="Controller\LoginController.cs" />
     <Compile Include="DataAccess\ExampleClass.cs" />
-    <Compile Include="DataAccess\LoginDa.cs" />
+    <Compile Include="DataAccess\IDataAccess\ILoginDa.cs" />
+    <Compile Include="DataAccess\LoginDaDatabase.cs" />
+    <Compile Include="DataAccess\LoginDaCode.cs" />
     <Compile Include="DataManagement\iDataManagement\ILoginDm.cs" />
     <Compile Include="DataManagement\LoginDmCode.cs" />
     <Compile Include="DataManagement\LoginDmDatabase.cs" />

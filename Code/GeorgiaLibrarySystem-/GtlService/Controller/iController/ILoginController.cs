@@ -11,6 +11,6 @@ namespace GtlService.Controller.iController
     public interface ILoginController
     {
         [OperationContract]
-        bool Login(int ssn, string password);
+        bool Login(int ssn, string password, int id);
     }
 }

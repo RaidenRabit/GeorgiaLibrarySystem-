@@ -18,7 +18,7 @@ namespace GtlWebsite.Controllers
         {
             //new InstanceContext(this)
             LoginControllerClient client = new LoginControllerClient();
-            if (client.Login(person.SSN, person.Password))
+            if (client.Login(person.SSN, person.Password, 0))
             {
                 Session["SSN"] = person.SSN;
                 return RedirectToAction("Index", "Home");

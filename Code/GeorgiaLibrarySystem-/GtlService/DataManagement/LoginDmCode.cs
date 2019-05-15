@@ -1,13 +1,13 @@
 ﻿using GtlService.DataManagement.iDataManagement;
-using GtlService.DataAccess;
+using GtlService.DataAccess.IDataAccess;
 
 namespace GtlService.DataManagement
 {
     public class LoginDmCode : ILoginDm
     {
-        private readonly LoginDa _loginDa;
+        private readonly ILoginDa _loginDa;
 
-        public LoginDmCode(LoginDa loginDa)
+        public LoginDmCode(ILoginDa loginDa)
         {
             this._loginDa = loginDa;
         }
