@@ -11,25 +11,7 @@ Go
 use GTL;
 GO
 
-CREATE PROCEDURE Login @SSN int, @Password nvarchar(16)
-AS
-
-IF (LEN(@Password) > 0) AND (LEN(@Password) <= 16) AND (@SSN > 9999999) AND (@SSN < 100000000) AND EXISTS
-    (
-		SELECT * 
-		FROM Person 
-		WHERE SSN = @SSN AND Password = @Password
-    )
-    BEGIN
-        SELECT 1
-    END
-ELSE
-    BEGIN
-        SELECT 0
-    END
-GO
-
---EXEC Login 10000000, 'test'
+--Creates
 
 CREATE TABLE Location (
     PostalCode int PRIMARY KEY,
@@ -112,4 +94,207 @@ CREATE TABLE Borrow (
 	PRIMARY KEY (CopyID, SSN, FromDate)
 );
 
-INSERT INTO MaterialType (TypeName, Lendable) values ('newEntry', 1)
+--Procedures
+
+GO
+CREATE PROCEDURE Login @SSN int, @Password nvarchar(16)
+AS
+
+IF (LEN(@Password) > 0) AND (LEN(@Password) <= 16) AND (LEN(@SSN) = 9) AND EXISTS
+    (
+		SELECT * 
+		FROM Person 
+		WHERE SSN = @SSN AND Password = @Password
+    )
+    BEGIN
+        SELECT 1
+    END
+ELSE
+    BEGIN
+        SELECT 0
+    END
+GO
+
+--Triggers
+
+GO
+CREATE OR ALTER TRIGGER Lending
+ON Borrow
+FOR INSERT
+AS
+BEGIN
+	DECLARE @CopyID INT;
+	DECLARE @SSN INT;
+	DECLARE @FromDate Date;
+	SELECT @CopyID = CopyID, @SSN = SSN, @FromDate = FromDate FROM INSERTED
+
+	DECLARE @NrOfBooks INT;
+	SELECT @NrOfBooks = NrOfBooks
+	FROM Member INNER JOIN MemberType ON Member.TypeName = MemberType.TypeName
+	WHERE SSN = @SSN;
+
+    IF (Select Count(*) from Borrow where SSN = @SSN AND ToDate IS NULL) > @NrOfBooks AND --user limit not exceeded
+		(Select Count(*) from Borrow where CopyID = @CopyID AND ToDate IS NULL) = 0 --book is available
+		BEGIN
+			Rollback transaction
+		END
+
+	UPDATE Borrow
+	SET FromDate = GETDATE()
+	FROM Borrow
+	where CopyID = @CopyID
+		AND SSN = @SSN
+		AND FromDate = @FromDate
+End
+GO
+
+CREATE OR ALTER TRIGGER Returning
+ON Borrow
+FOR UPDATE
+AS
+BEGIN
+	DECLARE @CopyID INT;
+	DECLARE @SSN INT;
+	SELECT @CopyID = CopyID, @SSN = SSN FROM INSERTED
+
+	DECLARE @LendingLenght INT;
+	DECLARE @GracePeriod INT;
+	SELECT @LendingLenght = LendingLenght, @GracePeriod = GracePeriod
+	FROM Member INNER JOIN MemberType ON Member.TypeName = MemberType.TypeName
+	WHERE SSN = @SSN;
+
+	DECLARE @ToDate Date;
+	Select @ToDate = FromDate from Borrow where SSN = @SSN 
+		AND CopyID = @CopyID
+		AND ToDate IS NULL
+	
+	DECLARE @ReturnDate Date;
+	SELECT @ReturnDate = DATEADD(DAY, @LendingLenght + @GracePeriod, @ToDate)
+
+	UPDATE Borrow
+	SET ToDate = GETDATE()
+	FROM Borrow
+	where CopyID = @CopyID
+		AND SSN = @SSN
+		AND ToDate = @ToDate
+
+	IF @ReturnDate > GETDATE()
+		BEGIN
+			select 0 --returned after the end of grace period
+		END
+	ELSE
+		BEGIN
+			select 1 --returned bofore the end of grace period
+		END
+End
+go
+--Inserts
+
+INSERT INTO Location (PostalCode, City)
+VALUES (1000, 'Copenhagen K'),
+		(3000, 'Helsingør'),
+		(4000, 'Roskilde'),
+		(5000, 'Odense C'),
+		(9000, 'Aalborg');
+
+SET IDENTITY_INSERT Address ON;
+INSERT INTO Address (AddressID, PostalCode, Street, Number)
+VALUES (1, 1000, 'test street', 1),
+		(2, 3000, 'good street', 33),
+		(3, 1000, 'bad street', 3),
+		(4, 9000, 'interesting street', 8),
+		(5, 5000, 'joke street', 6),
+		(6, 3000, 'fake street', 567),
+		(7, 9000, 'mock street', 65);
+SET IDENTITY_INSERT Address OFF; 
+
+INSERT INTO Library (LibraryName, AddressID)
+VALUES ('GTL', 1),
+		('Pikalo', 3),
+		('HUmm', 7);
+
+INSERT INTO Person (SSN, AddressID, CampusID, Phone, Password)
+VALUES (123456781, 1, 1, 20202020, 'test'),
+		(123456782, 3, 3, 20202020, 'test'),
+		(123456783, 7, 7, 20202020, 'test'),
+		(123456784, 4, 4, 20202020, 'test'),
+		(123456785, 6, 6, 20202020, 'test'),
+		(123456786, 7, 7, 20202020, 'test'),
+		(123456787, 3, 3, 20202020, 'test'),
+		(123456788, 2, 2, 20202020, 'test'),
+		(123456789, 5, 5, 20202020, 'test');
+
+INSERT INTO LibrarianType (TypeName)
+VALUES ('chief librarian'),
+		('departmental associate librarians'),
+		('reference librarians'),
+		('check-out staff'),
+		('library assistants');
+
+INSERT INTO Librarian (SSN, TypeName)
+VALUES (123456781,'chief librarian'),
+		(123456782,'departmental associate librarians'),
+		(123456783,'reference librarians'),
+		(123456784,'check-out staff'),
+		(123456785,'library assistants');
+
+SET IDENTITY_INSERT MemberCard ON;
+INSERT INTO MemberCard (MemberCardID, Photo, ExpirationDate)
+VALUES (1, 0, GETDATE()),
+		(2,0, GETDATE()),
+		(3,0, GETDATE()),
+		(4,0, GETDATE());
+SET IDENTITY_INSERT MemberCard OFF;
+
+INSERT INTO MemberType (TypeName, LendingLenght, GracePeriod, NrOfBooks)
+VALUES ('Member', 21, 7, 5),
+		('Professor', 90, 14, 5);
+
+INSERT INTO Member (SSN, MemberCardID, TypeName)
+VALUES (123456786, 1,'Member'),
+		(123456787, 2,'Member'),
+		(123456788, 3,'Member'),
+		(123456789, 4,'Professor');
+
+INSERT INTO MaterialType (TypeName, Lendable)
+VALUES ('reference books', 0),
+		('rare books', 0),
+		('maps', 0),
+		('books', 1),
+		('needed books', 0);
+
+INSERT INTO Material (ISBN, Title, Description, Author)
+VALUES (1,'test book', 'TEST++', 'Hala'),
+		(2,'horror book', 'TEST++', 'Pala'),
+		(3,'comedy book', 'TEST++', 'KHala'),
+		(4,'drama book', 'TEST++', 'ala'),
+		(5,'mystery book', 'TEST++', 'alah'),
+		(6,'history book', 'TEST++', 'laha');
+
+SET IDENTITY_INSERT Copy ON;
+INSERT INTO Copy (CopyID, ISBN, TypeName, LibraryName)
+VALUES (1,1,'books','GTL'),
+		(2,1,'books','GTL'),
+		(3,4,'books','HUmm'),
+		(4,6,'maps','GTL'),
+		(5,1,'books','Pikalo'),
+		(6,3,'books','GTL'),
+		(7,1,'needed books','Pikalo'),
+		(8,5,'books','Pikalo'),
+		(9,1,'reference books','GTL'),
+		(10,2,'books','GTL'),
+		(11,6,'books','GTL');
+SET IDENTITY_INSERT Copy OFF;
+
+INSERT INTO Borrow (CopyID, SSN, FromDate, ToDate)
+VALUES (5,123456786,GETDATE(),null),
+		(3,123456788,GETDATE(),null),
+		(2,123456786,GETDATE(),GETDATE()),
+		(6,123456789,GETDATE(),null),
+		(1,123456789,GETDATE(),GETDATE()),
+		(4,123456786,GETDATE(),null),
+		(7,123456789,GETDATE(),null),
+		(3,123456789,GETDATE(),null),
+		(9,123456786,GETDATE(),GETDATE()),
+		(2,123456789,GETDATE(),null),
+		(11,123456789,GETDATE(),null);
