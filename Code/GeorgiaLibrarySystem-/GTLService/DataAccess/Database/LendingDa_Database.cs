@@ -1,4 +1,6 @@
-﻿using Core;
+﻿using System;
+using System.Linq;
+using Core;
 using GTLService.DataAccess.IDataAccess;
 
 namespace GTLService.DataAccess.Database
@@ -12,14 +14,22 @@ namespace GTLService.DataAccess.Database
         }
         public bool LendBook(int ssn, int copyId)
         {
-            //todo implement
-            throw new System.NotImplementedException();
+            //todo test
+            _context.Borrows.Add(new Borrow {SSN = ssn, CopyID = copyId, FromDate = new DateTime()});
+            return _context.SaveChanges() > 0;
         }
 
-        public bool ReturnBook(int ssn, int copyId)
+        public bool ReturnBook(Borrow borrow)
         {
-            //todo implement
-            throw new System.NotImplementedException();
+            //todo test
+            //_context.Borrows.Attach(borrow);
+            _context.Entry(borrow).State = System.Data.Entity.EntityState.Modified;
+            return _context.SaveChanges() > 0;
+        }
+
+        public Borrow GetBorrow(int ssn, int copyId)
+        {
+            return _context.Borrows.FirstOrDefault(x => x.SSN == ssn && x.CopyID == copyId && x.ToDate == null);
         }
     }
 }

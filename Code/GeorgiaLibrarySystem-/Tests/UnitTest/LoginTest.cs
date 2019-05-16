@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using GtlService.DataAccess.Code;
-using GtlService.DataManagement.Code;
+using GTLService.DataAccess.Code;
+using GTLService.DataManagement.Code;
 using Moq;
 
 namespace Tests.UnitTest

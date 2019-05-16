@@ -19,7 +19,7 @@ namespace GTLService.DataManagement.Database
 
         public bool ReturnBook(int ssn, int copyId)
         {
-            return _lendingDa.ReturnBook(ssn, copyId);
+            return _lendingDa.ReturnBook(_lendingDa.GetBorrow(ssn, copyId));
         }
     }
 }

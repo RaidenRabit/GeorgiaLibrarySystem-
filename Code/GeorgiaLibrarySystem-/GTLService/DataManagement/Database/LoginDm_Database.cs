@@ -1,4 +1,5 @@
-﻿using GTLService.DataManagement.IDataManagement;
+﻿using System;
+using GTLService.DataManagement.IDataManagement;
 using GTLService.DataAccess.IDataAccess;
 
 namespace GTLService.DataManagement.Database
@@ -18,7 +19,7 @@ namespace GTLService.DataManagement.Database
             {
                 return _loginDa.Login(ssn, password);
             }
-            catch
+            catch(Exception e)
             {
                 return false;
             }
