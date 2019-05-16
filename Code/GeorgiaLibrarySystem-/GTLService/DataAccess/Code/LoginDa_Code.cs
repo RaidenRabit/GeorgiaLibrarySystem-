@@ -14,7 +14,8 @@ namespace GtlService.DataAccess.Code
 
         public virtual bool Login(int ssn, string password)
         {
-            return _context.People.Any(x => x.SSN == ssn && x.Password.Equals(password));
+            Person person = _context.People.Find(ssn);
+            return person != null && person.Password.Equals(password);
         }
     }
 }

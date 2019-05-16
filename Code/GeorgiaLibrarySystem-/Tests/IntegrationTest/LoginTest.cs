@@ -1,52 +1,72 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using Moq;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using Core;
+using GtlService.DataAccess.Code;
 using GtlService.DataAccess.Database;
+using GtlService.DataManagement.Code;
 using GtlService.DataManagement.Database;
 using GTLService.Controller;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Tests.IntegrationTest
 {
     public class LoginTest
     {
         [Test]
-        public void Login_CorrectSSNAndPassword()
+        [TestCase(10000000, "test", true)]
+        [TestCase(10000000, "", true)]
+        [TestCase(1, "test", true)]
+        [TestCase(1, "", true)]
+        [TestCase(10000000, "testnasdfnsndfnsdfjnsdnas", true)]
+        [TestCase(1000000000, "testnasdfnsndfnsdfjnsdnas", true)]
+        public void LoginService_Database(int ssn, string password, bool passing)
         {
             //Arrange
             var mock = new Mock<Context>();
             
-            var myMockedObjectResult = new Mock<ObjectResult<int?>>();
-            myMockedObjectResult.Setup(x => x.GetEnumerator()).Returns(new List<int?> {1}.GetEnumerator());
+            var objectResultMock = new Mock<ObjectResult<int?>>();
+            objectResultMock.Setup(x => x.GetEnumerator()).Returns(new List<int?> {1}.GetEnumerator());
 
             mock.Setup(x => x.Login(It.IsAny<int>(), It.IsAny<string>()))
-                .Returns(myMockedObjectResult.Object);
-            var repo = new LoginService(new LoginDm_Database(new LoginDa_Database(mock.Object)));
+                .Returns(objectResultMock.Object);
+            var loginService = new LoginService(new LoginDm_Database(new LoginDa_Database(mock.Object)));
 
             //Act
-            var result = repo.Login(10000000,"Test");
+            var result = loginService.Login(ssn,password);
 
             //Assert
-            Assert.IsTrue(result);
+            Assert.IsTrue(result == passing);
         }
 
-    //    [Test]
-    //    public void LoginDataAccess_CorrectSSNAndPassword_True()
-    //    {
-    //        //Arrange
-    //        var mock = new Mock<GTLEntities>();
-    //        mock.Setup(x => x.People.Any(It.IsAny<Expression<Func<Person, bool>>>()))
-    //            .Returns(true);
-    //        //mock.Setup(x => x.People.Find(It.IsAny<int>()))
-    //        //    .Returns(new Person{Password = "test"});
-    //        var repo = new LoginDa_Database(mock.Object);
+        [Test]
+        //pass
+        [TestCase(555555555, "test", true)]
+        [TestCase(999999999, "testtesttesttest", true)]
+        [TestCase(100000000, "t", true)]
+        //fail
+        [TestCase(9999999, "test", false)]
+        [TestCase(999999999, "testtesttesttesttest", false)]
+        [TestCase(10000000, "", false)]
+        public void LoginService_Code(int ssn, string password, bool passing)
+        {
+            //Arrange
+            var mock = new Mock<Context>();
+            
+            mock.Setup(x => x.People.Find(It.IsAny<int>()))
+                .Returns(new Person{Password = password});
 
-    //        //Act
-    //        var result = repo.Login(1, "test");
+            var loginService = new LoginService(new LoginDm_Code(new LoginDa_Code(mock.Object)));
 
-    //        //Assert
-    //        Assert.IsTrue(result);
-    //    }
+            //Act
+            var result = loginService.Login(ssn,password);
+
+            //Assert
+            Assert.IsTrue(result == passing);
+        }
     }
 }

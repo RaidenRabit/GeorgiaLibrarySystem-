@@ -7,7 +7,7 @@ namespace GTLService.Controller
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class LoginService : ILoginService
     {
-        private ILoginDm _loginDm;
+        private readonly ILoginDm _loginDm;
         public LoginService(ILoginDm loginDm)
         {
             _loginDm = loginDm;
