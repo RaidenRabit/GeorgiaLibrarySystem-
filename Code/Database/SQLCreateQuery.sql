@@ -111,3 +111,5 @@ CREATE TABLE Borrow (
 	ToDate date,
 	PRIMARY KEY (CopyID, SSN, FromDate)
 );
+
+INSERT INTO MaterialType (TypeName, Lendable) values ('newEntry', 1)
