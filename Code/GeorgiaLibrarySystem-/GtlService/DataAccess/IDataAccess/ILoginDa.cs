@@ -1,4 +1,4 @@
-﻿namespace GtlService.DataAccess.IDataAccess
+﻿namespace GTLService.DataAccess.IDataAccess
 {
     public interface ILoginDa
     {

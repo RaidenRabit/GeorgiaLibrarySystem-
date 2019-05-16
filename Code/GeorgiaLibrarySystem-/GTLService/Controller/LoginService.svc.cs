@@ -1,5 +1,5 @@
 ﻿using System.ServiceModel;
-using GtlService.DataManagement.iDataManagement;
+using GTLService.DataManagement.IDataManagement;
 using GTLService.Controller.IController;
 
 namespace GTLService.Controller

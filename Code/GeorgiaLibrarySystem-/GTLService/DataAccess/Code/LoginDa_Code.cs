@@ -1,8 +1,7 @@
-﻿using System.Linq;
-using Core;
-using GtlService.DataAccess.IDataAccess;
+﻿using Core;
+using GTLService.DataAccess.IDataAccess;
 
-namespace GtlService.DataAccess.Code
+namespace GTLService.DataAccess.Code
 {
     public class LoginDa_Code: ILoginDa
     {

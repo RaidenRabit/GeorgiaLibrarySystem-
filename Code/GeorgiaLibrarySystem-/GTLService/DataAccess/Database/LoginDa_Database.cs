@@ -1,9 +1,9 @@
 ﻿using System;
 using Core;
 using System.Linq;
-using GtlService.DataAccess.IDataAccess;
+using GTLService.DataAccess.IDataAccess;
 
-namespace GtlService.DataAccess.Database
+namespace GTLService.DataAccess.Database
 {
     public class LoginDa_Database: ILoginDa
     {

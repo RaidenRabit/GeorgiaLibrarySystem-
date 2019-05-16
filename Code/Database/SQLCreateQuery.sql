@@ -1,6 +1,6 @@
 USE master
 
-DROP DATABASE GTL;
+DROP DATABASE IF EXISTS GTL;
 GO
 
 CREATE DATABASE GTL;
@@ -12,7 +12,7 @@ GO
 CREATE PROCEDURE Login @SSN int, @Password nvarchar(16)
 AS
 
-IF (LEN(@Password) > 0) AND (LEN(@Password) <= 16) AND (@SSN > 9999999) AND (@SSN < 100000000) AND EXISTS
+IF (LEN(@Password) > 0) AND (LEN(@Password) <= 16) AND (LEN(@SSN) = 9) AND EXISTS
     (
 		SELECT * 
 		FROM Person 
@@ -27,7 +27,7 @@ ELSE
     END
 GO
 
---EXEC Login 10000000, 'test'
+--EXEC Login 100000000, 'test'
 
 CREATE TABLE Location (
     PostalCode int PRIMARY KEY,

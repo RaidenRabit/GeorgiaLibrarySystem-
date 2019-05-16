@@ -1,7 +1,7 @@
-﻿using GtlService.DataManagement.iDataManagement;
-using GtlService.DataAccess.IDataAccess;
+﻿using GTLService.DataManagement.IDataManagement;
+using GTLService.DataAccess.IDataAccess;
 
-namespace GtlService.DataManagement.Code
+namespace GTLService.DataManagement.Code
 {
     public class LoginDm_Code : ILoginDm
     {

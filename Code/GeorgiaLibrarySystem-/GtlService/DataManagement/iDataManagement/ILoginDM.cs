@@ -1,4 +1,4 @@
-﻿namespace GtlService.DataManagement.iDataManagement
+﻿namespace GTLService.DataManagement.IDataManagement
 {
     public interface ILoginDm
     {

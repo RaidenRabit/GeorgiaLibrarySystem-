@@ -82,18 +82,28 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controller\LendingService.svc" />
     <Content Include="Controller\LoginService.svc" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\IController\ILoginService.cs" />
+    <Compile Include="Controller\IController\ILendingService.cs" />
+    <Compile Include="Controller\LendingService.svc.cs">
+      <DependentUpon>LendingService.svc</DependentUpon>
+    </Compile>
     <Compile Include="Controller\LoginService.svc.cs">
       <DependentUpon>LoginService.svc</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\Database\LendingDa_Database.cs" />
+    <Compile Include="DataAccess\IDataAccess\ILendingDa.cs" />
     <Compile Include="DataAccess\IDataAccess\ILoginDa.cs" />
     <Compile Include="DataAccess\Code\LoginDa_Code.cs" />
     <Compile Include="DataAccess\Database\LoginDa_Database.cs" />
+    <Compile Include="DataManagement\Code\LendingDm_Code.cs" />
+    <Compile Include="DataManagement\Database\LendingDm_Database.cs" />
+    <Compile Include="DataManagement\IDataManagement\ILendingDm.cs" />
     <Compile Include="DataManagement\IDataManagement\ILoginDm.cs" />
     <Compile Include="DataManagement\Code\LoginDm_Code.cs" />
     <Compile Include="DataManagement\Database\LoginDm_Database.cs" />
