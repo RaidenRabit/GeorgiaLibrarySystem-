@@ -1,4 +1,5 @@
 USE master
+
 DROP DATABASE GTL;
 GO
 
@@ -6,11 +7,36 @@ CREATE DATABASE GTL;
 Go
 
 use GTL;
+GO
+
+CREATE PROCEDURE Login @SSN int, @Password nvarchar(16)
+AS
+
+IF (LEN(@Password) > 0) AND (LEN(@Password) <= 16) AND (@SSN > 9999999) AND (@SSN < 100000000) AND EXISTS
+    (
+		SELECT * 
+		FROM Person 
+		WHERE SSN = @SSN AND Password = @Password
+    )
+    BEGIN
+        SELECT 1
+    END
+ELSE
+    BEGIN
+        SELECT 0
+    END
+GO
+
+--EXEC Login 10000000, 'test'
+
+CREATE TABLE Location (
+    PostalCode int PRIMARY KEY,
+    City varchar(100) NOT NULL,
+);
 
 CREATE TABLE Address (
     AddressID int PRIMARY KEY IDENTITY,
-    City varchar(100) NOT NULL,
-    PostalCode int NOT NULL,
+	PostalCode int FOREIGN KEY REFERENCES Location(PostalCode),
     Street varchar(100) NOT NULL,
     Number int NOT NULL
 );

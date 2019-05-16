@@ -20,7 +20,10 @@ namespace GtlWebsite
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js"));
+                "~/Scripts/jquery-3.4.1.js",
+                "~/Scripts/bootstrap.js",//plugin for full bootstrap experience
+                "~/Scripts/respond.js"//script to enable responsive web designs in browsers that don’t support CSS3
+            ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
