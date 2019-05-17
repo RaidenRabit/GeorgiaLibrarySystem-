@@ -96,12 +96,16 @@
     <Compile Include="Controller\MaterialService.svc.cs">
       <DependentUpon>MaterialService.svc</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\Database\MaterialsDa_Database.cs" />
     <Compile Include="DataAccess\IDataAccess\ILoginDa.cs" />
     <Compile Include="DataAccess\Code\LoginDa_Code.cs" />
     <Compile Include="DataAccess\Database\LoginDa_Database.cs" />
+    <Compile Include="DataAccess\IDataAccess\IMaterialsDa.cs" />
+    <Compile Include="DataManagement\Database\MaterialsDm_Database.cs" />
     <Compile Include="DataManagement\IDataManagement\ILoginDm.cs" />
     <Compile Include="DataManagement\Code\LoginDm_Code.cs" />
     <Compile Include="DataManagement\Database\LoginDm_Database.cs" />
+    <Compile Include="DataManagement\IDataManagement\IMaterialsDm.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
