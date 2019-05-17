@@ -14,8 +14,23 @@ namespace GTLService.Controller
 
         public List<readAllMaterial> GetMaterials(string materialTitle, string author, int numOfRecords = 10, int isbn = 0, string jobStatus = "0")
         {
-            var a = _materialsDm.ReadMaterials(materialTitle, author, numOfRecords, isbn, jobStatus);
-            return a;
+            return _materialsDm.ReadMaterials(materialTitle, author, numOfRecords, isbn, jobStatus);
+        }
+
+        public bool CreateMaterial(int ssn, int isbn, string library, string author, string description, string title, string typeName,
+            int quantity)
+        {
+            return _materialsDm.CreateMaterial(ssn, isbn, library, author, description, title, typeName, quantity);
+        }
+
+        public bool DeleteMaterial(int ssn, int isbn)
+        {
+            return _materialsDm.DeleteMaterial(ssn, isbn);
+        }
+
+        public bool DeleteCopy(int ssn, int copyId)
+        {
+            return _materialsDm.DeleteCopy(ssn, copyId);
         }
     }
 }

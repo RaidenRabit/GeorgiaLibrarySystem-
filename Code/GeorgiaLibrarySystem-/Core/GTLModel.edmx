@@ -299,6 +299,24 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CreateMaterials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSN" Type="int" Mode="In" />
+          <Parameter Name="ISBN" Type="int" Mode="In" />
+          <Parameter Name="library" Type="varchar" Mode="In" />
+          <Parameter Name="Author" Type="nvarchar" Mode="In" />
+          <Parameter Name="Description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+          <Parameter Name="TypeName" Type="varchar" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteCopy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSN" Type="int" Mode="In" />
+          <Parameter Name="CopyId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteMaterial" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSN" Type="int" Mode="In" />
+          <Parameter Name="ISBN" Type="int" Mode="In" />
+        </Function>
         <Function Name="Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSN" Type="int" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
@@ -768,6 +786,24 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="readAllMaterials" EntityType="GTLModel.readAllMaterial" />
+          <FunctionImport Name="CreateMaterials" ReturnType="Collection(Int32)">
+            <Parameter Name="SSN" Mode="In" Type="Int32" />
+            <Parameter Name="ISBN" Mode="In" Type="Int32" />
+            <Parameter Name="library" Mode="In" Type="String" />
+            <Parameter Name="Author" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="TypeName" Mode="In" Type="String" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteCopy" ReturnType="Collection(Int32)">
+            <Parameter Name="SSN" Mode="In" Type="Int32" />
+            <Parameter Name="CopyId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteMaterial" ReturnType="Collection(Int32)">
+            <Parameter Name="SSN" Mode="In" Type="Int32" />
+            <Parameter Name="ISBN" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="readAllMaterial">
           <Key>
@@ -924,6 +960,9 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CreateMaterials" FunctionName="GTLModel.Store.CreateMaterials" />
+          <FunctionImportMapping FunctionImportName="DeleteCopy" FunctionName="GTLModel.Store.DeleteCopy" />
+          <FunctionImportMapping FunctionImportName="DeleteMaterial" FunctionName="GTLModel.Store.DeleteMaterial" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

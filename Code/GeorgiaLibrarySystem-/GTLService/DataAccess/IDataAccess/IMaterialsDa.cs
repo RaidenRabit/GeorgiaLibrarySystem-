@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Core;
 
 namespace GTLService.DataAccess.IDataAccess
@@ -11,5 +7,12 @@ namespace GTLService.DataAccess.IDataAccess
     {
         List<readAllMaterial> ReadMaterials(string materialTitle, string author,
             int numOfRecords = 10, int isbn = 0, string jobStatus = "0");
+
+        bool CreateMaterial(int ssn, int isbn, string library, string author, string description, string title,
+            string typeName, int quantity);
+
+        bool DeleteMaterial(int ssn, int isbn);
+
+        bool DeleteCopy(int ssn, int copyId);
     }
 }

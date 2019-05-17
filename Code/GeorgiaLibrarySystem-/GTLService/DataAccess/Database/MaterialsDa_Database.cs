@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Objects;
 using System.Linq;
-using System.Web;
 using Core;
 using GTLService.DataAccess.IDataAccess;
 
@@ -20,7 +18,7 @@ namespace GTLService.DataAccess.Database
             int numOfRecords = 10, int isbn = 0, string jobStatus = "0")
         {
 
-            var a = _context.readAllMaterials.AsNoTracking()
+            return _context.readAllMaterials.AsNoTracking()
                 .Where(x => (isbn == 0 || x.ISBN.Equals(isbn.ToString())) &&
                             x.Author.Contains(author) &&
                             x.Title.Contains(materialTitle) &&
@@ -28,7 +26,25 @@ namespace GTLService.DataAccess.Database
                 )
               .Take(numOfRecords)  
               .ToList();
-            return a;
+        }
+
+        public bool CreateMaterial(int ssn, int isbn, string library, string author, string description, string title, string typeName,
+            int quantity)
+        {
+            var value = _context.CreateMaterials(ssn, isbn,library,author,description,title,typeName,quantity).First();
+            return Convert.ToBoolean(value);
+        }
+
+        public bool DeleteMaterial(int ssn, int isbn)
+        {
+            var value = _context.DeleteMaterial(ssn, isbn).First();
+            return Convert.ToBoolean(value);
+        }
+
+        public bool DeleteCopy(int ssn, int copyId)
+        {
+            var value = _context.DeleteCopy(ssn, copyId).First();
+            return Convert.ToBoolean(value);
         }
     }
 }

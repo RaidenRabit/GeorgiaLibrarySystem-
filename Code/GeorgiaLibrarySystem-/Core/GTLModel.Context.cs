@@ -54,5 +54,68 @@ namespace Core
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Login", sSNParameter, passwordParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> CreateMaterials(Nullable<int> sSN, Nullable<int> iSBN, string library, string author, string description, string title, string typeName, Nullable<int> quantity)
+        {
+            var sSNParameter = sSN.HasValue ?
+                new ObjectParameter("SSN", sSN) :
+                new ObjectParameter("SSN", typeof(int));
+    
+            var iSBNParameter = iSBN.HasValue ?
+                new ObjectParameter("ISBN", iSBN) :
+                new ObjectParameter("ISBN", typeof(int));
+    
+            var libraryParameter = library != null ?
+                new ObjectParameter("library", library) :
+                new ObjectParameter("library", typeof(string));
+    
+            var authorParameter = author != null ?
+                new ObjectParameter("Author", author) :
+                new ObjectParameter("Author", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("Description", description) :
+                new ObjectParameter("Description", typeof(string));
+    
+            var titleParameter = title != null ?
+                new ObjectParameter("Title", title) :
+                new ObjectParameter("Title", typeof(string));
+    
+            var typeNameParameter = typeName != null ?
+                new ObjectParameter("TypeName", typeName) :
+                new ObjectParameter("TypeName", typeof(string));
+    
+            var quantityParameter = quantity.HasValue ?
+                new ObjectParameter("Quantity", quantity) :
+                new ObjectParameter("Quantity", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CreateMaterials", sSNParameter, iSBNParameter, libraryParameter, authorParameter, descriptionParameter, titleParameter, typeNameParameter, quantityParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> DeleteCopy(Nullable<int> sSN, Nullable<int> copyId)
+        {
+            var sSNParameter = sSN.HasValue ?
+                new ObjectParameter("SSN", sSN) :
+                new ObjectParameter("SSN", typeof(int));
+    
+            var copyIdParameter = copyId.HasValue ?
+                new ObjectParameter("CopyId", copyId) :
+                new ObjectParameter("CopyId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("DeleteCopy", sSNParameter, copyIdParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> DeleteMaterial(Nullable<int> sSN, Nullable<int> iSBN)
+        {
+            var sSNParameter = sSN.HasValue ?
+                new ObjectParameter("SSN", sSN) :
+                new ObjectParameter("SSN", typeof(int));
+    
+            var iSBNParameter = iSBN.HasValue ?
+                new ObjectParameter("ISBN", iSBN) :
+                new ObjectParameter("ISBN", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("DeleteMaterial", sSNParameter, iSBNParameter);
+        }
     }
 }

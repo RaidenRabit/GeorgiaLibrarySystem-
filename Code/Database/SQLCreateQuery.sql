@@ -115,6 +115,64 @@ ELSE
     END
 GO
 
+drop procedure if exists [CreateMaterials]
+go
+CREATE PROCEDURE [CreateMaterials] @SSN int, @ISBN int, @library varchar(50), @Author nvarchar(50), @Description varchar(max),
+									@Title nvarchar(100), @TypeName varchar(50), @Quantity int
+AS
+if EXISTS(select * from Librarian where Librarian.SSN = @SSN) and
+	exists(select * from Library where Library.LibraryName like @library) and
+	exists(select * from MaterialType where MaterialType.TypeName like @TypeName)
+	begin
+	if not exists(select * from Material where Material.ISBN = @ISBN)
+		begin
+		INSERT INTO Material (ISBN, Title, Description, Author)VALUES (@ISBN,@Title, @Description, @Author)
+		end
+	while @Quantity > 0
+		begin
+		INSERT INTO Copy (ISBN, TypeName, LibraryName)VALUES (@ISBN, @TypeName,@library)
+		set @Quantity = @Quantity - 1
+		end
+	select 1
+	end
+else
+	begin
+	select 0
+	end
+go
+
+drop procedure if exists DeleteMaterial
+go
+CREATE PROCEDURE DeleteMaterial @SSN int, @ISBN int
+AS
+if EXISTS(select * from Librarian where Librarian.SSN = @SSN) and
+   exists(select * from Material where Material.ISBN = @ISBN) and
+   not exists(select * from Copy where Copy.ISBN = @ISBN)
+	begin
+	DELETE FROM Material WHERE Material.ISBN = @ISBN
+	select 1
+	end
+else
+	begin
+	select 0
+	end
+go
+drop procedure if exists DeleteCopy
+go
+CREATE PROCEDURE DeleteCopy @SSN int, @CopyId int
+AS
+if EXISTS(select * from Librarian where Librarian.SSN = @SSN) and
+   exists(select * from Copy where Copy.CopyID = @CopyId)
+   begin
+	DELETE FROM Copy WHERE Copy.CopyID = @CopyId
+	select 1
+	end
+else
+	begin
+	select 0
+	end
+go
+
 --Triggers
 
 GO
@@ -283,8 +341,9 @@ VALUES (1,'test book', 'TEST++', 'Hala'),
 		(2,'horror book', 'TEST++', 'Pala'),
 		(3,'comedy book', 'TEST++', 'KHala'),
 		(4,'drama book', 'TEST++', 'ala'),
-		(5,'mystery book', 'TEST++', 'alah'),
-		(6,'history book', 'TEST++', 'laha');
+		(5,'mystery book', 'TEST++', 'asdf'),
+		(6,'mystery book', 'TEST++', 'fdsa'),
+		(7,'history book', 'TEST++', 'laha');
 
 SET IDENTITY_INSERT Copy ON;
 INSERT INTO Copy (CopyID, ISBN, TypeName, LibraryName)

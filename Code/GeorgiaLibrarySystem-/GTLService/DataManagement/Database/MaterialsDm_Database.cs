@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Core;
 using GTLService.DataAccess.IDataAccess;
 using GTLService.DataManagement.IDataManagement;
@@ -21,6 +18,22 @@ namespace GTLService.DataManagement.Database
         public List<readAllMaterial> ReadMaterials(string materialTitle, string author, int numOfRecords = 10, int isbn = 0, string jobStatus = "0")
         {
             return _materialDa.ReadMaterials(materialTitle, author, numOfRecords, isbn, jobStatus);
+        }
+
+        public bool CreateMaterial(int ssn, int isbn, string library, string author, string description, string title, string typeName,
+            int quantity)
+        {
+            return _materialDa.CreateMaterial(ssn, isbn, library, author, description, title, typeName, quantity);
+        }
+
+        public bool DeleteMaterial(int ssn, int isbn)
+        {
+            return _materialDa.DeleteMaterial(ssn, isbn);
+        }
+
+        public bool DeleteCopy(int ssn, int copyId)
+        {
+            return _materialDa.DeleteCopy(ssn, copyId);
         }
     }
 }
