@@ -19,13 +19,14 @@ namespace GTLService.DataAccess.Database
         public virtual List<readAllMaterial> ReadMaterials(string materialTitle, string author,
             int numOfRecords = 10, int isbn = 0, string jobStatus = "0")
         {
-            var a = _context.readAllMaterials
-              /*  .Where(x => (isbn == 0 || x.ISBN.Equals(isbn.ToString())) &&
+
+            var a = _context.readAllMaterials.AsNoTracking()
+                .Where(x => (isbn == 0 || x.ISBN.Equals(isbn.ToString())) &&
                             x.Author.Contains(author) &&
                             x.Title.Contains(materialTitle) &&
                              (jobStatus.Contains("0") || x.TypeName.Contains(jobStatus))
-                )*/
-              .Take(1000)  
+                )
+              .Take(numOfRecords)  
               .ToList();
             return a;
         }
