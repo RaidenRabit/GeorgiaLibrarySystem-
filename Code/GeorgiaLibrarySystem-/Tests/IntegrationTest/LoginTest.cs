@@ -13,6 +13,7 @@ namespace Tests.IntegrationTest
 {
     public class LoginTest
     {
+        #region Database
         [Test]
         //pass
         [TestCase(10000000, "test", true)]
@@ -40,7 +41,9 @@ namespace Tests.IntegrationTest
             //Assert
             Assert.IsTrue(result == passing);
         }
+        #endregion
 
+        #region Code
         [Test]
         //pass
         [TestCase(555555555, "test", true)]
@@ -66,5 +69,6 @@ namespace Tests.IntegrationTest
             //Assert
             Assert.IsTrue(result == passing);
         }
+        #endregion
     }
 }

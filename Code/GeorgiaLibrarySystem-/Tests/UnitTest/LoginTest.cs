@@ -7,6 +7,7 @@ namespace Tests.UnitTest
 {
     public class LoginTest
     {
+        #region Code
         [Test]
         //pass
         [TestCase(555555555, "test", true)]
@@ -30,5 +31,6 @@ namespace Tests.UnitTest
             //Assert
             Assert.IsTrue(result == passing);
         }
+        #endregion
     }
 }

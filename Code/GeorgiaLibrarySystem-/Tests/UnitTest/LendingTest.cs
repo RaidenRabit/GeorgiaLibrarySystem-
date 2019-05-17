@@ -8,6 +8,7 @@ namespace Tests.UnitTest
 {
     public class LendingTest
     {
+        #region Code
         [Test]
         //pass
         [TestCase(5, 4, false, 1, 2, true)]
@@ -30,7 +31,7 @@ namespace Tests.UnitTest
             }
             mockLendingDa.Setup(x => x.GetBorrow(It.IsAny<int>()))
                 .Returns(borrow);
-            mockLendingDa.Setup(x => x.LendBook(It.IsAny<int>(), It.IsAny<int>()))
+            mockLendingDa.Setup(x => x.LendBook(It.IsAny<Borrow>()))
                 .Returns(true);
 
             var mockMemberDa = new Mock<MemberDa_Code>(null);
@@ -75,5 +76,6 @@ namespace Tests.UnitTest
             //Assert
             Assert.IsTrue(result == passing);
         }
+        #endregion
     }
 }

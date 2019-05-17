@@ -15,6 +15,7 @@ namespace Tests.IntegrationTest
 {
     public class LendingTest
     {
+        #region Database
         [Test]
         //pass
         [TestCase(1, 1, 1, true)]
@@ -40,7 +41,28 @@ namespace Tests.IntegrationTest
             //Assert
             Assert.IsTrue(result == passing);
         }
+        
+        [Test]
+        //pass
+        [TestCase(1, 1, true)]
+        //fail
+        [TestCase(0, 1, false)]//no changes in database
+        public void LendingService_Database_ReturnBook(int nrOfChangesInDb, int copyId, bool passing)
+        {
+            var mock = new Mock<Context>();
+            mock.Setup(x => x.Returning(It.IsAny<int>())).Returns(nrOfChangesInDb);
 
+            var loginService = new LendingService(new LendingDm_Database(new LendingDa_Database(mock.Object)));
+
+            //Act
+            var result = loginService.ReturnBook(copyId);
+
+            //Assert
+            Assert.IsTrue(result == passing);
+        }
+        #endregion
+
+        #region Code
         [Test]
         //pass
         [TestCase(5, 1, 1, 1, true)]//member with 4 books borrows 5th
@@ -84,26 +106,7 @@ namespace Tests.IntegrationTest
             //Assert
             Assert.IsTrue(result == passing);
         }
-
-        [Test]
-        //pass
-        [TestCase(1, 1, true)]
-        //fail
-        [TestCase(0, 1, false)]//no changes in database
-        public void LendingService_Database_ReturnBook(int nrOfChangesInDb, int copyId, bool passing)
-        {
-            var mock = new Mock<Context>();
-            mock.Setup(x => x.Returning(It.IsAny<int>())).Returns(nrOfChangesInDb);
-
-            var loginService = new LendingService(new LendingDm_Database(new LendingDa_Database(mock.Object)));
-
-            //Act
-            var result = loginService.ReturnBook(copyId);
-
-            //Assert
-            Assert.IsTrue(result == passing);
-        }
-
+        
         [Test]
         //pass
         [TestCase(1, 2, true)]
@@ -137,6 +140,7 @@ namespace Tests.IntegrationTest
             //Assert
             Assert.IsTrue(result == passing);
         }
+        #endregion
 
         private static Mock<DbSet<T>> Create<T>(IEnumerable<T> data) where T : class
         {
