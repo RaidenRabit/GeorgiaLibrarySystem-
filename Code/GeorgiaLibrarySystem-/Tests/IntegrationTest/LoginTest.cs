@@ -16,24 +16,18 @@ namespace Tests.IntegrationTest
         #region Database
         [Test]
         //pass
-        [TestCase(10000000, "test", true)]
-        [TestCase(10000000, "", true)]
-        [TestCase(1, "test", true)]
-        [TestCase(1, "", true)]
-        [TestCase(10000000, "testnasdfnsndfnsdfjnsdnas", true)]
-        [TestCase(1000000000, "testnasdfnsndfnsdfjnsdnas", true)]
+        [TestCase(123456789, "test", true)]
         //fail
+        [TestCase(123456789, "", false)]//too short password
+        [TestCase(1, "test", false)]//too short ssn
+        [TestCase(1, "", false)]//too short ssn and password
+        [TestCase(123456789, "testnasdfnsndfnsdfjnsdnas", false)]//too long password
+        [TestCase(1000000000, "", false)]//too long ssn
+        [TestCase(1000000000, "testnasdfnsndfnsdfjnsdnas", false)]//too long ssn and password
         public void LoginService_Database_Login(int ssn, string password, bool passing)
         {
             //Arrange
-            var mock = new Mock<Context>();
-            
-            var objectResultMock = new Mock<ObjectResult<int?>>();
-            objectResultMock.Setup(x => x.GetEnumerator()).Returns(new List<int?> {1}.GetEnumerator());
-
-            mock.Setup(x => x.Login(It.IsAny<int>(), It.IsAny<string>()))
-                .Returns(objectResultMock.Object);
-            var loginService = new LoginService(new LoginDm_Database(new LoginDa_Database(mock.Object)));
+            var loginService = new LoginService(new LoginDm_Database(new LoginDa_Database(new Context())));
 
             //Act
             var result = loginService.Login(ssn,password);
@@ -46,13 +40,14 @@ namespace Tests.IntegrationTest
         #region Code
         [Test]
         //pass
-        [TestCase(555555555, "test", true)]
-        [TestCase(999999999, "testtesttesttest", true)]
-        [TestCase(100000000, "t", true)]
+        [TestCase(123456789, "test", true)]
         //fail
-        [TestCase(9999999, "test", false)]
-        [TestCase(999999999, "testtesttesttesttest", false)]
-        [TestCase(10000000, "", false)]
+        [TestCase(123456789, "", false)]//too short password
+        [TestCase(1, "test", false)]//too short ssn
+        [TestCase(1, "", false)]//too short ssn and password
+        [TestCase(123456789, "testnasdfnsndfnsdfjnsdnas", false)]//too long password
+        [TestCase(1000000000, "", false)]//too long ssn
+        [TestCase(1000000000, "testnasdfnsndfnsdfjnsdnas", false)]//too long ssn and password
         public void LoginService_Code_Login(int ssn, string password, bool passing)
         {
             //Arrange

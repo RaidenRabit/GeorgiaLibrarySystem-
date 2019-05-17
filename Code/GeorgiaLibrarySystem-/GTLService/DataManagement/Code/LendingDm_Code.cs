@@ -37,7 +37,6 @@ namespace GTLService.DataManagement.Code
         {
             try
             {
-                //todo information displayed and disable triggers?
                 Borrow borrow = _lendingDa.GetBorrow(copyId);
                 if (borrow != null)
                 {

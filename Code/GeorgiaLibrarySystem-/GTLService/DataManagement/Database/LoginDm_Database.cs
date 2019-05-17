@@ -19,7 +19,7 @@ namespace GTLService.DataManagement.Database
             {
                 return _loginDa.Login(ssn, password);
             }
-            catch(Exception e)
+            catch
             {
                 return false;
             }

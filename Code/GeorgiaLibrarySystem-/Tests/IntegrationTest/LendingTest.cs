@@ -15,25 +15,18 @@ namespace Tests.IntegrationTest
     public class LendingTest
     {
         #region Database
-
         [Test]
         //pass
-        [TestCase(1, 1, 1, true)]
-        [TestCase(2, 1, 1, true)]
+        [TestCase(123456789, 10, false, true)]//member with 4 books borrows 5th
         //fail
-        [TestCase(0, 1, 1, false)]
-        public void LendingService_Database_LendBook(int nrOfChangesInDb, int ssn, int copyId, bool passing)
+        [TestCase(123456789, 10, true, false)]//Too many books borrowed
+        [TestCase(123456789, 11, false, false)]//book already lent to you
+        [TestCase(123456789, 4, false, false)]//book already lent to other member
+        [TestCase(1, 10, false, false)]//Person doesn't exist
+        public void LendingService_Database_LendBook(int ssn, int copyId, bool maxNumberOfBooks, bool passing)
         {
             //Arrange
-            var mock = new Mock<Context>();
-
-            mock.Setup(x => x.Borrows.Add(It.IsAny<Borrow>()))
-                .Returns(new Borrow());
-            mock.Setup(x => x.SaveChanges())
-                .Returns(nrOfChangesInDb);
-
-
-            var loginService = new LendingService(new LendingDm_Database(new LendingDa_Database(mock.Object)));
+            var loginService = new LendingService(new LendingDm_Database(new LendingDa_Database(FillBorrowDatabase(maxNumberOfBooks))));
 
             //Act
             var result = loginService.LendBook(ssn, copyId);
@@ -44,15 +37,14 @@ namespace Tests.IntegrationTest
 
         [Test]
         //pass
-        [TestCase(1, 1, true)]
+        [TestCase(5, true)]//return taken book
         //fail
-        [TestCase(0, 1, false)] //no changes in database
-        public void LendingService_Database_ReturnBook(int nrOfChangesInDb, int copyId, bool passing)
+        [TestCase(0, false)]//wrong copyId
+        [TestCase(9, false)]//copy already returned
+        public void LendingService_Database_ReturnBook(int copyId, bool passing)
         {
-            var mock = new Mock<Context>();
-            mock.Setup(x => x.Returning(It.IsAny<int>())).Returns(nrOfChangesInDb);
-
-            var loginService = new LendingService(new LendingDm_Database(new LendingDa_Database(mock.Object)));
+            //Arrange
+            var loginService = new LendingService(new LendingDm_Database(new LendingDa_Database(FillBorrowDatabase(false))));
 
             //Act
             var result = loginService.ReturnBook(copyId);
@@ -147,5 +139,30 @@ namespace Tests.IntegrationTest
         }
 
         #endregion
+
+        private static Context FillBorrowDatabase(bool maxNumberOfBooks)
+        {
+            string text = "GETDATE()";
+            if(maxNumberOfBooks)
+            {
+                text = "null";
+            }
+            Context context = new Context();
+            context.Database.ExecuteSqlCommand("TRUNCATE TABLE Borrow");
+            context.Database.ExecuteSqlCommand("INSERT INTO Borrow (CopyID, SSN, FromDate, ToDate)"+
+                                               "VALUES (5,123456786,GETDATE(),null),"+
+                                               "(3,123456788,GETDATE(),null),"+
+                                               "(2,123456786,GETDATE(),GETDATE()),"+
+                                               "(6,123456789,GETDATE(),null),"+
+                                               "(1,123456789,GETDATE(),GETDATE()),"+
+                                               "(4,123456786,GETDATE(),null),"+
+                                               "(7,123456789,GETDATE(),null),"+
+                                               "(3,123456789,GETDATE(),"+text+"),"+
+                                               "(9,123456786,GETDATE(),GETDATE()),"+
+                                               "(2,123456789,GETDATE(),null),"+
+                                               "(11,123456789,GETDATE(),null);");
+            context.SaveChanges();
+            return context;
+        }
     }
 }
