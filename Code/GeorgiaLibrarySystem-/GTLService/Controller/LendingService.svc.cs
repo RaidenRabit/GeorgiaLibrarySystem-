@@ -4,7 +4,7 @@ using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.Controller
 {
-    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)] 
     public class LendingService : ILendingService
     {
         private readonly ILendingDm _lendingDm;

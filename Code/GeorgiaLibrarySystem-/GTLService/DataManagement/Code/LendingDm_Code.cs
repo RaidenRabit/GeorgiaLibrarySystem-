@@ -1,31 +1,53 @@
-﻿using GTLService.DataManagement.IDataManagement;
+﻿using Core;
+using GTLService.DataAccess.IDataAccess;
+using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.DataManagement.Code
 {
     public class LendingDm_Code: ILendingDm
     {
-        //private readonly ILoginDa _loginDa;
+        private readonly ILendingDa _lendingDa;
+        private readonly IMemberDa _memberDa;
 
-        //public LoginDm_Code(ILoginDa loginDa)
-        //{
-        //    this._loginDa = loginDa;
-        //}
+        //not done
+        //member not added to windsor
+        public LendingDm_Code(ILendingDa lendingDa, IMemberDa memberDa)
+        {
+            _lendingDa = lendingDa;
+            _memberDa = memberDa;
+        }
 
         public bool LendBook(int ssn, int copyId)
         {
             //todo implement
-            //Cant lend if more than 5 books lent (depends on users)
-            //book not lent already
-
-            //sending notice after some time
-            
-            throw new System.NotImplementedException();
+            //user limit exceeded
+            //book not available
+            try
+            {
+                if (_lendingDa.MemberBorrowedBooks(ssn) < _memberDa.GetMember(ssn).MemberType.NrOfBooks //member is allowed to borrow more
+                        && _lendingDa.GetBorrow(copyId) == null)//not borrowed at the time
+                {
+                    return _lendingDa.LendBook(ssn, copyId);
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool ReturnBook(int ssn, int copyId)
         {
-            //todo implement
-            throw new System.NotImplementedException();
+            try
+            {
+                //todo information displayed and disable triggers?
+                return _lendingDa.ReturnBook(_lendingDa.GetBorrow(copyId));
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

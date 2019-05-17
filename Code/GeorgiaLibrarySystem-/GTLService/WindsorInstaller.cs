@@ -17,15 +17,17 @@ namespace GTLService
         {
             //used: http://scotthannen.org/blog/2016/04/13/wcf-dependency-injection-in-5-minutes.html
             container.Register(
-                Component.For<ILoginService, LoginService>(),
-                Component.For<ILoginDm, LoginDm_Database>(),
-                Component.For<ILoginDa, LoginDa_Database>(),
+                Component.For<ILoginService, LoginService>().LifeStyle.Transient,
+                Component.For<ILoginDm, LoginDm_Database>().LifeStyle.Transient,
+                Component.For<ILoginDa, LoginDa_Database>().LifeStyle.Transient,
 
-                Component.For<ILendingService, LendingService>(),
-                Component.For<ILendingDm, LendingDm_Database>(),
-                Component.For<ILendingDa, LendingDa_Database>(),
+                Component.For<ILendingService, LendingService>().LifeStyle.Transient,
+                Component.For<ILendingDm, LendingDm_Database>().LifeStyle.Transient,
+                Component.For<ILendingDa, LendingDa_Database>().LifeStyle.Transient,
+                
+                Component.For<Context,Context>().LifeStyle.Transient);
 
-                Component.For<Context, Context>());
+
         }
     }
 }

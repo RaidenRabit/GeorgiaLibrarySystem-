@@ -6,6 +6,7 @@ namespace GTLService.DataAccess.IDataAccess
     {
         bool LendBook(int ssn, int copyId);
         bool ReturnBook(Borrow borrow);
-        Borrow GetBorrow(int ssn, int copyId);
+        Borrow GetBorrow(int copyId);
+        int MemberBorrowedBooks(int ssn);
     }
 }

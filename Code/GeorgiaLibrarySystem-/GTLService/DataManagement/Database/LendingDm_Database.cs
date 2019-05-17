@@ -14,12 +14,26 @@ namespace GTLService.DataManagement.Database
 
         public bool LendBook(int ssn, int copyId)
         {
-            return _lendingDa.LendBook(ssn, copyId);
+            try
+            {
+                return _lendingDa.LendBook(ssn, copyId);
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool ReturnBook(int ssn, int copyId)
         {
-            return _lendingDa.ReturnBook(_lendingDa.GetBorrow(ssn, copyId));
+            try
+            {
+                return _lendingDa.ReturnBook(_lendingDa.GetBorrow(copyId));
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
