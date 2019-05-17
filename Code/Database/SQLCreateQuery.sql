@@ -188,6 +188,16 @@ BEGIN
 		END
 End
 go
+
+--Views
+drop view if exists [readAllMaterials]
+go
+CREATE VIEW readAllMaterials AS
+ SELECT Material.ISBN, Material.Title, Material.Author, Copy.TypeName, Material.Description, 
+		(select COUNT(Copy.CopyID) from Copy where copy.ISBN = Material.ISBN) as [Available Copies]
+  FROM Copy inner join Material on Material.isbn = Copy.isbn
+go
+
 --Inserts
 
 INSERT INTO Location (PostalCode, City)

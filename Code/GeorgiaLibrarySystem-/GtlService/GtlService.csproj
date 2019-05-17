@@ -83,13 +83,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controller\LoginService.svc" />
+    <Content Include="Controller\MaterialService.svc" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\IController\ILoginService.cs" />
+    <Compile Include="Controller\IController\IMaterialService.cs" />
     <Compile Include="Controller\LoginService.svc.cs">
       <DependentUpon>LoginService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\MaterialService.svc.cs">
+      <DependentUpon>MaterialService.svc</DependentUpon>
     </Compile>
     <Compile Include="DataAccess\IDataAccess\ILoginDa.cs" />
     <Compile Include="DataAccess\Code\LoginDa_Code.cs" />
