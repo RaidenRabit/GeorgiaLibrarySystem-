@@ -193,9 +193,14 @@ go
 drop view if exists [readAllMaterials]
 go
 CREATE VIEW readAllMaterials AS
- SELECT Material.ISBN, Material.Title, Material.Author, Copy.TypeName, Material.Description, 
-		(select COUNT(Copy.CopyID) from Copy where copy.ISBN = Material.ISBN) as [Available Copies]
+with a as ( 
+  SELECT Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName as Location, copy.TypeName
   FROM Copy inner join Material on Material.isbn = Copy.isbn
+  )
+
+SELECT distinct Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName as Location, copy.TypeName,
+(select COUNT(*) from a where copy.TypeName LIKE a.TypeName and a.Location like copy.LibraryName and a.ISBN = copy.ISBN) as Available_Copies
+  FROM Copy inner join Material on Material.isbn = Copy.isbn 
 go
 
 --Inserts
@@ -293,7 +298,10 @@ VALUES (1,1,'books','GTL'),
 		(8,5,'books','Pikalo'),
 		(9,1,'reference books','GTL'),
 		(10,2,'books','GTL'),
-		(11,6,'books','GTL');
+		(11,6,'books','GTL'),
+		(12,1,'books','GTL'),
+		(13,1,'books','GTL'),
+		(14,1,'needed books','Pikalo');
 SET IDENTITY_INSERT Copy OFF;
 
 INSERT INTO Borrow (CopyID, SSN, FromDate, ToDate)
