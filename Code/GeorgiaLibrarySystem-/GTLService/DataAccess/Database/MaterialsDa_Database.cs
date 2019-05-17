@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Web;
 using Core;
@@ -24,7 +25,8 @@ namespace GTLService.DataAccess.Database
                             x.Title.Contains(materialTitle) &&
                              (jobStatus.Contains("0") || x.TypeName.Contains(jobStatus))
                 )*/
-                .Take(numOfRecords).ToList();
+              .Take(1000)  
+              .ToList();
             return a;
         }
     }
