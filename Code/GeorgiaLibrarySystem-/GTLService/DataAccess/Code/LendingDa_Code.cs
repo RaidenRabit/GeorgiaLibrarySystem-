@@ -13,25 +13,26 @@ namespace GTLService.DataAccess.Code
             _context = context;
         }
 
-        public bool LendBook(int ssn, int copyId)
+        public virtual bool LendBook(int ssn, int copyId)
         {
             _context.Borrows.Add(new Borrow {SSN = ssn, CopyID = copyId, FromDate = DateTime.Now});
             return _context.SaveChanges() > 0;
         }
 
-        public bool ReturnBook(Borrow borrow)
+        //
+        public virtual bool ReturnBook(Borrow borrow)
         {
             _context.Borrows.Attach(borrow);
             borrow.ToDate = DateTime.Now;
             return _context.SaveChanges() > 0;
         }
 
-        public Borrow GetBorrow(int copyId)
+        public virtual Borrow GetBorrow(int copyId)
         {
             return _context.Borrows.FirstOrDefault(x => x.CopyID == copyId && x.ToDate == null);
         }
 
-        public int MemberBorrowedBooks(int ssn)
+        public virtual int MemberBorrowedBooks(int ssn)
         {
             return _context.Borrows.Count(x => x.SSN == ssn && x.ToDate == null);
         }

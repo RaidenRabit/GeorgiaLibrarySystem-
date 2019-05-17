@@ -1,8 +1,6 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Moq;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using Core;
 using GTLService.DataAccess.Code;
@@ -10,21 +8,21 @@ using GTLService.DataAccess.Database;
 using GTLService.DataManagement.Code;
 using GTLService.DataManagement.Database;
 using GTLService.Controller;
-using System.Linq;
-using System.Linq.Expressions;
 
 namespace Tests.IntegrationTest
 {
     public class LoginTest
     {
         [Test]
+        //pass
         [TestCase(10000000, "test", true)]
         [TestCase(10000000, "", true)]
         [TestCase(1, "test", true)]
         [TestCase(1, "", true)]
         [TestCase(10000000, "testnasdfnsndfnsdfjnsdnas", true)]
         [TestCase(1000000000, "testnasdfnsndfnsdfjnsdnas", true)]
-        public void LoginService_Database(int ssn, string password, bool passing)
+        //fail
+        public void LoginService_Database_Login(int ssn, string password, bool passing)
         {
             //Arrange
             var mock = new Mock<Context>();
@@ -52,7 +50,7 @@ namespace Tests.IntegrationTest
         [TestCase(9999999, "test", false)]
         [TestCase(999999999, "testtesttesttesttest", false)]
         [TestCase(10000000, "", false)]
-        public void LoginService_Code(int ssn, string password, bool passing)
+        public void LoginService_Code_Login(int ssn, string password, bool passing)
         {
             //Arrange
             var mock = new Mock<Context>();

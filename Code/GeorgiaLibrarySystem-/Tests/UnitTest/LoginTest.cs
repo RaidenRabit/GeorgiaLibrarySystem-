@@ -16,7 +16,7 @@ namespace Tests.UnitTest
         [TestCase(9999999, "test", false)]
         [TestCase(999999999, "testtesttesttesttest", false)]
         [TestCase(10000000, "", false)]
-        public void LoginDmTest(int ssn, string password, bool passing)
+        public void LoginDm_Code_Login(int ssn, string password, bool passing)
         {
             //Arrange
             var mock = new Mock<LoginDa_Code>(null);

@@ -4,6 +4,7 @@ using Castle.Windsor;
 using Core;
 using GTLService.Controller;
 using GTLService.Controller.IController;
+using GTLService.DataAccess.Code;
 using GTLService.DataAccess.Database;
 using GTLService.DataAccess.IDataAccess;
 using GTLService.DataManagement.Database;
@@ -24,7 +25,7 @@ namespace GTLService
                 Component.For<ILendingService, LendingService>().LifeStyle.Transient,
                 Component.For<ILendingDm, LendingDm_Database>().LifeStyle.Transient,
                 Component.For<ILendingDa, LendingDa_Database>().LifeStyle.Transient,
-                
+
                 Component.For<Context,Context>().LifeStyle.Transient);
 
 

@@ -13,7 +13,7 @@ namespace GTLService.DataAccess.Code
             _context = context;
         }
 
-        public Member GetMember(int ssn)
+        public virtual Member GetMember(int ssn)
         {
             return _context.Members
                 .Include(x => x.MemberType)
