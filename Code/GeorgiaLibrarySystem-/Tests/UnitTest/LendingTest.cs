@@ -48,10 +48,10 @@ namespace Tests.UnitTest
 
         [Test]
         //pass
-        [TestCase(true, 1, 2, true)]
+        [TestCase(true, 1, true)]
         //fail
-        [TestCase(false, 1, 2, false)]
-        public void LendingDm_Code_ReturnBook(bool borrowExists, int ssn, int copyId, bool passing)
+        [TestCase(false, 1, false)]
+        public void LendingDm_Code_ReturnBook(bool borrowExists, int copyId, bool passing)
         {
             //Arrange
             var mockLendingDa = new Mock<LendingDa_Code>(null);
@@ -70,7 +70,7 @@ namespace Tests.UnitTest
             var lendingDm = new LendingDm_Code(mockLendingDa.Object,mockMemberDa.Object);
 
             //Act
-            var result = lendingDm.ReturnBook(ssn,copyId);
+            var result = lendingDm.ReturnBook(copyId);
 
             //Assert
             Assert.IsTrue(result == passing);

@@ -1,4 +1,6 @@
-﻿using GTLService.DataAccess.IDataAccess;
+﻿using System;
+using Core;
+using GTLService.DataAccess.IDataAccess;
 using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.DataManagement.Database
@@ -16,7 +18,7 @@ namespace GTLService.DataManagement.Database
         {
             try
             {
-                return _lendingDa.LendBook(ssn, copyId);
+                return _lendingDa.LendBook(new Borrow {SSN = ssn, CopyID = copyId, FromDate = new DateTime()});
             }
             catch
             {
@@ -24,11 +26,11 @@ namespace GTLService.DataManagement.Database
             }
         }
 
-        public bool ReturnBook(int ssn, int copyId)
+        public bool ReturnBook(int copyId)
         {
             try
             {
-                return _lendingDa.ReturnBook(_lendingDa.GetBorrow(copyId));
+                return _lendingDa.ReturnBook(new Borrow{CopyID = copyId});
             }
             catch
             {

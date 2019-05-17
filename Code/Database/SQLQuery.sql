@@ -117,10 +117,19 @@ ELSE
     BEGIN
         SELECT 0
     END
+GO
+
+CREATE PROCEDURE Returning @CopyId int
+AS
+
+UPDATE Borrow
+	SET ToDate = GETDATE()
+	FROM Borrow
+	where CopyID = @CopyID
+		AND ToDate is null
+GO
 
 --Triggers
-
-GO
 CREATE OR ALTER TRIGGER Lending
 ON Borrow
 FOR INSERT
@@ -150,47 +159,6 @@ BEGIN
 				AND SSN = @SSN
 				AND FromDate = @FromDate
 		END
-End
-GO
-
-CREATE OR ALTER TRIGGER Returning
-ON Borrow
-FOR UPDATE
-AS
-BEGIN
-	DECLARE @CopyID INT;
-	DECLARE @SSN INT;
-	SELECT @CopyID = CopyID, @SSN = SSN FROM INSERTED
-
-	--DECLARE @LendingLenght INT;
-	--DECLARE @GracePeriod INT;
-	--SELECT @LendingLenght = LendingLenght, @GracePeriod = GracePeriod
-	--FROM Member INNER JOIN MemberType ON Member.TypeName = MemberType.TypeName
-	--WHERE SSN = @SSN;
-
-	--DECLARE @FromDate Date;
-	--Select @FromDate = FromDate from Borrow where SSN = @SSN 
-	--	AND CopyID = @CopyID
-	--	AND ToDate IS NULL
-	
-	--DECLARE @ReturnDate Date;
-	--SELECT @ReturnDate = DATEADD(DAY, @LendingLenght + @GracePeriod, @FromDate)
-
-	--IF @ReturnDate > GETDATE()
-	--	BEGIN
-	--		select 0 --returned after the end of grace period
-	--	END
-	--ELSE
-	--	BEGIN
-	--		select 1 --returned bofore the end of grace period
-	--	END
-
-	UPDATE Borrow
-	SET ToDate = GETDATE()
-	FROM Borrow
-	where CopyID = @CopyID
-		AND SSN = @SSN
-		AND ToDate is null
 End
 GO
 

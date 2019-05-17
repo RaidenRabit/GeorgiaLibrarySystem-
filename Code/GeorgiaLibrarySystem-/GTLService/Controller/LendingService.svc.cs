@@ -18,9 +18,9 @@ namespace GTLService.Controller
             return _lendingDm.LendBook(ssn, copyId);
         }
 
-        public bool ReturnBook(int ssn, int copyId)
+        public bool ReturnBook(int copyId)
         {
-            return _lendingDm.ReturnBook(ssn, copyId);
+            return _lendingDm.ReturnBook(copyId);
         }
     }
 }

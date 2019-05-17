@@ -9,6 +9,6 @@ namespace GTLService.Controller.IController
         bool LendBook(int ssn, int copyId);
 
         [OperationContract]
-        bool ReturnBook(int ssn, int copyId);
+        bool ReturnBook(int copyId);
     }
 }

@@ -23,17 +23,17 @@ namespace GTLService.DataManagement.Code
                 if (_lendingDa.MemberBorrowedBooks(ssn) < _memberDa.GetMember(ssn).MemberType.NrOfBooks //member is allowed to borrow more
                         && _lendingDa.GetBorrow(copyId) == null)//not borrowed at the time
                 {
-                    return _lendingDa.LendBook(ssn, copyId);
+                    return _lendingDa.LendBook(new Borrow {SSN = ssn, CopyID = copyId, FromDate = DateTime.Now});
                 }
                 return false;
             }
-            catch(Exception e)
+            catch
             {
                 return false;
             }
         }
 
-        public bool ReturnBook(int ssn, int copyId)
+        public bool ReturnBook(int copyId)
         {
             try
             {
@@ -41,9 +41,8 @@ namespace GTLService.DataManagement.Code
                 Borrow borrow = _lendingDa.GetBorrow(copyId);
                 if (borrow != null)
                 {
-                    return _lendingDa.ReturnBook(_lendingDa.GetBorrow(copyId));
+                    return _lendingDa.ReturnBook(borrow);
                 }
-
                 return false;
             }
             catch

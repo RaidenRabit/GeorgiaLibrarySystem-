@@ -285,6 +285,9 @@
           <Parameter Name="SSN" Type="int" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="Returning" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CopyId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="GTLModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Borrow" EntityType="Self.Borrow" Schema="dbo" store:Type="Tables" />
@@ -738,6 +741,9 @@
             <Parameter Name="SSN" Mode="In" Type="Int32" />
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="Returning">
+            <Parameter Name="CopyId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -865,6 +871,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Login" FunctionName="GTLModel.Store.Login" />
+          <FunctionImportMapping FunctionImportName="Returning" FunctionName="GTLModel.Store.Returning" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

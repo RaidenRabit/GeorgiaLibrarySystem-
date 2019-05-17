@@ -14,22 +14,20 @@ namespace GTLService.DataAccess.Database
             _context = context;
         }
 
-        public bool LendBook(int ssn, int copyId)
+        public bool LendBook(Borrow borrow)
         {
-            _context.Borrows.Add(new Borrow {SSN = ssn, CopyID = copyId, FromDate = new DateTime()});
+            _context.Borrows.Add(borrow);
             return _context.SaveChanges() > 0;
         }
 
         public bool ReturnBook(Borrow borrow)
         {
-            _context.Borrows.Attach(borrow);
-            _context.Entry(borrow).State = EntityState.Modified;
-            return _context.SaveChanges() > 0;
+            return _context.Returning(borrow.CopyID) > 0;
         }
 
         public Borrow GetBorrow(int copyId)
         {
-            return _context.Borrows.FirstOrDefault(x => x.CopyID == copyId && x.ToDate == null);
+            throw new NotImplementedException();
         }
 
         public int MemberBorrowedBooks(int ssn)
