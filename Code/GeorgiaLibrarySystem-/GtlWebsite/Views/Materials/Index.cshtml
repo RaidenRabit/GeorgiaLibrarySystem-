@@ -17,42 +17,47 @@
                                         <input type="radio" name="jobStatus" value="0" checked> All
                                     </label>
                                     <label class="btn btn-info">
-                                        <input type="radio" name="jobStatus" value="1"> Books
+                                        <input type="radio" name="jobStatus" value="books"> Books
                                     </label>
                                     <label class="btn btn-info">
-                                        <input type="radio" name="jobStatus" value="2"> Maps
+                                        <input type="radio" name="jobStatus" value="maps"> Maps
                                     </label>
                                     <label class="btn btn-info">
-                                        <input type="radio" name="jobStatus" value="3"> Needed Books
+                                        <input type="radio" name="jobStatus" value="needed"> Needed Books
                                     </label>
                                     <label class="btn btn-info">
-                                        <input type="radio" name="jobStatus" value="4"> Rare Books
+                                        <input type="radio" name="jobStatus" value="rare"> Rare Books
                                     </label>
                                     <label class="btn btn-info">
-                                        <input type="radio" name="jobStatus" value="5"> Reference Books
+                                        <input type="radio" name="jobStatus" value="reference"> Reference Books
                                     </label>
                                 </div>
                                 <datalist id="jobs"></datalist>
 
                             </div>
 
-                            <div class="form-group">
-                                <input id="materialTitle" type="text" class="form-control" list="jobs" placeholder="Material Title" />
-                            </div>
+                            <div class="row">
+                                <div>
+                                    <div class="form-group">
+                                        <input id="isbn" type="text" class="form-control" placeholder="ISBN" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="copyId" type="text" class="form-control" placeholder="Copy Id" />
+                                    </div>
+                                </div>
+                                <div style="float: right">
 
-                            <div class="form-group">
-                                <input id="isbn" type="text" class="form-control" placeholder="ISBN" />
-                            </div>
-                            <div class="form-group">
-                                <input id="copyId" type="text" class="form-control" placeholder="Copy Id" />
+                                    <div class="form-group">
+                                        <input id="materialTitle" type="text" class="form-control" list="jobs" placeholder="Material Title" />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input id="author" type="text" class="form-control" list="customers" placeholder="Author" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-                                <input id="author" type="text" class="form-control" list="customers" placeholder="Author" />
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -85,10 +90,13 @@
                                     Description
                                 </th>
                                 <th>
+                                    Location
+                                </th>
+                                <th>
                                     Available Copies
                                 </th>
                                 <th>
-                                    Action
+                                    Borrow Book
                                 </th>
                             </tr>
                         </thead>

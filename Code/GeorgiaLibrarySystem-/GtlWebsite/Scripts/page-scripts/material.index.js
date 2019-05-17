@@ -20,50 +20,53 @@ function GetMaterials() {
             jobStatus: $("input[name=jobStatus]:checked").val(),
             author: $("#author").val()
         },
+
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (data) {
             var htmlText = "";
                     for (var i = 0; i < data.length; i++) {
+                        var x = parseInt(data[i].Available_Copies, 10);
                         materialType = ["", "Books", "Maps", "Needed Books", "Rare Books", "Reference Books"];
                         htmlText += "<tr>" +
                             "<td class=\"isbn\">" +
-                            data[i].isbn +
+                            data[i].ISBN +
                             "</td>" +
                             "<td>" +
-                            data[i].title +
+                            data[i].Title +
                             "</td>" +
                             "<td>" +
-                            data[i].author +
+                            data[i].Author +
                             "</td>" +
                             "<td>" +
-                            materialType[data[i].type] +
+                            data[i].TypeName +
                             "</td>" +
                             "<td>" +
-                            data[i].description +
+                            data[i].Description +
                             "</td>" +
                             "<td>" +
-                            data[i].description +
+                            data[i].Location +
                             "</td>" +
                             "<td>" +
-                            data[i].availableCopies +
+                            x +
                             "</td>";
-                        if (data[i].availableCopies > 0) {
+                        if (x > 0) {
                             htmlText += "<td>" +
-                                "<button class=\"btn\"  onclick=\"Borrow(this)\">" +
-                                Borrow +
+                                "<button class=\"btn btn-primary\"  onclick=\"Borrow(this)\">" +
+                                "Borrow Book" +
                                 "</td>" +
                                 "</tr>";
-                        } else {
+                        } 
+                        else {
                             htmlText += "<td>" +
-                                "<button class=\"btn\"  onclick=\"Borrow(this)\" disabled>" +
-                                Borrow +
+                                "<button class=\"btn btn-primary\"  onclick=\"Borrow(this)\" disabled>" +
+                                "Borrow Book" +
                                 "</td>" +
                                 "</tr>";
                         }
                     }
             $("#materialTable tbody").html(htmlText);
-                }
+        }
     });
 }
 

@@ -15,17 +15,11 @@ namespace GtlWebsite.MaterialServiceReference {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MaterialServiceReference.IMaterialService")]
     public interface IMaterialService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMaterialService/DoWork", ReplyAction="http://tempuri.org/IMaterialService/DoWorkResponse")]
-        void DoWork();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMaterialService/DoWork", ReplyAction="http://tempuri.org/IMaterialService/DoWorkResponse")]
-        System.Threading.Tasks.Task DoWorkAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMaterialService/GetMaterials", ReplyAction="http://tempuri.org/IMaterialService/GetMaterialsResponse")]
+        Core.readAllMaterial[] GetMaterials(string materialTitle, string author, int numOfRecords, int isbn, string jobStatus);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMaterialService/GetMaterials", ReplyAction="http://tempuri.org/IMaterialService/GetMaterialsResponse")]
-        bool GetMaterials(string materialTitle, string author, int numOfRecords, int isbn, int jobStatus);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMaterialService/GetMaterials", ReplyAction="http://tempuri.org/IMaterialService/GetMaterialsResponse")]
-        System.Threading.Tasks.Task<bool> GetMaterialsAsync(string materialTitle, string author, int numOfRecords, int isbn, int jobStatus);
+        System.Threading.Tasks.Task<Core.readAllMaterial[]> GetMaterialsAsync(string materialTitle, string author, int numOfRecords, int isbn, string jobStatus);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,19 +49,11 @@ namespace GtlWebsite.MaterialServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public void DoWork() {
-            base.Channel.DoWork();
-        }
-        
-        public System.Threading.Tasks.Task DoWorkAsync() {
-            return base.Channel.DoWorkAsync();
-        }
-        
-        public bool GetMaterials(string materialTitle, string author, int numOfRecords, int isbn, int jobStatus) {
+        public Core.readAllMaterial[] GetMaterials(string materialTitle, string author, int numOfRecords, int isbn, string jobStatus) {
             return base.Channel.GetMaterials(materialTitle, author, numOfRecords, isbn, jobStatus);
         }
         
-        public System.Threading.Tasks.Task<bool> GetMaterialsAsync(string materialTitle, string author, int numOfRecords, int isbn, int jobStatus) {
+        public System.Threading.Tasks.Task<Core.readAllMaterial[]> GetMaterialsAsync(string materialTitle, string author, int numOfRecords, int isbn, string jobStatus) {
             return base.Channel.GetMaterialsAsync(materialTitle, author, numOfRecords, isbn, jobStatus);
         }
     }

@@ -146,6 +146,9 @@
     <None Include="Connected Services\MaterialServiceReference\MaterialService.disco" />
     <None Include="Connected Services\MaterialServiceReference\configuration91.svcinfo" />
     <None Include="Connected Services\MaterialServiceReference\configuration.svcinfo" />
+    <None Include="Connected Services\MaterialServiceReference\MaterialService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\MaterialServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -195,6 +198,7 @@
     <None Include="Connected Services\MaterialServiceReference\MaterialService1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Properties\DataSources\Core.readAllMaterial.datasource" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

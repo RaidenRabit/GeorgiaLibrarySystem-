@@ -1,5 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using Core;
 using GtlWebsite.MaterialServiceReference;
 
 namespace GtlWebsite.Controllers
@@ -19,10 +22,12 @@ namespace GtlWebsite.Controllers
         }
 
         [HttpGet]
-        public async Task<string> GetMaterialsAjax(string materialTitle, string author, int numOfRecords = 10, int isbn = 0, int jobStatus = 0)
+        public string GetMaterialsAjax(string materialTitle, string author, int numOfRecords = 10, int isbn = 0, string jobStatus = "0")
         {
-            var response = await _client.GetMaterials(materialTitle,author,numOfRecords,isbn,jobStatus);
-            return await response.Content.ReadAsStringAsync();
+            var response = _client.GetMaterials(materialTitle,author,numOfRecords,isbn,jobStatus);
+            var jsonSerialiser = new JavaScriptSerializer();
+            var json = jsonSerialiser.Serialize(response);
+            return json;
         }
 
         public void Borrow()

@@ -4,14 +4,9 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:52690/Controller/MaterialService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:52690/Controller/MaterialService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:52690/Controller/MaterialService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Core" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IMaterialService_DoWork_InputMessage">
-    <wsdl:part name="parameters" element="tns:DoWork" />
-  </wsdl:message>
-  <wsdl:message name="IMaterialService_DoWork_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
-  </wsdl:message>
   <wsdl:message name="IMaterialService_GetMaterials_InputMessage">
     <wsdl:part name="parameters" element="tns:GetMaterials" />
   </wsdl:message>
@@ -19,10 +14,6 @@
     <wsdl:part name="parameters" element="tns:GetMaterialsResponse" />
   </wsdl:message>
   <wsdl:portType name="IMaterialService">
-    <wsdl:operation name="DoWork">
-      <wsdl:input wsaw:Action="http://tempuri.org/IMaterialService/DoWork" message="tns:IMaterialService_DoWork_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IMaterialService/DoWorkResponse" message="tns:IMaterialService_DoWork_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetMaterials">
       <wsdl:input wsaw:Action="http://tempuri.org/IMaterialService/GetMaterials" message="tns:IMaterialService_GetMaterials_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMaterialService/GetMaterialsResponse" message="tns:IMaterialService_GetMaterials_OutputMessage" />
@@ -30,15 +21,6 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IMaterialService" type="tns:IMaterialService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="DoWork">
-      <soap:operation soapAction="http://tempuri.org/IMaterialService/DoWork" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetMaterials">
       <soap:operation soapAction="http://tempuri.org/IMaterialService/GetMaterials" style="document" />
       <wsdl:input>
