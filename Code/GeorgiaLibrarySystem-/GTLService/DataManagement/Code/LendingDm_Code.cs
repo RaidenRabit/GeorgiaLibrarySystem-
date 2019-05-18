@@ -40,6 +40,7 @@ namespace GTLService.DataManagement.Code
                 Borrow borrow = _lendingDa.GetBorrow(copyId);
                 if (borrow != null)
                 {
+                    borrow.ToDate = DateTime.Now;
                     return _lendingDa.ReturnBook(borrow);
                 }
                 return false;

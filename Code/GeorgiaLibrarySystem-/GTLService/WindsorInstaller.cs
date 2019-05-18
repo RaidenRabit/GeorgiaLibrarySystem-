@@ -4,7 +4,6 @@ using Castle.Windsor;
 using Core;
 using GTLService.Controller;
 using GTLService.Controller.IController;
-using GTLService.DataAccess.Code;
 using GTLService.DataAccess.Database;
 using GTLService.DataAccess.IDataAccess;
 using GTLService.DataManagement.Database;
@@ -32,30 +31,3 @@ namespace GTLService
         }
     }
 }
-
-/*
- * using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using GtlService.DataAccess.Database;
-using GtlService.DataAccess.IDataAccess;
-using GtlService.DataManagement.Database;
-using GtlService.DataManagement.iDataManagement;
-using GTLService.Controller.IController;
-using Unity;
-using Unity.Wcf;
-
-namespace GTLService
-{
-    public class WcfServiceFactory: UnityServiceHostFactory
-    {
-        protected override void ConfigureContainer(IUnityContainer container)
-        {
-            container.RegisterType<ILoginDm,LoginDm_Database>();
-            container.RegisterType<ILoginDa,LoginDa_Database>();
-            container.RegisterType<ILoginService,ILoginService>();
-        }
-    }
-}
- */

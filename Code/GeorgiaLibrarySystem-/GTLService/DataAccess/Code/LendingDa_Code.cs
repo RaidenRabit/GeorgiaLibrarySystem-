@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Core;
 using GTLService.DataAccess.IDataAccess;
 
@@ -15,14 +14,30 @@ namespace GTLService.DataAccess.Code
 
         public virtual bool LendBook(Borrow borrow)
         {
-            _context.Borrows.Add(borrow);
-            return _context.SaveChanges() > 0;
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            {
+                bool result = false;
+                try
+                {
+                    _context.Database.ExecuteSqlCommand("ALTER TABLE Borrow DISABLE TRIGGER Lending");//so trigger wouldn't be run
+                    _context.SaveChanges();
+                    _context.Borrows.Add(borrow);
+                    result = _context.SaveChanges() > 0;
+                    _context.Database.ExecuteSqlCommand("ALTER TABLE Borrow ENABLE TRIGGER Lending");
+                    _context.SaveChanges();
+
+                    dbContextTransaction.Commit();
+                }
+                catch
+                {
+                    dbContextTransaction.Rollback();
+                }
+                return result;
+            }
         }
         
         public virtual bool ReturnBook(Borrow borrow)
         {
-            _context.Borrows.Attach(borrow);//todo is it needed?
-            borrow.ToDate = DateTime.Now;
             return _context.SaveChanges() > 0;
         }
 

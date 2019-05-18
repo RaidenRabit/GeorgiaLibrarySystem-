@@ -9,7 +9,7 @@ namespace GTLService.DataManagement.Code
 
         public LoginDm_Code(ILoginDa loginDa)
         {
-            this._loginDa = loginDa;
+            _loginDa = loginDa;
         }
 
         public bool Login(int ssn, string password)

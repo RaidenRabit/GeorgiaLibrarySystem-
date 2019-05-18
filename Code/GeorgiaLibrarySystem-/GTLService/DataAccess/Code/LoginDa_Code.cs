@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Linq;
+using Core;
 using GTLService.DataAccess.IDataAccess;
 
 namespace GTLService.DataAccess.Code
@@ -8,13 +9,12 @@ namespace GTLService.DataAccess.Code
         private readonly Context _context;
         public LoginDa_Code(Context context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public virtual bool Login(int ssn, string password)
         {
-            Person person = _context.People.Find(ssn);
-            return person != null && person.Password.Equals(password);
+            return _context.People.Any(x => x.SSN == ssn && x.Password == password);
         }
     }
 }
