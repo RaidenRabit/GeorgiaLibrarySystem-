@@ -13,7 +13,7 @@ namespace GTLService.DataAccess.Code
             this._context = context;
         }
 
-        public List<Material> ReadMaterials(int isbn, string title, string author, int numOfRecords)
+        public virtual List<Material> ReadMaterials(int isbn, string title, string author, int numOfRecords)
         {
             return _context.Materials
                 .Where(x => (isbn == 0 || x.ISBN.Equals(isbn.ToString())) &&
@@ -24,7 +24,7 @@ namespace GTLService.DataAccess.Code
                 .ToList();
         }
 
-        public List<Copy> ReadCopies(int isbn, string typeName)
+        public virtual List<Copy> ReadCopies(int isbn, string typeName)
         {
             var a = _context.Copies
                 .Where(x => (isbn == 0 || x.ISBN.Equals(isbn.ToString())) &&
@@ -34,30 +34,30 @@ namespace GTLService.DataAccess.Code
             return a;
         }
 
-        public readAllMaterial ReadMaterials(int isbn)
+        public virtual readAllMaterial ReadMaterials(int isbn)
         {
             return _context.readAllMaterials.Find(isbn);
         }
 
-        public bool CheckMaterialIsbn(int isbn)
+        public virtual bool CheckMaterialIsbn(int isbn)
         {
             var material = _context.Materials.Find(isbn);
             return material != null;
         }
 
-        public bool CheckCopyId(int id)
+        public virtual bool CheckCopyId(int id)
         {
             var copy = _context.Copies.Find(id);
             return copy != null;
         }
 
-        public bool CheckTypeName(string typeName)
+        public virtual bool CheckTypeName(string typeName)
         {
             var copy = _context.Copies.FirstOrDefault(x => x.TypeName.Equals(typeName));
             return copy != null;
         }
 
-        public bool CreateMaterial(int isbn, string author, string description, string title)
+        public virtual bool CreateMaterial(int isbn, string author, string description, string title)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace GTLService.DataAccess.Code
             }
         }
 
-        public bool CreateCopy(int isbn, string libraryName, string typeName)
+        public virtual bool CreateCopy(int isbn, string libraryName, string typeName)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace GTLService.DataAccess.Code
             }
         }
 
-        public bool DeleteMaterial(int isbn)
+        public virtual bool DeleteMaterial(int isbn)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace GTLService.DataAccess.Code
             }
         }
 
-        public bool DeleteCopy(int copyId)
+        public virtual bool DeleteCopy(int copyId)
         {
             try
             {

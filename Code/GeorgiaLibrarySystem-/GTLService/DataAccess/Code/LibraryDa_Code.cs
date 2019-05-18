@@ -10,7 +10,7 @@ namespace GTLService.DataAccess.Code
             this._context = context;
         }
 
-        public bool CheckLibraryName(string libraryName)
+        public virtual bool CheckLibraryName(string libraryName)
         {
             var library = _context.Libraries.Find(libraryName);
             return library != null;
