@@ -27,6 +27,7 @@ namespace GTLService
                 Component.For<IMaterialService, MaterialService>(),
                 Component.For<IMaterialsDm, MaterialsDm_Database>(),
                 Component.For<IMaterialsDa, MaterialsDa_Database>(),
+                Component.For<IPersonDa, PersonDa_Code>(),
                 Component.For<Context, Context>());
         }
     }
