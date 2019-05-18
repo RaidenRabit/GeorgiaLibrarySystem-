@@ -13,6 +13,3 @@ SET PASSWORD="Password12!"
 SET INPUT=%cd%\SQLCreateQuery.sql
 
 %SQLCMD% -S%SERVER% -d%DB% -U%LOGIN% -P%PASSWORD% -i%INPUT% -b
-
-IF %ERRORLEVEL% == 1 (
-ECHO THERE WAS AN ERROR - on screen)
