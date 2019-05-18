@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core;
-using GTLService.DataAccess.IDataAccess;
+using GTLService.DataAccess.Database;
 using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.DataManagement.Database
@@ -8,9 +8,9 @@ namespace GTLService.DataManagement.Database
     public class MaterialsDm_Database : IMaterialsDm
     {
         
-        private readonly IMaterialsDa _materialDa;
+        private readonly MaterialsDa_Database _materialDa;
 
-        public MaterialsDm_Database(IMaterialsDa materialDa)
+        public MaterialsDm_Database(MaterialsDa_Database materialDa)
         {
             this._materialDa = materialDa;
         }
