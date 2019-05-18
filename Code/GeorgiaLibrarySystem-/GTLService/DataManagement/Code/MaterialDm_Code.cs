@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Core;
 using GTLService.DataAccess.Code;
 using GTLService.DataAccess.IDataAccess;
@@ -24,7 +21,62 @@ namespace GTLService.DataManagement.Code
 
         public List<readAllMaterial> ReadMaterials(string materialTitle, string author, int numOfRecords = 10, int isbn = 0, string jobStatus = "0")
         {
-            throw new NotImplementedException();
+            var materials = _materialDa.ReadMaterials(isbn, materialTitle, author, numOfRecords);
+            var copies = _materialDa.ReadCopies(isbn, jobStatus);
+
+            List<readAllMaterial> allMaterials = new List<readAllMaterial>();
+            readAllMaterial readAllMaterial;
+
+            foreach (var c in copies)
+            {
+                bool unique = true;
+                foreach (var allMaterial in allMaterials)
+                {
+                    if (allMaterial.ISBN == c.ISBN && allMaterial.TypeName == c.TypeName &&
+                        allMaterial.Location == c.LibraryName)
+                        unique = false;
+                }
+
+                if (unique)
+                {
+                    foreach (var m in materials)
+                    {
+                        if (m.ISBN.Equals(c.ISBN))
+                        {
+                            readAllMaterial = new readAllMaterial
+                            {
+                                ISBN = c.ISBN, TypeName = c.TypeName, Location = c.LibraryName,
+                                Description = m.Description,
+                                Author = m.Author, Title = m.Author
+                            };
+                            allMaterials.Add(readAllMaterial);
+                        }
+                    }
+                   
+                }
+
+            }
+
+            allMaterials = CountAvailableCopies(allMaterials, copies);
+            return allMaterials;
+        }
+
+        private List<readAllMaterial> CountAvailableCopies(List<readAllMaterial> allMaterials, List<Copy> copies)
+        {
+            foreach (var readAllMaterial in allMaterials)
+            {
+                int count = 0;
+                foreach (var copy in copies)
+                {
+                    if (readAllMaterial.ISBN.Equals(copy.ISBN) && readAllMaterial.Location.Equals(copy.LibraryName)
+                                                               && readAllMaterial.TypeName.Equals(copy.TypeName))
+                        count++;
+                }
+
+                readAllMaterial.Available_Copies = count;
+            }
+
+            return allMaterials;
         }
 
         public bool CreateMaterial(int ssn, int isbn, string library, string author, string description, string title, string typeName,

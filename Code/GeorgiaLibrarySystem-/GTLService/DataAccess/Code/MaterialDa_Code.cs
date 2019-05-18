@@ -15,6 +15,27 @@ namespace GTLService.DataAccess.Code
             this._context = context;
         }
 
+        public List<Material> ReadMaterials(int isbn, string title, string author, int numOfRecords)
+        {
+            return _context.Materials
+                .Where(x => (isbn == 0 || x.ISBN.Equals(isbn.ToString())) &&
+                            x.Author.Contains(author) &&
+                            x.Title.Contains(title)
+                )
+                .Take(numOfRecords)
+                .ToList();
+        }
+
+        public List<Copy> ReadCopies(int isbn, string typeName)
+        {
+            var a = _context.Copies
+                .Where(x => (isbn == 0 || x.ISBN.Equals(isbn.ToString())) &&
+                    (typeName.Contains("0") || x.TypeName.Contains(typeName))
+                )
+                .ToList();
+            return a;
+        }
+
         public readAllMaterial ReadMaterials(int isbn)
         {
             return _context.readAllMaterials.Find(isbn);
