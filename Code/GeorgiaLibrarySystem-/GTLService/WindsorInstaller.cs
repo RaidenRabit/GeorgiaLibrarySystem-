@@ -10,9 +10,7 @@ using GTLService.Controller;
 using GTLService.Controller.IController;
 using GTLService.DataAccess.Code;
 using GTLService.DataAccess.Database;
-using GTLService.DataAccess.IDataAccess;
 using GTLService.DataManagement.Code;
-using GTLService.DataManagement.Database;
 using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService
@@ -29,7 +27,7 @@ namespace GTLService
                 Component.For<IMaterialService, MaterialService>(),
                 Component.For<IMaterialsDm, MaterialDm_Code>(),
                 Component.For<MaterialDa_Code, MaterialDa_Code>(),
-                Component.For<IPersonDa, PersonDa_Code>(),
+                Component.For<PersonDa_Code, PersonDa_Code>(),
                 Component.For<LibraryDa_Code, LibraryDa_Code>(),
                 Component.For<Context, Context>());
         }

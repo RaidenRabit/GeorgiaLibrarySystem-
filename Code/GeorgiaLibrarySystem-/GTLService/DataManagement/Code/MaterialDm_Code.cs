@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core;
 using GTLService.DataAccess.Code;
-using GTLService.DataAccess.IDataAccess;
+using GTLService.DataAccess.Database;
 using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.DataManagement.Code
@@ -10,9 +10,9 @@ namespace GTLService.DataManagement.Code
     {
         private readonly LibraryDa_Code _libraryDa;
         private readonly MaterialDa_Code _materialDa;
-        private readonly IPersonDa _personDa;
+        private readonly PersonDa_Code _personDa;
 
-        public MaterialDm_Code(MaterialDa_Code materialDa, LibraryDa_Code libraryDa, IPersonDa personDa)
+        public MaterialDm_Code(MaterialDa_Code materialDa, LibraryDa_Code libraryDa, PersonDa_Code personDa)
         {
             this._materialDa = materialDa;
             this._libraryDa = libraryDa;

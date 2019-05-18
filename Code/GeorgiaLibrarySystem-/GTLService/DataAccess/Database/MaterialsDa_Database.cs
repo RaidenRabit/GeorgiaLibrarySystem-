@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core;
-using GTLService.DataAccess.IDataAccess;
 
 namespace GTLService.DataAccess.Database
 {
-    public class MaterialsDa_Database : IMaterialsDa
+    public class MaterialsDa_Database 
     {
         private readonly Context _context;
         public MaterialsDa_Database(Context context)

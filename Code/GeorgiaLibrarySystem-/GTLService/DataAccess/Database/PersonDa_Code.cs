@@ -1,9 +1,8 @@
 ﻿using Core;
-using GTLService.DataAccess.IDataAccess;
 
 namespace GTLService.DataAccess.Database
 {
-    public class PersonDa_Code : IPersonDa
+    public class PersonDa_Code
     {
         private readonly Context _context;
         public PersonDa_Code(Context context)

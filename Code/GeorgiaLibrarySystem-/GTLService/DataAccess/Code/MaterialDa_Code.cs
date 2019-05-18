@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using Core;
-using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.DataAccess.Code
 {
