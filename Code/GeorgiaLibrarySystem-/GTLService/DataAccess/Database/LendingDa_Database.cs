@@ -1,12 +1,8 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
-using Core;
-using GTLService.DataAccess.IDataAccess;
+﻿using Core;
 
 namespace GTLService.DataAccess.Database
 {
-    public class LendingDa_Database: ILendingDa
+    public class LendingDa_Database
     {
         private readonly Context _context;
         public LendingDa_Database(Context context)
@@ -20,19 +16,9 @@ namespace GTLService.DataAccess.Database
             return _context.SaveChanges() > 0;
         }
 
-        public bool ReturnBook(Borrow borrow)
+        public bool ReturnBook(int copyId)
         {
-            return _context.Returning(borrow.CopyID) > 0;
-        }
-
-        public Borrow GetBorrow(int copyId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int MemberBorrowedBooks(int ssn)
-        {
-            throw new NotImplementedException();
+            return _context.Returning(copyId) > 0;
         }
     }
 }

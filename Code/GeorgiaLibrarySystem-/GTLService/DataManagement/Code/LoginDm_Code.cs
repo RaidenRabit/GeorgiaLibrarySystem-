@@ -1,13 +1,13 @@
-﻿using GTLService.DataManagement.IDataManagement;
-using GTLService.DataAccess.IDataAccess;
+﻿using GTLService.DataAccess.Code;
+using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.DataManagement.Code
 {
     public class LoginDm_Code : ILoginDm
     {
-        private readonly ILoginDa _loginDa;
+        private readonly LoginDa_Code _loginDa;
 
-        public LoginDm_Code(ILoginDa loginDa)
+        public LoginDm_Code(LoginDa_Code loginDa)
         {
             _loginDa = loginDa;
         }

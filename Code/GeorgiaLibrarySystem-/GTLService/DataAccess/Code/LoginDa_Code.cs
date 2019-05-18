@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using Core;
-using GTLService.DataAccess.IDataAccess;
 
 namespace GTLService.DataAccess.Code
 {
-    public class LoginDa_Code: ILoginDa
+    public class LoginDa_Code
     {
         private readonly Context _context;
         public LoginDa_Code(Context context)

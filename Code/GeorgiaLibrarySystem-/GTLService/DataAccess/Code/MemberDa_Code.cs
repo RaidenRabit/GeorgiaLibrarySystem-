@@ -1,11 +1,10 @@
 ﻿using System.Linq;
 using System.Data.Entity;
 using Core;
-using GTLService.DataAccess.IDataAccess;
 
 namespace GTLService.DataAccess.Code
 {
-    public class MemberDa_Code: IMemberDa
+    public class MemberDa_Code
     {
         private readonly Context _context;
         public MemberDa_Code(Context context)

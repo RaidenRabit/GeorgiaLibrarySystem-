@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using Core;
-using GTLService.DataAccess.IDataAccess;
 
 namespace GTLService.DataAccess.Code
 {
-    public class LendingDa_Code: ILendingDa
+    public class LendingDa_Code
     {
         private readonly Context _context;
         public LendingDa_Code(Context context)
@@ -36,7 +35,7 @@ namespace GTLService.DataAccess.Code
             }
         }
         
-        public virtual bool ReturnBook(Borrow borrow)
+        public virtual bool SaveBorrowChanges()
         {
             return _context.SaveChanges() > 0;
         }

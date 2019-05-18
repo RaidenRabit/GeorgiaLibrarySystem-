@@ -1,16 +1,16 @@
 ﻿using System;
 using Core;
-using GTLService.DataAccess.IDataAccess;
+using GTLService.DataAccess.Code;
 using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.DataManagement.Code
 {
     public class LendingDm_Code: ILendingDm
     {
-        private readonly ILendingDa _lendingDa;
-        private readonly IMemberDa _memberDa;
+        private readonly LendingDa_Code _lendingDa;
+        private readonly MemberDa_Code _memberDa;
         
-        public LendingDm_Code(ILendingDa lendingDa, IMemberDa memberDa)
+        public LendingDm_Code(LendingDa_Code lendingDa, MemberDa_Code memberDa)
         {
             _lendingDa = lendingDa;
             _memberDa = memberDa;
@@ -41,7 +41,7 @@ namespace GTLService.DataManagement.Code
                 if (borrow != null)
                 {
                     borrow.ToDate = DateTime.Now;
-                    return _lendingDa.ReturnBook(borrow);
+                    return _lendingDa.SaveBorrowChanges();
                 }
                 return false;
             }

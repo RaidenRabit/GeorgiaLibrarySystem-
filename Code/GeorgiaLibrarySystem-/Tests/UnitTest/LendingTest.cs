@@ -63,7 +63,7 @@ namespace Tests.UnitTest
             }
             mockLendingDa.Setup(x => x.GetBorrow(It.IsAny<int>()))
                 .Returns(borrow);
-            mockLendingDa.Setup(x => x.ReturnBook(It.IsAny<Borrow>()))
+            mockLendingDa.Setup(x => x.SaveBorrowChanges())
                 .Returns(true);
 
             var mockMemberDa = new Mock<MemberDa_Code>(null);

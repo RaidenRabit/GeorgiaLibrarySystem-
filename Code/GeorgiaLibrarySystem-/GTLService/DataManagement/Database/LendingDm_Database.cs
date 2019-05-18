@@ -1,15 +1,15 @@
 ﻿using System;
 using Core;
-using GTLService.DataAccess.IDataAccess;
+using GTLService.DataAccess.Database;
 using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.DataManagement.Database
 {
     public class LendingDm_Database: ILendingDm
     {
-        private readonly ILendingDa _lendingDa;
+        private readonly LendingDa_Database _lendingDa;
 
-        public LendingDm_Database(ILendingDa lendingDa)
+        public LendingDm_Database(LendingDa_Database lendingDa)
         {
             _lendingDa = lendingDa;
         }
@@ -30,7 +30,7 @@ namespace GTLService.DataManagement.Database
         {
             try
             {
-                return _lendingDa.ReturnBook(new Borrow{CopyID = copyId});
+                return _lendingDa.ReturnBook(copyId);
             }
             catch
             {
