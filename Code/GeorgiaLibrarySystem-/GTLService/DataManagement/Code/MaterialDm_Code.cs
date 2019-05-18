@@ -91,6 +91,8 @@ namespace GTLService.DataManagement.Code
                     {
                         _materialDa.CreateCopy(isbn, material.Location, material.TypeName);
                     }
+
+                    return true;
                 }
                 else
                 {

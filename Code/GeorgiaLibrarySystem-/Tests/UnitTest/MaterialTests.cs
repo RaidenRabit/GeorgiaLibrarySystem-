@@ -34,8 +34,8 @@ namespace Tests.UnitTest
 
             //Assert
             Assert.IsTrue(result.Count == 2);
-            Assert.IsTrue(result[1].Available_Copies == 2);
-            Assert.IsTrue(result[2].Available_Copies == 1);
+            Assert.IsTrue(result[0].Available_Copies == 2);
+            Assert.IsTrue(result[1].Available_Copies == 1);
         }
         
         [Test]
@@ -119,7 +119,7 @@ namespace Tests.UnitTest
             var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock.Object, personDa_Code_Mock.Object);
 
             //Act
-            var result = materialDm.DeleteMaterial(0, 0);
+            var result = materialDm.DeleteCopy(0, 0);
 
             //Assert
             Assert.IsTrue(result == testPassing);
