@@ -51,7 +51,7 @@ namespace Tests.IntegrationTest
 
         private void Setup(string approach)
         {
-            //ResetDatabase();
+            DatabaseTesting.ResetDatabase();
             Context context = new Context();
             switch (approach)
             {

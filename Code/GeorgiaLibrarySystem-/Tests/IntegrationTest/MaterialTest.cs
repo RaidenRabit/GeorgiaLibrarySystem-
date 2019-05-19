@@ -1,15 +1,9 @@
-﻿using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using Core;
+﻿using Core;
 using GTLService.Controller;
 using GTLService.DataAccess.Code;
 using GTLService.DataAccess.Database;
 using GTLService.DataManagement.Code;
 using GTLService.DataManagement.Database;
-using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
 using NUnit.Framework;
 
 namespace Tests.IntegrationTest
@@ -127,7 +121,7 @@ namespace Tests.IntegrationTest
         
         private void Setup(string approach)
         {
-            ResetDatabase();
+            DatabaseTesting.ResetDatabase();
             Context context = new Context();
             switch (approach)
             {
@@ -143,27 +137,6 @@ namespace Tests.IntegrationTest
                     MaterialsDm_Database materialsDm_Db = new MaterialsDm_Database(materialDa_Db);
                     _materialService = new MaterialService(materialsDm_Db);
                     break;
-            }
-        }
-        
-        private void ResetDatabase()
-        {
-            string connectionString =
-                "data source=localhost;initial catalog=GTL;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework";
-            
-            var assembly = Assembly.GetExecutingAssembly();
-            string resourceName = assembly.GetManifestResourceNames()
-                .Single(str => str.EndsWith("SQLCreateQuery.sql"));
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                string result = reader.ReadToEnd();
-
-                SqlConnection conn = new SqlConnection(connectionString);
-                Server server = new Server(new ServerConnection(conn));
-                server.ConnectionContext.ExecuteNonQuery(result);
-                conn.Close();
             }
         }
     }
