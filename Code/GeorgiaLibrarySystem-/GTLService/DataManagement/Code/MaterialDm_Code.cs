@@ -11,18 +11,20 @@ namespace GTLService.DataManagement.Code
         private readonly LibraryDa_Code _libraryDa;
         private readonly MaterialDa_Code _materialDa;
         private readonly PersonDa_Code _personDa;
+        private readonly CopyDa_Code _copyDa;
 
-        public MaterialDm_Code(MaterialDa_Code materialDa, LibraryDa_Code libraryDa, PersonDa_Code personDa)
+        public MaterialDm_Code(MaterialDa_Code materialDa, LibraryDa_Code libraryDa, PersonDa_Code personDa, CopyDa_Code copyDa)
         {
             this._materialDa = materialDa;
             this._libraryDa = libraryDa;
             this._personDa = personDa;
+            this._copyDa = copyDa;
         }
 
         public List<readAllMaterial> ReadMaterials(string materialTitle, string author, int numOfRecords = 10, int isbn = 0, string jobStatus = "0")
         {
             var materials = _materialDa.ReadMaterials(isbn, materialTitle, author, numOfRecords);
-            var copies = _materialDa.ReadCopies(isbn, jobStatus);
+            var copies = _copyDa.ReadCopies(isbn, jobStatus);
 
             List<readAllMaterial> allMaterials = new List<readAllMaterial>();
             readAllMaterial readAllMaterial;
@@ -89,13 +91,13 @@ namespace GTLService.DataManagement.Code
         {
             if(_personDa.CheckLibrarianSsn(ssn))
             {
-                if (_libraryDa.CheckLibraryName(library) && _materialDa.CheckTypeName(typeName))
+                if (_libraryDa.CheckLibraryName(library) && _copyDa.CheckTypeName(typeName))
                 {
                     if (!_materialDa.CheckMaterialIsbn(isbn))
                         _materialDa.CreateMaterial(isbn, author, description, title);
                     for (int i = 0; i < quantity; i++)
                     {
-                        _materialDa.CreateCopy(isbn, library, typeName);
+                        _copyDa.CreateCopy(isbn, library, typeName);
                     }
 
                     return true;
@@ -119,9 +121,9 @@ namespace GTLService.DataManagement.Code
 
         public bool DeleteCopy(int ssn, int copyId)
         {
-            if (_personDa.CheckLibrarianSsn(ssn) && _materialDa.CheckCopyId(copyId))
+            if (_personDa.CheckLibrarianSsn(ssn) && _copyDa.CheckCopyId(copyId))
             {
-                _materialDa.DeleteCopy(copyId);
+                _copyDa.DeleteCopy(copyId);
                 return true;
             }
 

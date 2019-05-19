@@ -135,7 +135,8 @@ namespace Tests.IntegrationTest
                     MaterialDa_Code materialDa_Code = new MaterialDa_Code(context);
                     LibraryDa_Code libraryDa_Code = new LibraryDa_Code(context);
                     PersonDa_Code personDa_Code = new PersonDa_Code(context);
-                    MaterialDm_Code materialsDm_Code = new MaterialDm_Code(materialDa_Code, libraryDa_Code, personDa_Code);
+                    CopyDa_Code copyDa_Code = new CopyDa_Code(context);
+                    MaterialDm_Code materialsDm_Code = new MaterialDm_Code(materialDa_Code, libraryDa_Code, personDa_Code, copyDa_Code);
                     _materialService = new MaterialService(materialsDm_Code);
                     break;
                 case "Database":

@@ -101,6 +101,7 @@
     <Compile Include="Controller\MaterialService.svc.cs">
       <DependentUpon>MaterialService.svc</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\Code\CopyDa_Code.cs" />
     <Compile Include="DataAccess\Code\LibraryDa_Code.cs" />
     <Compile Include="DataAccess\Code\MaterialDa_Code.cs" />
     <Compile Include="DataAccess\Database\MaterialsDa_Database.cs" />
