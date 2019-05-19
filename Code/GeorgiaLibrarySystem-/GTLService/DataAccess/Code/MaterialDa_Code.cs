@@ -43,7 +43,7 @@ namespace GTLService.DataAccess.Code
 
         public virtual bool CheckMaterialIsbn(int isbn)
         {
-            var material = _context.Materials.Find(isbn);
+            var material = _context.Materials.Find(isbn.ToString());
             return material != null;
         }
 
