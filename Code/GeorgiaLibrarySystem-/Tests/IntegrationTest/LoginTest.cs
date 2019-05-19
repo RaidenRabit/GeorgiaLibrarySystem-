@@ -1,7 +1,4 @@
 ﻿using NUnit.Framework;
-using Moq;
-using System.Collections.Generic;
-using System.Linq;
 using Core;
 using GTLService.DataAccess.Code;
 using GTLService.DataAccess.Database;
@@ -27,7 +24,7 @@ namespace Tests.IntegrationTest
         public void LoginService_Database_Login(int ssn, string password, bool passing)
         {
             //Arrange
-            var loginService = new LoginService(new LoginDm_Database(new LoginDa_Database(new Context())));
+            var loginService = new LoginService(new LoginDm_Database(new LoginDa_Database(FillPersonDatabase())));
 
             //Act
             var result = loginService.Login(ssn,password);
@@ -51,17 +48,7 @@ namespace Tests.IntegrationTest
         public void LoginService_Code_Login(int ssn, string password, bool passing)
         {
             //Arrange
-            var people = new List<Person>
-            {
-                new Person {SSN = 123456789, Password = "test"}
-            }.AsQueryable();
-            
-            var dbPeopleSet = DbContextMock.CreateDbSetMock(people);
-
-            var mock = new Mock<Context>();
-            mock.Setup(x => x.People).Returns(dbPeopleSet.Object);
-
-            var loginService = new LoginService(new LoginDm_Code(new LoginDa_Code(mock.Object)));
+            var loginService = new LoginService(new LoginDm_Code(new LoginDa_Code(FillPersonDatabase())));
 
             //Act
             var result = loginService.Login(ssn,password);
@@ -70,5 +57,17 @@ namespace Tests.IntegrationTest
             Assert.IsTrue(result == passing);
         }
         #endregion
+
+        private static Context FillPersonDatabase()
+        {
+            Context context = new Context();
+            context.Database.ExecuteSqlCommand("IF EXISTS(select * from Person where SSN=123456789) "+
+                "update Person set Password='test' where SSN=123456789 "+
+            "ELSE "+
+                "INSERT INTO Person (SSN, AddressID, CampusID, Phone, Password) "+
+                "VALUES (123456789, 5, 5, 20202020, 'test');");
+            context.SaveChanges();
+            return context;
+        }
     }
 }
