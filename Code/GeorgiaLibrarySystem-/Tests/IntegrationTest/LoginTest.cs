@@ -1,7 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using NUnit.Framework;
 using Core;
 using GTLService.DataAccess.Code;
@@ -37,7 +34,7 @@ namespace Tests.IntegrationTest
         [TestCase(123456789, "testnasdfnsndfnsdfjnsdnas", false, "Code")]//too long password
         [TestCase(1000000000, "", false, "Code")]//too long ssn
         [TestCase(1000000000, "testnasdfnsndfnsdfjnsdnas", false, "Code")]//too long ssn and password
-        public void LoginService_Database_Login(int ssn, string password, bool passing, string approach)
+        public void Login(int ssn, string password, bool passing, string approach)
         {
             //Arrange
             Setup(approach);

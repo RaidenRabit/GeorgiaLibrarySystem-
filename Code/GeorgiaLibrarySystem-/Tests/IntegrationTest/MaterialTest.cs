@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System;
+using Core;
 using GTLService.Controller;
 using GTLService.DataAccess.Code;
 using GTLService.DataAccess.Database;
@@ -136,6 +137,9 @@ namespace Tests.IntegrationTest
                     MaterialsDa_Database materialDa_Db = new MaterialsDa_Database(context);
                     MaterialsDm_Database materialsDm_Db = new MaterialsDm_Database(materialDa_Db);
                     _materialService = new MaterialService(materialsDm_Db);
+                    break;
+                default:
+                    new NotImplementedException();
                     break;
             }
         }
