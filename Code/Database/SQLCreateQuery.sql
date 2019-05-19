@@ -314,7 +314,8 @@ VALUES (1,'test book', 'TEST++', 'Hala'),
 		(4,'drama book', 'TEST++', 'ala'),
 		(5,'mystery book', 'TEST++', 'asdf'),
 		(6,'mystery book', 'TEST++', 'fdsa'),
-		(7,'history book', 'TEST++', 'laha');
+		(7,'history book', 'TEST++', 'laha'),
+		(8,'deletable material', 'TEST++', 'laha');
 
 SET IDENTITY_INSERT Copy ON;
 INSERT INTO Copy (CopyID, ISBN, TypeName, LibraryName)
