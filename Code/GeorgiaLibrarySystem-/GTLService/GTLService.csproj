@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="Controller\IController\ILoginService.cs" />
     <Compile Include="Controller\IController\IMaterialService.cs" />
+    <Content Include="Controller\LendingService.svc" />
     <Compile Include="Controller\LoginService.svc.cs">
       <DependentUpon>LoginService.svc</DependentUpon>
     </Compile>
@@ -103,12 +104,18 @@
     <Compile Include="DataAccess\IDataAccess\ILoginDa.cs" />
     <Compile Include="DataAccess\Code\LoginDa_Code.cs" />
     <Compile Include="DataAccess\Database\LoginDa_Database.cs" />
+    <Compile Include="DataAccess\Database\LendingDa_Database.cs" />
+    <Compile Include="DataAccess\Code\LendingDa_Code.cs" />
+    <Compile Include="DataAccess\Code\MemberDa_Code.cs" />
     <Compile Include="DataManagement\Code\MaterialDm_Code.cs" />
     <Compile Include="DataManagement\Database\MaterialsDm_Database.cs" />
     <Compile Include="DataManagement\IDataManagement\ILoginDm.cs" />
     <Compile Include="DataManagement\Code\LoginDm_Code.cs" />
     <Compile Include="DataManagement\Database\LoginDm_Database.cs" />
     <Compile Include="DataManagement\IDataManagement\IMaterialsDm.cs" />
+    <Compile Include="DataManagement\Code\LendingDm_Code.cs" />
+    <Compile Include="DataManagement\Database\LendingDm_Database.cs" />
+    <Compile Include="DataManagement\IDataManagement\ILendingDm.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

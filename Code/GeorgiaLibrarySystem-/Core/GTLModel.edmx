@@ -113,25 +113,7 @@
           <Property Name="Phone" Type="int" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="16" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="readAllMaterials">
-          <Key>
-            <PropertyRef Name="ISBN" />
-            <PropertyRef Name="Title" />
-            <PropertyRef Name="Description" />
-            <PropertyRef Name="Location" />
-            <PropertyRef Name="TypeName" />
-          </Key>
-          <Property Name="ISBN" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Author" Type="varchar" MaxLength="50" />
-          <Property Name="Description" Type="varchar(max)" Nullable="false" />
-          <Property Name="Location" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="TypeName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Available_Copies" Type="int" />
-        </EntityType>
-        <Association Name="FK__Address__PostalC__398D8EEE">
+        <Association Name="FK__Address__PostalC__3A81B327">
           <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
           <End Role="Address" Type="Self.Address" Multiplicity="*" />
           <ReferentialConstraint>
@@ -320,6 +302,9 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
         <Function Name="Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSN" Type="int" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Returning" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CopyId" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="GTLModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />

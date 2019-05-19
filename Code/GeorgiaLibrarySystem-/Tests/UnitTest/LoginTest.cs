@@ -1,12 +1,13 @@
 ﻿using NUnit.Framework;
-using GtlService.DataAccess.Code;
-using GtlService.DataManagement.Code;
+using GTLService.DataAccess.Code;
+using GTLService.DataManagement.Code;
 using Moq;
 
 namespace Tests.UnitTest
 {
     public class LoginTest
     {
+        #region Code
         [Test]
         //pass
         [TestCase(555555555, "test", true)]
@@ -16,7 +17,7 @@ namespace Tests.UnitTest
         [TestCase(9999999, "test", false)]
         [TestCase(999999999, "testtesttesttesttest", false)]
         [TestCase(10000000, "", false)]
-        public void LoginDmTest(int ssn, string password, bool passing)
+        public void LoginDm_Code_Login(int ssn, string password, bool passing)
         {
             //Arrange
             var mock = new Mock<LoginDa_Code>(null);
@@ -30,5 +31,6 @@ namespace Tests.UnitTest
             //Assert
             Assert.IsTrue(result == passing);
         }
+        #endregion
     }
 }

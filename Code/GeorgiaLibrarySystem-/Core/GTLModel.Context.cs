@@ -55,6 +55,15 @@ namespace Core
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Login", sSNParameter, passwordParameter);
         }
     
+        public virtual int Returning(Nullable<int> copyId)
+        {
+            var copyIdParameter = copyId.HasValue ?
+                new ObjectParameter("CopyId", copyId) :
+                new ObjectParameter("CopyId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Returning", copyIdParameter);
+        }
+    
         public virtual ObjectResult<Nullable<int>> CreateMaterials(Nullable<int> sSN, Nullable<int> iSBN, string library, string author, string description, string title, string typeName, Nullable<int> quantity)
         {
             var sSNParameter = sSN.HasValue ?

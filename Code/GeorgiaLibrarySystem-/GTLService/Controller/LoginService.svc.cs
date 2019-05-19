@@ -1,10 +1,10 @@
 ﻿using System.ServiceModel;
-using GtlService.DataManagement.iDataManagement;
+using GTLService.DataManagement.IDataManagement;
 using GTLService.Controller.IController;
 
 namespace GTLService.Controller
 {
-    [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
+    [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)] 
     public class LoginService : ILoginService
     {
         private readonly ILoginDm _loginDm;

@@ -82,6 +82,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controller\LendingService.svc" />
     <Content Include="Controller\LoginService.svc" />
     <Content Include="Controller\MaterialService.svc" />
     <Content Include="Global.asax" />
@@ -90,6 +91,10 @@
   <ItemGroup>
     <Compile Include="Controller\IController\ILoginService.cs" />
     <Compile Include="Controller\IController\IMaterialService.cs" />
+    <Compile Include="Controller\IController\ILendingService.cs" />
+    <Compile Include="Controller\LendingService.svc.cs">
+      <DependentUpon>LendingService.svc</DependentUpon>
+    </Compile>
     <Compile Include="Controller\LoginService.svc.cs">
       <DependentUpon>LoginService.svc</DependentUpon>
     </Compile>
@@ -101,8 +106,14 @@
     <Compile Include="DataAccess\Database\MaterialsDa_Database.cs" />
     <Compile Include="DataAccess\Database\PersonDa_Code.cs" />
     <Compile Include="DataAccess\IDataAccess\ILoginDa.cs" />
+    <Compile Include="DataAccess\Code\LendingDa_Code.cs" />
+    <Compile Include="DataAccess\Code\MemberDa_Code.cs" />
+    <Compile Include="DataAccess\Database\LendingDa_Database.cs" />
     <Compile Include="DataAccess\Code\LoginDa_Code.cs" />
     <Compile Include="DataAccess\Database\LoginDa_Database.cs" />
+    <Compile Include="DataManagement\Code\LendingDm_Code.cs" />
+    <Compile Include="DataManagement\Database\LendingDm_Database.cs" />
+    <Compile Include="DataManagement\IDataManagement\ILendingDm.cs" />
     <Compile Include="DataManagement\Code\MaterialDm_Code.cs" />
     <Compile Include="DataManagement\Database\MaterialsDm_Database.cs" />
     <Compile Include="DataManagement\IDataManagement\ILoginDm.cs" />

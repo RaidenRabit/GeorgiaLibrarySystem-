@@ -2,15 +2,14 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Core;
-using GtlService.DataAccess.Database;
-using GtlService.DataAccess.IDataAccess;
-using GtlService.DataManagement.Database;
-using GtlService.DataManagement.iDataManagement;
 using GTLService.Controller;
 using GTLService.Controller.IController;
 using GTLService.DataAccess.Code;
 using GTLService.DataAccess.Database;
 using GTLService.DataManagement.Code;
+using GTLService.DataManagement.IDataManagement;
+using GTLService.DataAccess.Database;
+using GTLService.DataManagement.Database;
 using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService
@@ -34,30 +33,17 @@ namespace GTLService
         }
     }
 }
+                Component.For<ILoginService, LoginService>().LifeStyle.Transient,
+                Component.For<ILoginDm, LoginDm_Database>().LifeStyle.Transient,
+                Component.For<LoginDa_Database, LoginDa_Database>().LifeStyle.Transient,
 
-/*
- * using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using GtlService.DataAccess.Database;
-using GtlService.DataAccess.IDataAccess;
-using GtlService.DataManagement.Database;
-using GtlService.DataManagement.iDataManagement;
-using GTLService.Controller.IController;
-using Unity;
-using Unity.Wcf;
+                Component.For<ILendingService, LendingService>().LifeStyle.Transient,
+                Component.For<ILendingDm, LendingDm_Database>().LifeStyle.Transient,
+                Component.For<LendingDa_Database, LendingDa_Database>().LifeStyle.Transient,
 
-namespace GTLService
-{
-    public class WcfServiceFactory: UnityServiceHostFactory
-    {
-        protected override void ConfigureContainer(IUnityContainer container)
-        {
-            container.RegisterType<ILoginDm,LoginDm_Database>();
-            container.RegisterType<ILoginDa,LoginDa_Database>();
-            container.RegisterType<ILoginService,ILoginService>();
+                Component.For<Context,Context>().LifeStyle.Transient);
+
+
         }
     }
 }
- */
