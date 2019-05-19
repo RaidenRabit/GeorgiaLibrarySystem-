@@ -84,7 +84,7 @@ namespace Tests.IntegrationTest
         [TestCase(0, 0, "Code", false)] //invalid ssn and isbn
         [TestCase(123456785, 0, "Code", false)] //valid ssn, invalid isbn
         [TestCase(0, 1, "Code", false)] //invalid ssn, valid isbn
-        [TestCase(123456785, 1, "Code", true)] //valid ssn and isbn
+        [TestCase(123456785, 8, "Code", true)] //valid ssn and isbn
         //Database approach
         [TestCase(0, 0, "Database", false)] //invalid ssn and isbn
         [TestCase(123456785, 0, "Database", false)] //valid ssn, invalid isbn

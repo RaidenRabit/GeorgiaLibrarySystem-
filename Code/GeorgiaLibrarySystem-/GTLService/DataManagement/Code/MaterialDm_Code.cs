@@ -103,6 +103,7 @@ namespace GTLService.DataManagement.Code
                 {
                     if (_libraryDa.CheckLibraryName(library) && _materialDa.CheckTypeName(typeName))
                     {
+                        _materialDa.CreateMaterial(isbn, author, description, title);
                         for (int i = 0; i < quantity; i++)
                         {
                             _materialDa.CreateCopy(isbn, library, typeName);
