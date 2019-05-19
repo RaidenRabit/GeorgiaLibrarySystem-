@@ -113,6 +113,24 @@
           <Property Name="Phone" Type="int" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="16" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="readAllMaterials">
+          <Key>
+            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="Location" />
+            <PropertyRef Name="TypeName" />
+          </Key>
+          <Property Name="ISBN" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Author" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="Location" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Available_Copies" Type="int" />
+        </EntityType>
         <Association Name="FK__Address__PostalC__398D8EEE">
           <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
           <End Role="Address" Type="Self.Address" Multiplicity="*" />
@@ -281,6 +299,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CreateMaterials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSN" Type="int" Mode="In" />
+          <Parameter Name="ISBN" Type="int" Mode="In" />
+          <Parameter Name="library" Type="varchar" Mode="In" />
+          <Parameter Name="Author" Type="nvarchar" Mode="In" />
+          <Parameter Name="Description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+          <Parameter Name="TypeName" Type="varchar" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteCopy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSN" Type="int" Mode="In" />
+          <Parameter Name="CopyId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteMaterial" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SSN" Type="int" Mode="In" />
+          <Parameter Name="ISBN" Type="int" Mode="In" />
+        </Function>
         <Function Name="Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSN" Type="int" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
@@ -302,6 +338,17 @@
           <EntitySet Name="MemberCard" EntityType="Self.MemberCard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberType" EntityType="Self.MemberType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="readAllMaterials" EntityType="Self.readAllMaterials" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [readAllMaterials].[ISBN] AS [ISBN], 
+    [readAllMaterials].[Title] AS [Title], 
+    [readAllMaterials].[Author] AS [Author], 
+    [readAllMaterials].[Description] AS [Description], 
+    [readAllMaterials].[Location] AS [Location], 
+    [readAllMaterials].[TypeName] AS [TypeName], 
+    [readAllMaterials].[Available_Copies] AS [Available_Copies]
+    FROM [dbo].[readAllMaterials] AS [readAllMaterials]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__Address__PostalC__398D8EEE" Association="Self.FK__Address__PostalC__398D8EEE">
             <End Role="Location" EntitySet="Location" />
             <End Role="Address" EntitySet="Address" />
@@ -742,9 +789,44 @@
             <Parameter Name="Password" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Returning">
+          <Parameter Name="CopyId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="readAllMaterials" EntityType="GTLModel.readAllMaterial" />
+          <FunctionImport Name="CreateMaterials" ReturnType="Collection(Int32)">
+            <Parameter Name="SSN" Mode="In" Type="Int32" />
+            <Parameter Name="ISBN" Mode="In" Type="Int32" />
+            <Parameter Name="library" Mode="In" Type="String" />
+            <Parameter Name="Author" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="TypeName" Mode="In" Type="String" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteCopy" ReturnType="Collection(Int32)">
+            <Parameter Name="SSN" Mode="In" Type="Int32" />
             <Parameter Name="CopyId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="DeleteMaterial" ReturnType="Collection(Int32)">
+            <Parameter Name="SSN" Mode="In" Type="Int32" />
+            <Parameter Name="ISBN" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="readAllMaterial">
+          <Key>
+            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Description" />
+            <PropertyRef Name="Location" />
+            <PropertyRef Name="TypeName" />
+          </Key>
+          <Property Name="ISBN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Available_Copies" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -872,6 +954,22 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="Login" FunctionName="GTLModel.Store.Login" />
           <FunctionImportMapping FunctionImportName="Returning" FunctionName="GTLModel.Store.Returning" />
+          <EntitySetMapping Name="readAllMaterials">
+            <EntityTypeMapping TypeName="GTLModel.readAllMaterial">
+              <MappingFragment StoreEntitySet="readAllMaterials">
+                <ScalarProperty Name="Available_Copies" ColumnName="Available_Copies" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CreateMaterials" FunctionName="GTLModel.Store.CreateMaterials" />
+          <FunctionImportMapping FunctionImportName="DeleteCopy" FunctionName="GTLModel.Store.DeleteCopy" />
+          <FunctionImportMapping FunctionImportName="DeleteMaterial" FunctionName="GTLModel.Store.DeleteMaterial" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

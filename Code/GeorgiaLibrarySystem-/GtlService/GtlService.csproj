@@ -84,11 +84,13 @@
   <ItemGroup>
     <Content Include="Controller\LendingService.svc" />
     <Content Include="Controller\LoginService.svc" />
+    <Content Include="Controller\MaterialService.svc" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\IController\ILoginService.cs" />
+    <Compile Include="Controller\IController\IMaterialService.cs" />
     <Compile Include="Controller\IController\ILendingService.cs" />
     <Compile Include="Controller\LendingService.svc.cs">
       <DependentUpon>LendingService.svc</DependentUpon>
@@ -96,6 +98,13 @@
     <Compile Include="Controller\LoginService.svc.cs">
       <DependentUpon>LoginService.svc</DependentUpon>
     </Compile>
+    <Compile Include="Controller\MaterialService.svc.cs">
+      <DependentUpon>MaterialService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\Code\LibraryDa_Code.cs" />
+    <Compile Include="DataAccess\Code\MaterialDa_Code.cs" />
+    <Compile Include="DataAccess\Database\MaterialsDa_Database.cs" />
+    <Compile Include="DataAccess\Database\PersonDa_Code.cs" />
     <Compile Include="DataAccess\Code\LendingDa_Code.cs" />
     <Compile Include="DataAccess\Code\MemberDa_Code.cs" />
     <Compile Include="DataAccess\Database\LendingDa_Database.cs" />
@@ -104,9 +113,12 @@
     <Compile Include="DataManagement\Code\LendingDm_Code.cs" />
     <Compile Include="DataManagement\Database\LendingDm_Database.cs" />
     <Compile Include="DataManagement\IDataManagement\ILendingDm.cs" />
+    <Compile Include="DataManagement\Code\MaterialDm_Code.cs" />
+    <Compile Include="DataManagement\Database\MaterialsDm_Database.cs" />
     <Compile Include="DataManagement\IDataManagement\ILoginDm.cs" />
     <Compile Include="DataManagement\Code\LoginDm_Code.cs" />
     <Compile Include="DataManagement\Database\LoginDm_Database.cs" />
+    <Compile Include="DataManagement\IDataManagement\IMaterialsDm.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -134,6 +146,15 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'bad test project|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
