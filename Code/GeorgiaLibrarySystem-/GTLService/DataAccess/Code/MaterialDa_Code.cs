@@ -93,7 +93,7 @@ namespace GTLService.DataAccess.Code
             try
             {
                 var material = _context.Materials.Single(o => o.ISBN.Equals(isbn.ToString()));
-                _context.Copies.Remove(material);
+                _context.Materials.Remove(material);
                 _context.SaveChanges();
                 return true;
             }
