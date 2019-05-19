@@ -105,7 +105,6 @@
     <Compile Include="DataAccess\Code\MaterialDa_Code.cs" />
     <Compile Include="DataAccess\Database\MaterialsDa_Database.cs" />
     <Compile Include="DataAccess\Database\PersonDa_Code.cs" />
-    <Compile Include="DataAccess\IDataAccess\ILoginDa.cs" />
     <Compile Include="DataAccess\Code\LendingDa_Code.cs" />
     <Compile Include="DataAccess\Code\MemberDa_Code.cs" />
     <Compile Include="DataAccess\Database\LendingDa_Database.cs" />
