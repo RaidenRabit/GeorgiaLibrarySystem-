@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using Core;
 
 namespace GTLService.DataAccess.Code
@@ -12,19 +10,17 @@ namespace GTLService.DataAccess.Code
         private readonly Context _context;
         public CopyDa_Code(Context context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public virtual bool CheckCopyId(int id)
         {
-            var copy = _context.Copies.Find(id);
-            return copy != null;
+            return _context.Copies.Find(id) != null;
         }
 
         public virtual bool CheckTypeName(string typeName)
         {
-            var copy = _context.Copies.FirstOrDefault(x => x.TypeName.Equals(typeName));
-            return copy != null;
+            return _context.Copies.FirstOrDefault(x => x.TypeName.Equals(typeName)) != null;
         }
         
         public virtual bool CreateCopy(int isbn, string libraryName, string typeName)

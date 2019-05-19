@@ -7,13 +7,12 @@ namespace GTLService.DataAccess.Code
         private readonly Context _context;
         public LibraryDa_Code(Context context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public virtual bool CheckLibraryName(string libraryName)
         {
-            var library = _context.Libraries.Find(libraryName);
-            return library != null;
+            return _context.Libraries.Find(libraryName) != null;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace GTLService.DataAccess.Database
         private readonly Context _context;
         public MaterialsDa_Database(Context context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public virtual List<readAllMaterial> ReadMaterials(string materialTitle, string author,

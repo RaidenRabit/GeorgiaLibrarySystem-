@@ -10,7 +10,7 @@ namespace GTLService.DataAccess.Code
         private readonly Context _context;
         public MaterialDa_Code(Context context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public virtual List<Material> ReadMaterials(int isbn, string title, string author, int numOfRecords)
@@ -31,8 +31,7 @@ namespace GTLService.DataAccess.Code
 
         public virtual bool CheckMaterialIsbn(int isbn)
         {
-            var material = _context.Materials.Find(isbn.ToString());
-            return material != null;
+            return _context.Materials.Find(isbn.ToString()) != null;
         }
 
         public virtual bool CreateMaterial(int isbn, string author, string description, string title)

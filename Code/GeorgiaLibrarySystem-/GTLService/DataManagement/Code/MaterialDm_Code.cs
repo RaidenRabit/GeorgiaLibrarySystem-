@@ -15,10 +15,10 @@ namespace GTLService.DataManagement.Code
 
         public MaterialDm_Code(MaterialDa_Code materialDa, LibraryDa_Code libraryDa, PersonDa_Code personDa, CopyDa_Code copyDa)
         {
-            this._materialDa = materialDa;
-            this._libraryDa = libraryDa;
-            this._personDa = personDa;
-            this._copyDa = copyDa;
+            _materialDa = materialDa;
+            _libraryDa = libraryDa;
+            _personDa = personDa;
+            _copyDa = copyDa;
         }
 
         public List<readAllMaterial> ReadMaterials(string materialTitle, string author, int numOfRecords = 10, int isbn = 0, string jobStatus = "0")

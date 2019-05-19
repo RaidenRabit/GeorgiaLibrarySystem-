@@ -7,7 +7,7 @@ namespace GTLService.DataAccess.Database
         private readonly Context _context;
         public PersonDa_Code(Context context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public virtual bool CheckLibrarianSsn(int ssn)
