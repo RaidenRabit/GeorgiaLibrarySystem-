@@ -8,7 +8,7 @@ SET DB="master"
 
 SET LOGIN="SA"
 
-SET PASSWORD="12345"
+SET PASSWORD="Password12!"
 
 SET INPUT=%cd%\SQLCreateQuery.sql
 
