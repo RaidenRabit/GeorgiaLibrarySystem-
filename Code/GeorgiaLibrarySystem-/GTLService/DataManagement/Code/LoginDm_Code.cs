@@ -1,15 +1,15 @@
-﻿using GtlService.DataManagement.iDataManagement;
-using GtlService.DataAccess.IDataAccess;
+﻿using GTLService.DataAccess.Code;
+using GTLService.DataManagement.IDataManagement;
 
-namespace GtlService.DataManagement.Code
+namespace GTLService.DataManagement.Code
 {
     public class LoginDm_Code : ILoginDm
     {
-        private readonly ILoginDa _loginDa;
+        private readonly LoginDa_Code _loginDa;
 
-        public LoginDm_Code(ILoginDa loginDa)
+        public LoginDm_Code(LoginDa_Code loginDa)
         {
-            this._loginDa = loginDa;
+            _loginDa = loginDa;
         }
 
         public bool Login(int ssn, string password)

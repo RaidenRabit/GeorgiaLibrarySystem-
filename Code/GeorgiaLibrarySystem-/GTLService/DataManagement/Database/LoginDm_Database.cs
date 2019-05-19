@@ -1,13 +1,13 @@
-﻿using GtlService.DataManagement.iDataManagement;
-using GtlService.DataAccess.IDataAccess;
+﻿using GTLService.DataAccess.Database;
+using GTLService.DataManagement.IDataManagement;
 
-namespace GtlService.DataManagement.Database
+namespace GTLService.DataManagement.Database
 {
     public class LoginDm_Database : ILoginDm
     {
-        private readonly ILoginDa _loginDa;
+        private readonly LoginDa_Database _loginDa;
 
-        public LoginDm_Database(ILoginDa loginDa)
+        public LoginDm_Database(LoginDa_Database loginDa)
         {
             this._loginDa = loginDa;
         }

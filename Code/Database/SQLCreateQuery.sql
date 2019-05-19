@@ -11,6 +11,11 @@ Go
 use GTL;
 GO
 
+EXEC sp_configure 'nested triggers', 0 ;  
+GO  
+RECONFIGURE;  
+GO  
+
 --Creates
 
 CREATE TABLE Location (
@@ -93,10 +98,10 @@ CREATE TABLE Borrow (
 	ToDate date,
 	PRIMARY KEY (CopyID, SSN, FromDate)
 );
+GO
 
 --Procedures
 
-GO
 CREATE PROCEDURE Login @SSN int, @Password nvarchar(16)
 AS
 
@@ -115,9 +120,18 @@ ELSE
     END
 GO
 
+CREATE PROCEDURE Returning @CopyId int
+AS
+
+UPDATE Borrow
+	SET ToDate = GETDATE()
+	FROM Borrow
+	where CopyID = @CopyID
+		AND ToDate is null
+GO
+
 --Triggers
 
-GO
 CREATE OR ALTER TRIGGER Lending
 ON Borrow
 FOR INSERT
@@ -133,61 +147,23 @@ BEGIN
 	FROM Member INNER JOIN MemberType ON Member.TypeName = MemberType.TypeName
 	WHERE SSN = @SSN;
 
-    IF (Select Count(*) from Borrow where SSN = @SSN AND ToDate IS NULL) > @NrOfBooks AND --user limit not exceeded
-		(Select Count(*) from Borrow where CopyID = @CopyID AND ToDate IS NULL) = 0 --book is available
+    IF (Select Count(*) from Borrow where SSN = @SSN AND ToDate IS NULL) > @NrOfBooks OR --user limit not exceeded
+		(Select Count(*) from Borrow where CopyID = @CopyID AND ToDate IS NULL) > 1 --book is available
 		BEGIN
 			Rollback transaction
 		END
-
-	UPDATE Borrow
-	SET FromDate = GETDATE()
-	FROM Borrow
-	where CopyID = @CopyID
-		AND SSN = @SSN
-		AND FromDate = @FromDate
+	ELSE
+		BEGIN
+			UPDATE Borrow
+			SET FromDate = GETDATE(), ToDate = null
+			FROM Borrow
+			where CopyID = @CopyID
+				AND SSN = @SSN
+				AND FromDate = @FromDate
+		END
 End
 GO
 
-CREATE OR ALTER TRIGGER Returning
-ON Borrow
-FOR UPDATE
-AS
-BEGIN
-	DECLARE @CopyID INT;
-	DECLARE @SSN INT;
-	SELECT @CopyID = CopyID, @SSN = SSN FROM INSERTED
-
-	DECLARE @LendingLenght INT;
-	DECLARE @GracePeriod INT;
-	SELECT @LendingLenght = LendingLenght, @GracePeriod = GracePeriod
-	FROM Member INNER JOIN MemberType ON Member.TypeName = MemberType.TypeName
-	WHERE SSN = @SSN;
-
-	DECLARE @ToDate Date;
-	Select @ToDate = FromDate from Borrow where SSN = @SSN 
-		AND CopyID = @CopyID
-		AND ToDate IS NULL
-	
-	DECLARE @ReturnDate Date;
-	SELECT @ReturnDate = DATEADD(DAY, @LendingLenght + @GracePeriod, @ToDate)
-
-	UPDATE Borrow
-	SET ToDate = GETDATE()
-	FROM Borrow
-	where CopyID = @CopyID
-		AND SSN = @SSN
-		AND ToDate = @ToDate
-
-	IF @ReturnDate > GETDATE()
-		BEGIN
-			select 0 --returned after the end of grace period
-		END
-	ELSE
-		BEGIN
-			select 1 --returned bofore the end of grace period
-		END
-End
-go
 --Inserts
 
 INSERT INTO Location (PostalCode, City)
