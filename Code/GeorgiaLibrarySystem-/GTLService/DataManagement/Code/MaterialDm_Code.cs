@@ -89,31 +89,18 @@ namespace GTLService.DataManagement.Code
         {
             if(_personDa.CheckLibrarianSsn(ssn))
             {
-                if (_materialDa.CheckMaterialIsbn(isbn))
+                if (_libraryDa.CheckLibraryName(library) && _materialDa.CheckTypeName(typeName))
                 {
-                    var material = _materialDa.ReadMaterials(isbn);
+                    if (!_materialDa.CheckMaterialIsbn(isbn))
+                        _materialDa.CreateMaterial(isbn, author, description, title);
                     for (int i = 0; i < quantity; i++)
                     {
-                        _materialDa.CreateCopy(isbn, material.Location, material.TypeName);
+                        _materialDa.CreateCopy(isbn, library, typeName);
                     }
 
                     return true;
                 }
-                else
-                {
-                    if (_libraryDa.CheckLibraryName(library) && _materialDa.CheckTypeName(typeName))
-                    {
-                        _materialDa.CreateMaterial(isbn, author, description, title);
-                        for (int i = 0; i < quantity; i++)
-                        {
-                            _materialDa.CreateCopy(isbn, library, typeName);
-                        }
-
-                        return true;
-                    }
-
-                    return false;
-                }
+                
             }
 
             return false;

@@ -34,9 +34,9 @@ namespace GTLService.DataAccess.Code
             return a;
         }
 
-        public virtual readAllMaterial ReadMaterials(int isbn)
+        public virtual Material ReadMaterials(int isbn)
         {
-            return _context.readAllMaterials.Find(isbn.ToString());
+            return _context.Materials.Find(isbn.ToString());
         }
 
         public virtual bool CheckMaterialIsbn(int isbn)
