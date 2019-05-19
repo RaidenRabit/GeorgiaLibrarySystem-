@@ -22,19 +22,19 @@ namespace Tests.IntegrationTest
         
         [Test]
         //Code approach
-        [TestCase("", "", null, null, "", "Code", 10)]
-        [TestCase("horror book", "", null, null, "", "Code", 1)]
-        [TestCase("horror book", "hala", null, null, "", "Code", 5)]
-        [TestCase("", "", 6, null, "", "Code", 6)]
-        [TestCase("", "", null, 1, "", "Code", 4)]
-        [TestCase("", "", null, null, "book", "Code", 7)]
+        [TestCase("", "", 10, null, "0", "Code", 10)]
+        [TestCase("horror book", "", 10, null, "0", "Code", 1)]
+        [TestCase("horror book", "Pala", 10, null, "0", "Code", 1)]
+        [TestCase("", "", 6, null, "0", "Code", 6)]
+        [TestCase("", "", 10, 1, "0", "Code", 4)]
+        [TestCase("", "", 10, null, "books", "Code", 7)]
         //Database approach
-        [TestCase("", "", null, null, "", "Database", 10)]
-        [TestCase("horror book", "", null, null, "", "Database", 1)]
-        [TestCase("horror book", "hala", null, null, "", "Database", 5)]
-        [TestCase("", "", 6, null, "", "Database", 6)]
-        [TestCase("", "", null, 1, "", "Database", 4)]
-        [TestCase("", "", null, null, "book", "Database", 7)]
+        [TestCase("", "", 10, null, "0", "Database", 10)]
+        [TestCase("horror book", "", 10, null, "0", "Database", 1)]
+        [TestCase("horror book", "Pala", 10, null, "0", "Database", 1)]
+        [TestCase("", "", 6, null, "0", "Database", 6)]
+        [TestCase("", "", 10, 1, "0", "Database", 4)]
+        [TestCase("", "", 10, null, "books", "Database", 7)]
         public void GetMaterials(string materialTitle, string author, int numOfRecords, int isbn, string jobStatus,
             string approach, int resultCount)
         {
@@ -107,12 +107,12 @@ namespace Tests.IntegrationTest
         [TestCase(0,0, "Code", false)] //invalid ssn and id
         [TestCase(123456785,0, "Code", false)] //valid ssn, invalid id
         [TestCase(0,1, "Code", false)] //invalid ssn, valid id
-        [TestCase(123456785,1, "Code", true)] //valid ssn and id
+        [TestCase(123456785,12, "Code", true)] //valid ssn and id
         //Db approach
         [TestCase(0,0, "Database", false)] //invalid ssn and id
         [TestCase(123456785,0, "Database", false)] //valid ssn, invalid id
         [TestCase(0,1, "Database", false)] //invalid ssn, valid id
-        [TestCase(123456785,1, "Database", true)] //valid ssn and id
+        [TestCase(123456785,13, "Database", true)] //valid ssn and id
         public void DeleteCopy(int ssn, int copyId, string approach, bool passing)
         {
             //Arrange

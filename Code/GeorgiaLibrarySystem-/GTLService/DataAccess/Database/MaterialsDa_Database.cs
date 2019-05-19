@@ -21,7 +21,7 @@ namespace GTLService.DataAccess.Database
                 .Where(x => (isbn == 0 || x.ISBN.Equals(isbn.ToString())) &&
                             x.Author.Contains(author) &&
                             x.Title.Contains(materialTitle) &&
-                             (jobStatus.Contains("0") || x.TypeName.Contains(jobStatus))
+                             (jobStatus.Contains("0") || x.TypeName.Equals(jobStatus))
                 )
               .Take(numOfRecords)  
               .ToList();

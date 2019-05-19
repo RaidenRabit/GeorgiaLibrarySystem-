@@ -56,6 +56,11 @@ namespace GTLService.DataManagement.Code
                 }
 
             }
+            if(allMaterials.Count > numOfRecords)
+                for (int i = allMaterials.Count - 1; i >= numOfRecords; i--)
+                {
+                    allMaterials.RemoveAt(i);
+                }
 
             allMaterials = CountAvailableCopies(allMaterials, copies);
             return allMaterials;

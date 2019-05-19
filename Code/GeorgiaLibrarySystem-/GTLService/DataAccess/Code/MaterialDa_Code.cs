@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using Core;
@@ -28,7 +30,7 @@ namespace GTLService.DataAccess.Code
         {
             var a = _context.Copies
                 .Where(x => (isbn == 0 || x.ISBN.Equals(isbn.ToString())) &&
-                    (typeName.Contains("0") || x.TypeName.Contains(typeName))
+                    (typeName.Contains("0") || x.TypeName.Equals(typeName))
                 )
                 .ToList();
             return a;
@@ -90,7 +92,9 @@ namespace GTLService.DataAccess.Code
         {
             try
             {
-                _context.Materials.Remove(new Material {ISBN = isbn.ToString()});
+                var material = _context.Materials.Single(o => o.ISBN.Equals(isbn.ToString()));
+                _context.Copies.Remove(material);
+                _context.SaveChanges();
                 return true;
             }
             catch (SqlException)
@@ -103,7 +107,9 @@ namespace GTLService.DataAccess.Code
         {
             try
             {
-                _context.Copies.Remove(new Copy {CopyID = copyId});
+                var copy = _context.Copies.Single(o => o.CopyID == copyId);
+                _context.Copies.Remove(copy);
+                _context.SaveChanges();
                 return true;
             }
             catch (SqlException)
