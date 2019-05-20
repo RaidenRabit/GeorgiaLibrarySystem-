@@ -12,7 +12,7 @@ namespace GTLService.DataManagement.Database
 
         public MaterialsDm_Database(MaterialsDa_Database materialDa)
         {
-            this._materialDa = materialDa;
+            _materialDa = materialDa;
         }
 
         public List<readAllMaterial> ReadMaterials(string materialTitle, string author, int numOfRecords = 10, int isbn = 0, string jobStatus = "0")

@@ -18,16 +18,19 @@ namespace Tests.UnitTest
         {
             //Arrange
             var materialDa_Code_Mock = new Mock<MaterialDa_Code>(null);
-            var libraryDa_Code_Mock = new LibraryDa_Code(null);
-            var personDa_Code_Mock = new PersonDa_Code(null);
+            var libraryDa_Code_Mock = new Mock<LibraryDa_Code>(null);
+            var personDa_Code_Mock = new Mock<PersonDa_Code>(null);
+            var copyDa_Code_Mock = new Mock<CopyDa_Code>(null);
+            var lendingDa_Code_Mock = new Mock<LendingDa_Code>(null);
             var objects = MaterialsSetUp();
 
             materialDa_Code_Mock.Setup(x => x.ReadMaterials(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(objects.Item2);
-            materialDa_Code_Mock.Setup(x => x.ReadCopies(It.IsAny<int>(), It.IsAny<string>()))
+            copyDa_Code_Mock.Setup(x => x.ReadCopies(It.IsAny<int>(), It.IsAny<string>()))
                 .Returns(objects.Item1);
-
-            var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock, personDa_Code_Mock);
+            
+            var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock.Object,
+                personDa_Code_Mock.Object, copyDa_Code_Mock.Object, lendingDa_Code_Mock.Object);
 
             //Act
             var result = materialDm.ReadMaterials(materialTitle, author, numOfRecords, isbn, jobStatus);
@@ -51,6 +54,8 @@ namespace Tests.UnitTest
             var materialDa_Code_Mock = new Mock<MaterialDa_Code>(null);
             var libraryDa_Code_Mock = new Mock<LibraryDa_Code>(null);
             var personDa_Code_Mock = new Mock<PersonDa_Code>(null);
+            var copyDa_Code_Mock = new Mock<CopyDa_Code>(null);
+            var lendingDa_Code_Mock = new Mock<LendingDa_Code>(null);
             var objects = MaterialsSetUp();
             
             personDa_Code_Mock.Setup(x => x.CheckLibrarianSsn(It.IsAny<int>()))
@@ -59,12 +64,13 @@ namespace Tests.UnitTest
                 .Returns(isbnPassing);
             libraryDa_Code_Mock.Setup(x => x.CheckLibraryName(It.IsAny<string>()))
                 .Returns(libraryNamePassing);
-            materialDa_Code_Mock.Setup(x => x.CheckTypeName(It.IsAny<string>()))
+            copyDa_Code_Mock.Setup(x => x.CheckTypeName(It.IsAny<string>()))
                 .Returns(typeNamePassing);
             materialDa_Code_Mock.Setup(x => x.ReadMaterials(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Returns(objects.Item2);
-
-            var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock.Object, personDa_Code_Mock.Object);
+            
+            var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock.Object,
+                personDa_Code_Mock.Object, copyDa_Code_Mock.Object, lendingDa_Code_Mock.Object);
 
             //Act
             var result = materialDm.CreateMaterial(0, 0,null,null,null,null,null, 0);
@@ -84,13 +90,16 @@ namespace Tests.UnitTest
             var materialDa_Code_Mock = new Mock<MaterialDa_Code>(null);
             var libraryDa_Code_Mock = new Mock<LibraryDa_Code>(null);
             var personDa_Code_Mock = new Mock<PersonDa_Code>(null);
+            var copyDa_Code_Mock = new Mock<CopyDa_Code>(null);
+            var lendingDa_Code_Mock = new Mock<LendingDa_Code>(null);
             
             personDa_Code_Mock.Setup(x => x.CheckLibrarianSsn(It.IsAny<int>()))
                 .Returns(ssnPassing);
             materialDa_Code_Mock.Setup(x => x.CheckMaterialIsbn(It.IsAny<int>()))
                 .Returns(isbnPassing);
-
-            var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock.Object, personDa_Code_Mock.Object);
+            
+            var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock.Object,
+                personDa_Code_Mock.Object, copyDa_Code_Mock.Object, lendingDa_Code_Mock.Object);
 
             //Act
             var result = materialDm.DeleteMaterial(0, 0);
@@ -110,13 +119,16 @@ namespace Tests.UnitTest
             var materialDa_Code_Mock = new Mock<MaterialDa_Code>(null);
             var libraryDa_Code_Mock = new Mock<LibraryDa_Code>(null);
             var personDa_Code_Mock = new Mock<PersonDa_Code>(null);
+            var copyDa_Code_Mock = new Mock<CopyDa_Code>(null);
+            var lendingDa_Code_Mock = new Mock<LendingDa_Code>(null);
             
             personDa_Code_Mock.Setup(x => x.CheckLibrarianSsn(It.IsAny<int>()))
                 .Returns(ssnPassing);
-            materialDa_Code_Mock.Setup(x => x.CheckCopyId(It.IsAny<int>()))
+            copyDa_Code_Mock.Setup(x => x.CheckCopyId(It.IsAny<int>()))
                 .Returns(idPassing);
 
-            var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock.Object, personDa_Code_Mock.Object);
+            var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock.Object,
+                personDa_Code_Mock.Object, copyDa_Code_Mock.Object, lendingDa_Code_Mock.Object);
 
             //Act
             var result = materialDm.DeleteCopy(0, 0);

@@ -11,18 +11,28 @@ namespace GTLService.DataManagement.Code
         private readonly LibraryDa_Code _libraryDa;
         private readonly MaterialDa_Code _materialDa;
         private readonly PersonDa_Code _personDa;
+        private readonly CopyDa_Code _copyDa;
+        private readonly LendingDa_Code _lendingDa;
 
-        public MaterialDm_Code(MaterialDa_Code materialDa, LibraryDa_Code libraryDa, PersonDa_Code personDa)
+        public MaterialDm_Code(MaterialDa_Code materialDa, LibraryDa_Code libraryDa, PersonDa_Code personDa, CopyDa_Code copyDa,
+            LendingDa_Code lendingDa)
         {
-            this._materialDa = materialDa;
-            this._libraryDa = libraryDa;
-            this._personDa = personDa;
+            _materialDa = materialDa;
+            _libraryDa = libraryDa;
+            _personDa = personDa;
+            _copyDa = copyDa;
+            _lendingDa = lendingDa;
         }
 
         public List<readAllMaterial> ReadMaterials(string materialTitle, string author, int numOfRecords = 10, int isbn = 0, string jobStatus = "0")
         {
             var materials = _materialDa.ReadMaterials(isbn, materialTitle, author, numOfRecords);
-            var copies = _materialDa.ReadCopies(isbn, jobStatus);
+            var copies = _copyDa.ReadCopies(isbn, jobStatus);
+            for (int i = copies.Count - 1; i >= 0; i--)
+            {
+                if(_lendingDa.GetBorrow(copies[i].CopyID) != null)
+                    copies.RemoveAt(i);
+            }
 
             List<readAllMaterial> allMaterials = new List<readAllMaterial>();
             readAllMaterial readAllMaterial;
@@ -89,30 +99,18 @@ namespace GTLService.DataManagement.Code
         {
             if(_personDa.CheckLibrarianSsn(ssn))
             {
-                if (_materialDa.CheckMaterialIsbn(isbn))
+                if (_libraryDa.CheckLibraryName(library) && _copyDa.CheckTypeName(typeName))
                 {
-                    var material = _materialDa.ReadMaterials(isbn);
+                    if (!_materialDa.CheckMaterialIsbn(isbn))
+                        _materialDa.CreateMaterial(isbn, author, description, title);
                     for (int i = 0; i < quantity; i++)
                     {
-                        _materialDa.CreateCopy(isbn, material.Location, material.TypeName);
+                        _copyDa.CreateCopy(isbn, library, typeName);
                     }
 
                     return true;
                 }
-                else
-                {
-                    if (_libraryDa.CheckLibraryName(library) && _materialDa.CheckTypeName(typeName))
-                    {
-                        for (int i = 0; i < quantity; i++)
-                        {
-                            _materialDa.CreateCopy(isbn, library, typeName);
-                        }
-
-                        return true;
-                    }
-
-                    return false;
-                }
+                
             }
 
             return false;
@@ -131,9 +129,9 @@ namespace GTLService.DataManagement.Code
 
         public bool DeleteCopy(int ssn, int copyId)
         {
-            if (_personDa.CheckLibrarianSsn(ssn) && _materialDa.CheckCopyId(copyId))
+            if (_personDa.CheckLibrarianSsn(ssn) && _copyDa.CheckCopyId(copyId))
             {
-                _materialDa.DeleteCopy(copyId);
+                _copyDa.DeleteCopy(copyId);
                 return true;
             }
 

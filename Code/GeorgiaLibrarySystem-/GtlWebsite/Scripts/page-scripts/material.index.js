@@ -72,12 +72,14 @@ function GetMaterials() {
 
 
 function Borrow(obj) {
-    var isbn = $(obj).closest("tr").find("td:nth-child(1)").html();
+    var isbnNo = $(obj).closest("tr").find("td:nth-child(1)").html();
+    var availableCopiesNo = $(obj).closest("tr").find("td:nth-child(7)").html();
     $.ajax({
         type: "GET",
-        url: "/Material/Borrow",
+        url: "/Materials/Borrow",
         data: {
-            id: isbn
+            isbn: isbnNo,
+            availableCopies: availableCopiesNo
         },
         contentType: "application/json; charset=utf-8",
         dataType: "html",

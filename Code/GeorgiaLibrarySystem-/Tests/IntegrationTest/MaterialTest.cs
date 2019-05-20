@@ -76,15 +76,15 @@ namespace Tests.IntegrationTest
         
         [Test]
         //Code approach
-        [TestCase(0,0, "Code", false)] //invalid ssn and isbn
-        [TestCase(123456785,0, "Code", false)] //valid ssn, invalid isbn
-        [TestCase(0,1, "Code", false)] //invalid ssn, valid isbn
-        [TestCase(123456785,1, "Code", true)] //valid ssn and isbn
+        [TestCase(0, 0, "Code", false)] //invalid ssn and isbn
+        [TestCase(123456785, 0, "Code", false)] //valid ssn, invalid isbn
+        [TestCase(0, 1, "Code", false)] //invalid ssn, valid isbn
+        [TestCase(123456785, 8, "Code", true)] //valid ssn and isbn
         //Database approach
-        [TestCase(0,0, "Database", false)] //invalid ssn and isbn
-        [TestCase(123456785,0, "Database", false)] //valid ssn, invalid isbn
-        [TestCase(0,1, "Database", false)] //invalid ssn, valid isbn
-        [TestCase(123456785,1, "Database", true)] //valid ssn and isbn
+        [TestCase(0, 0, "Database", false)] //invalid ssn and isbn
+        [TestCase(123456785, 0, "Database", false)] //valid ssn, invalid isbn
+        [TestCase(0, 1, "Database", false)] //invalid ssn, valid isbn
+        [TestCase(123456785, 8, "Database", true)] //valid ssn and isbn
         public void DeleteMaterial(int ssn, int isbn, string approach, bool passing)
         {
             //Arrange
@@ -130,7 +130,9 @@ namespace Tests.IntegrationTest
                     MaterialDa_Code materialDa_Code = new MaterialDa_Code(context);
                     LibraryDa_Code libraryDa_Code = new LibraryDa_Code(context);
                     PersonDa_Code personDa_Code = new PersonDa_Code(context);
-                    MaterialDm_Code materialsDm_Code = new MaterialDm_Code(materialDa_Code, libraryDa_Code, personDa_Code);
+                    CopyDa_Code copyDa_Code = new CopyDa_Code(context);
+                    LendingDa_Code lendingDa_Code = new LendingDa_Code(context);
+                    MaterialDm_Code materialsDm_Code = new MaterialDm_Code(materialDa_Code, libraryDa_Code, personDa_Code, copyDa_Code, lendingDa_Code);
                     _materialService = new MaterialService(materialsDm_Code);
                     break;
                 case "Database":

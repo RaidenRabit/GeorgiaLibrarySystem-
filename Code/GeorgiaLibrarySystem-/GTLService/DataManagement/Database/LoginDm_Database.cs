@@ -9,7 +9,7 @@ namespace GTLService.DataManagement.Database
 
         public LoginDm_Database(LoginDa_Database loginDa)
         {
-            this._loginDa = loginDa;
+            _loginDa = loginDa;
         }
 
         public bool Login(int ssn, string password)

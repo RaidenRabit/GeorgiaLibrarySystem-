@@ -171,6 +171,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controller\CopyService.svc" />
     <Content Include="Controller\LendingService.svc" />
     <Content Include="Controller\LoginService.svc" />
     <Content Include="Controller\MaterialService.svc" />
@@ -178,9 +179,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\CopyService.svc.cs">
+      <DependentUpon>CopyService.svc</DependentUpon>
+    </Compile>
     <Compile Include="Controller\IController\ILoginService.cs" />
     <Compile Include="Controller\IController\IMaterialService.cs" />
     <Compile Include="Controller\IController\ILendingService.cs" />
+    <Compile Include="Controller\IController\ICopyService.cs" />
     <Compile Include="Controller\LendingService.svc.cs">
       <DependentUpon>LendingService.svc</DependentUpon>
     </Compile>
@@ -190,6 +195,7 @@
     <Compile Include="Controller\MaterialService.svc.cs">
       <DependentUpon>MaterialService.svc</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\Code\CopyDa_Code.cs" />
     <Compile Include="DataAccess\Code\LibraryDa_Code.cs" />
     <Compile Include="DataAccess\Code\MaterialDa_Code.cs" />
     <Compile Include="DataAccess\Database\MaterialsDa_Database.cs" />
@@ -199,8 +205,11 @@
     <Compile Include="DataAccess\Database\LendingDa_Database.cs" />
     <Compile Include="DataAccess\Code\LoginDa_Code.cs" />
     <Compile Include="DataAccess\Database\LoginDa_Database.cs" />
+    <Compile Include="DataManagement\Code\CopyDm_Code.cs" />
     <Compile Include="DataManagement\Code\LendingDm_Code.cs" />
+    <Compile Include="DataManagement\Database\CopyDm_Database.cs" />
     <Compile Include="DataManagement\Database\LendingDm_Database.cs" />
+    <Compile Include="DataManagement\IDataManagement\ICopyDm.cs" />
     <Compile Include="DataManagement\IDataManagement\ILendingDm.cs" />
     <Compile Include="DataManagement\Code\MaterialDm_Code.cs" />
     <Compile Include="DataManagement\Database\MaterialsDm_Database.cs" />

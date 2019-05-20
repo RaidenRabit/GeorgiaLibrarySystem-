@@ -11,6 +11,11 @@ Go
 use GTL;
 GO
 
+EXEC sp_configure 'nested triggers', 0 ;  
+GO  
+RECONFIGURE;  
+GO  
+
 --Creates
 
 CREATE TABLE Location (
@@ -93,10 +98,10 @@ CREATE TABLE Borrow (
 	ToDate date,
 	PRIMARY KEY (CopyID, SSN, FromDate)
 );
-GO
 
 --Procedures
 
+GO
 CREATE PROCEDURE Login @SSN int, @Password nvarchar(16)
 AS
 
@@ -113,6 +118,15 @@ ELSE
     BEGIN
         SELECT 0
     END
+GO
+
+CREATE PROCEDURE Returning @CopyId int
+AS
+UPDATE Borrow
+	SET ToDate = GETDATE()
+	FROM Borrow
+	where CopyID = @CopyID
+	AND ToDate is null
 GO
 
 drop procedure if exists [CreateMaterials]
@@ -173,18 +187,9 @@ else
 	end
 go
 
-CREATE PROCEDURE Returning @CopyId int
-AS
-
-UPDATE Borrow
-	SET ToDate = GETDATE()
-	FROM Borrow
-	where CopyID = @CopyID
-		AND ToDate is null
-GO
-
 --Triggers
 
+GO
 CREATE OR ALTER TRIGGER Lending
 ON Borrow
 FOR INSERT
@@ -205,18 +210,15 @@ BEGIN
 		BEGIN
 			Rollback transaction
 		END
-	ELSE
-		BEGIN
-			UPDATE Borrow
-			SET FromDate = GETDATE(), ToDate = null
-			FROM Borrow
-			where CopyID = @CopyID
-				AND SSN = @SSN
-				AND FromDate = @FromDate
-		END
+
+	UPDATE Borrow
+	SET FromDate = GETDATE()
+	FROM Borrow
+	where CopyID = @CopyID
+		AND SSN = @SSN
+		AND FromDate = @FromDate
 End
 GO
-
 
 --Views
 drop view if exists [readAllMaterials]
@@ -224,7 +226,7 @@ go
 CREATE VIEW readAllMaterials AS
 with a as ( 
   SELECT Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName as Location, copy.TypeName
-  FROM Copy inner join Material on Material.isbn = Copy.isbn inner join Borrow on Copy.CopyID = Borrow.CopyID where Borrow.ToDate is null
+  FROM Copy inner join Material on Material.isbn = Copy.isbn
   )
 
 SELECT distinct Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName as Location, copy.TypeName,
@@ -315,7 +317,7 @@ VALUES (1,'test book', 'TEST++', 'Hala'),
 		(5,'mystery book', 'TEST++', 'asdf'),
 		(6,'mystery book', 'TEST++', 'fdsa'),
 		(7,'history book', 'TEST++', 'laha'),
-		(8,'deletable material', 'TEST++', 'laha');
+		(8,'deletable material', 'TEST++', 'fdsa');
 
 SET IDENTITY_INSERT Copy ON;
 INSERT INTO Copy (CopyID, ISBN, TypeName, LibraryName)
