@@ -4,8 +4,8 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>440</x>
-      <y>150</y>
+      <x>420</x>
+      <y>170</y>
       <w>100</w>
       <h>140</h>
     </coordinates>
@@ -20,8 +20,8 @@ OnboardDate</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>210</x>
-      <y>200</y>
+      <x>190</x>
+      <y>220</y>
       <w>120</w>
       <h>100</h>
     </coordinates>
@@ -35,8 +35,8 @@ ExpirationDate</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>630</x>
-      <y>130</y>
+      <x>610</x>
+      <y>150</y>
       <w>100</w>
       <h>130</h>
     </coordinates>
@@ -51,8 +51,8 @@ _ToDate_</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>490</x>
-      <y>390</y>
+      <x>470</x>
+      <y>410</y>
       <w>100</w>
       <h>120</h>
     </coordinates>
@@ -66,8 +66,8 @@ AddressID</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>230</x>
-      <y>320</y>
+      <x>210</x>
+      <y>340</y>
       <w>100</w>
       <h>140</h>
     </coordinates>
@@ -83,8 +83,8 @@ Number</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>70</x>
-      <y>310</y>
+      <x>50</x>
+      <y>330</y>
       <w>100</w>
       <h>130</h>
     </coordinates>
@@ -98,8 +98,8 @@ TypeName</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>800</x>
-      <y>130</y>
+      <x>780</x>
+      <y>150</y>
       <w>100</w>
       <h>130</h>
     </coordinates>
@@ -114,8 +114,8 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>340</y>
+      <x>300</x>
+      <y>360</y>
       <w>190</w>
       <h>120</h>
     </coordinates>
@@ -125,8 +125,8 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>890</x>
-      <y>170</y>
+      <x>870</x>
+      <y>190</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -136,8 +136,8 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>190</y>
+      <x>300</x>
+      <y>210</y>
       <w>140</w>
       <h>60</h>
     </coordinates>
@@ -147,8 +147,8 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>720</x>
-      <y>150</y>
+      <x>700</x>
+      <y>170</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -158,8 +158,8 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>530</x>
-      <y>170</y>
+      <x>510</x>
+      <y>190</y>
       <w>120</w>
       <h>30</h>
     </coordinates>
@@ -169,8 +169,8 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>580</x>
-      <y>200</y>
+      <x>560</x>
+      <y>220</y>
       <w>240</w>
       <h>240</h>
     </coordinates>
@@ -180,8 +180,8 @@ LibraryName</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>160</x>
-      <y>70</y>
+      <x>140</x>
+      <y>90</y>
       <w>140</w>
       <h>290</h>
     </coordinates>
@@ -191,8 +191,8 @@ LibraryName</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>630</x>
-      <y>270</y>
+      <x>610</x>
+      <y>290</y>
       <w>100</w>
       <h>140</h>
     </coordinates>
@@ -207,8 +207,8 @@ NrOfBooks</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>530</x>
-      <y>210</y>
+      <x>510</x>
+      <y>230</y>
       <w>120</w>
       <h>110</h>
     </coordinates>
@@ -218,8 +218,8 @@ NrOfBooks</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>970</x>
-      <y>290</y>
+      <x>950</x>
+      <y>310</y>
       <w>100</w>
       <h>120</h>
     </coordinates>
@@ -232,8 +232,8 @@ Lendable</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>890</x>
-      <y>190</y>
+      <x>870</x>
+      <y>210</y>
       <w>100</w>
       <h>150</h>
     </coordinates>
@@ -243,8 +243,8 @@ Lendable</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>70</x>
-      <y>150</y>
+      <x>50</x>
+      <y>170</y>
       <w>100</w>
       <h>130</h>
     </coordinates>
@@ -257,8 +257,8 @@ _TypeName_</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>30</x>
-      <y>170</y>
+      <x>10</x>
+      <y>190</y>
       <w>60</w>
       <h>210</h>
     </coordinates>
@@ -268,8 +268,8 @@ _TypeName_</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>280</x>
-      <y>50</y>
+      <x>260</x>
+      <y>70</y>
       <w>100</w>
       <h>140</h>
     </coordinates>
@@ -285,8 +285,8 @@ Password</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>370</x>
-      <y>70</y>
+      <x>350</x>
+      <y>90</y>
       <w>90</w>
       <h>130</h>
     </coordinates>
@@ -296,8 +296,8 @@ Password</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
-      <y>90</y>
+      <x>160</x>
+      <y>110</y>
       <w>120</w>
       <h>290</h>
     </coordinates>
@@ -307,8 +307,8 @@ Password</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>970</x>
-      <y>150</y>
+      <x>950</x>
+      <y>170</y>
       <w>90</w>
       <h>110</h>
     </coordinates>
@@ -323,8 +323,8 @@ Author</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>190</x>
-      <y>100</y>
+      <x>170</x>
+      <y>120</y>
       <w>110</w>
       <h>270</h>
     </coordinates>
@@ -334,8 +334,8 @@ Author</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>360</x>
-      <y>380</y>
+      <x>340</x>
+      <y>400</y>
       <w>100</w>
       <h>140</h>
     </coordinates>
@@ -349,8 +349,8 @@ City</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>360</y>
+      <x>300</x>
+      <y>380</y>
       <w>60</w>
       <h>70</h>
     </coordinates>
