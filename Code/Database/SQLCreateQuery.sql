@@ -224,7 +224,9 @@ go
 CREATE VIEW readAllMaterials AS
 with a as ( 
   SELECT Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName as Location, copy.TypeName
-  FROM Copy inner join Material on Material.isbn = Copy.isbn inner join Borrow on Copy.CopyID = Borrow.CopyID where Borrow.ToDate is null
+  FROM Copy left join Borrow on Copy.CopyID = Borrow.CopyID
+   inner join Material on Material.isbn = Copy.isbn
+   where Borrow.CopyID is null or (Borrow.ToDate is not null and Borrow.CopyID is not null)
   )
 
 SELECT distinct Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName as Location, copy.TypeName,
