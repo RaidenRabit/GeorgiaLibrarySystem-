@@ -117,6 +117,16 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Connected Services\CopyServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\LendingServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\LoginServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -136,6 +146,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\CopyServiceReference\CopyService.wsdl" />
+    <None Include="Connected Services\CopyServiceReference\CopyService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\CopyServiceReference\CopyService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\LendingServiceReference\LendingService.wsdl" />
+    <None Include="Connected Services\LendingServiceReference\LendingService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\LendingServiceReference\LendingService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\LoginServiceReference\LoginService.disco" />
     <None Include="Connected Services\LoginServiceReference\configuration91.svcinfo" />
     <None Include="Connected Services\LoginServiceReference\configuration.svcinfo" />
@@ -150,6 +174,20 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\MaterialServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\CopyServiceReference\CopyService.disco" />
+    <None Include="Connected Services\CopyServiceReference\configuration91.svcinfo" />
+    <None Include="Connected Services\CopyServiceReference\configuration.svcinfo" />
+    <None Include="Connected Services\CopyServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\LendingServiceReference\LendingService.disco" />
+    <None Include="Connected Services\LendingServiceReference\configuration91.svcinfo" />
+    <None Include="Connected Services\LendingServiceReference\configuration.svcinfo" />
+    <None Include="Connected Services\LendingServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -272,6 +310,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\CopyServiceReference\" />
+    <WCFMetadataStorage Include="Connected Services\LendingServiceReference\" />
     <WCFMetadataStorage Include="Connected Services\LoginServiceReference\" />
     <WCFMetadataStorage Include="Connected Services\MaterialServiceReference\" />
   </ItemGroup>

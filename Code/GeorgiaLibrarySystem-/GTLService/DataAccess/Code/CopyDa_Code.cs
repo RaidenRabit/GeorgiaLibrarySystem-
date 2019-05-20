@@ -61,5 +61,17 @@ namespace GTLService.DataAccess.Code
                 return false;
             }
         }
+
+        public virtual List<Copy> GetAvailableCopyId(int isbn)
+        {
+            try
+            {
+                return _context.Copies.Where(x => x.ISBN.Equals(isbn.ToString())).ToList();
+            }
+            catch (SqlException)
+            {
+                return null;
+            }
+        }
     }
 }

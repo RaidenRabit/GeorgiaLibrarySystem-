@@ -12,19 +12,27 @@ namespace GTLService.DataManagement.Code
         private readonly MaterialDa_Code _materialDa;
         private readonly PersonDa_Code _personDa;
         private readonly CopyDa_Code _copyDa;
+        private readonly LendingDa_Code _lendingDa;
 
-        public MaterialDm_Code(MaterialDa_Code materialDa, LibraryDa_Code libraryDa, PersonDa_Code personDa, CopyDa_Code copyDa)
+        public MaterialDm_Code(MaterialDa_Code materialDa, LibraryDa_Code libraryDa, PersonDa_Code personDa, CopyDa_Code copyDa,
+            LendingDa_Code lendingDa)
         {
             _materialDa = materialDa;
             _libraryDa = libraryDa;
             _personDa = personDa;
             _copyDa = copyDa;
+            _lendingDa = lendingDa;
         }
 
         public List<readAllMaterial> ReadMaterials(string materialTitle, string author, int numOfRecords = 10, int isbn = 0, string jobStatus = "0")
         {
             var materials = _materialDa.ReadMaterials(isbn, materialTitle, author, numOfRecords);
             var copies = _copyDa.ReadCopies(isbn, jobStatus);
+            for (int i = copies.Count - 1; i >= 0; i--)
+            {
+                if(_lendingDa.GetBorrow(copies[i].CopyID) != null)
+                    copies.RemoveAt(i);
+            }
 
             List<readAllMaterial> allMaterials = new List<readAllMaterial>();
             readAllMaterial readAllMaterial;
