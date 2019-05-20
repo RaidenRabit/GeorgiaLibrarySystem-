@@ -6,6 +6,7 @@ namespace GtlWebsite.Controllers
 {
     public class LoginController : Controller
     {
+        LoginServiceClient _client = new LoginServiceClient();
         // GET: Login
         public ActionResult Index()
         {
@@ -17,8 +18,8 @@ namespace GtlWebsite.Controllers
         public ActionResult Index(Person person)
         {
             //new InstanceContext(this)
-            LoginServiceClient client = new LoginServiceClient();
-            if (client.Login(person.SSN, person.Password))
+            _client = new LoginServiceClient();
+            if (_client.Login(person.SSN, person.Password))
             {
                 Session["SSN"] = person.SSN;
                 return RedirectToAction("Index", "Home");
