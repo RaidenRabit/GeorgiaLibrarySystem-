@@ -35,12 +35,20 @@ namespace GTLService.DataManagement.Code
 
         public int GetTotalNrCopies(int isbn)
         {
-            throw new NotImplementedException();
+            return _copyDa.ReadCopies(isbn, "books").Count;
         }
 
         public int GetOutOnLoan(int isbn)
         {
-            throw new NotImplementedException();
+            var copies = _copyDa.ReadCopies(isbn, "books");
+            int count = 0;
+            foreach (var copy in copies)
+            {
+                if (_lendingDa.GetBorrow(copy.CopyID) != null)
+                    count++;
+            }
+
+            return count;
         }
     }
 }

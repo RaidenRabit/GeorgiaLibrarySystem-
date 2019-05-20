@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Linq;
+using Core;
 
 namespace GTLService.DataAccess.Database
 {
@@ -19,6 +20,11 @@ namespace GTLService.DataAccess.Database
         public bool ReturnBook(int copyId)
         {
             return _context.Returning(copyId) > 0;
+        }
+
+        public bool CheckAvailable(int copyId)
+        {
+            return _context.Borrows.FirstOrDefault(x => x.CopyID == copyId && x.ToDate == null) == null;
         }
     }
 }

@@ -245,6 +245,7 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -284,8 +285,8 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Materials\Index.cshtml" />
-    <Content Include="Views\Materials\_BorrowSuccess.cshtml" />
-    <Content Include="Views\Materials\_BorrowFail.cshtml" />
+    <Content Include="Views\Materials\_failedBorrow.cshtml" />
+    <Content Include="Views\Materials\_succesfullBorrow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

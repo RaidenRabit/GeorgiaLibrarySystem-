@@ -30,6 +30,8 @@ namespace GtlWebsite
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/bundles/materials").Include(
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-1.12.1.min.js",
                 "~/Scripts/page-scripts/material.index.js"));
         }
     }
