@@ -21,6 +21,7 @@ namespace Tests.UnitTest
             var libraryDa_Code_Mock = new Mock<LibraryDa_Code>(null);
             var personDa_Code_Mock = new Mock<PersonDa_Code>(null);
             var copyDa_Code_Mock = new Mock<CopyDa_Code>(null);
+            var lendingDa_Code_Mock = new Mock<LendingDa_Code>(null);
             var objects = MaterialsSetUp();
 
             materialDa_Code_Mock.Setup(x => x.ReadMaterials(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
@@ -29,7 +30,7 @@ namespace Tests.UnitTest
                 .Returns(objects.Item1);
             
             var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock.Object,
-                personDa_Code_Mock.Object, copyDa_Code_Mock.Object);
+                personDa_Code_Mock.Object, copyDa_Code_Mock.Object, lendingDa_Code_Mock.Object);
 
             //Act
             var result = materialDm.ReadMaterials(materialTitle, author, numOfRecords, isbn, jobStatus);
@@ -54,6 +55,7 @@ namespace Tests.UnitTest
             var libraryDa_Code_Mock = new Mock<LibraryDa_Code>(null);
             var personDa_Code_Mock = new Mock<PersonDa_Code>(null);
             var copyDa_Code_Mock = new Mock<CopyDa_Code>(null);
+            var lendingDa_Code_Mock = new Mock<LendingDa_Code>(null);
             var objects = MaterialsSetUp();
             
             personDa_Code_Mock.Setup(x => x.CheckLibrarianSsn(It.IsAny<int>()))
@@ -68,7 +70,7 @@ namespace Tests.UnitTest
                 .Returns(objects.Item2);
             
             var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock.Object,
-                personDa_Code_Mock.Object, copyDa_Code_Mock.Object);
+                personDa_Code_Mock.Object, copyDa_Code_Mock.Object, lendingDa_Code_Mock.Object);
 
             //Act
             var result = materialDm.CreateMaterial(0, 0,null,null,null,null,null, 0);
@@ -89,6 +91,7 @@ namespace Tests.UnitTest
             var libraryDa_Code_Mock = new Mock<LibraryDa_Code>(null);
             var personDa_Code_Mock = new Mock<PersonDa_Code>(null);
             var copyDa_Code_Mock = new Mock<CopyDa_Code>(null);
+            var lendingDa_Code_Mock = new Mock<LendingDa_Code>(null);
             
             personDa_Code_Mock.Setup(x => x.CheckLibrarianSsn(It.IsAny<int>()))
                 .Returns(ssnPassing);
@@ -96,7 +99,7 @@ namespace Tests.UnitTest
                 .Returns(isbnPassing);
             
             var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock.Object,
-                personDa_Code_Mock.Object, copyDa_Code_Mock.Object);
+                personDa_Code_Mock.Object, copyDa_Code_Mock.Object, lendingDa_Code_Mock.Object);
 
             //Act
             var result = materialDm.DeleteMaterial(0, 0);
@@ -117,6 +120,7 @@ namespace Tests.UnitTest
             var libraryDa_Code_Mock = new Mock<LibraryDa_Code>(null);
             var personDa_Code_Mock = new Mock<PersonDa_Code>(null);
             var copyDa_Code_Mock = new Mock<CopyDa_Code>(null);
+            var lendingDa_Code_Mock = new Mock<LendingDa_Code>(null);
             
             personDa_Code_Mock.Setup(x => x.CheckLibrarianSsn(It.IsAny<int>()))
                 .Returns(ssnPassing);
@@ -124,7 +128,7 @@ namespace Tests.UnitTest
                 .Returns(idPassing);
 
             var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock.Object,
-                personDa_Code_Mock.Object, copyDa_Code_Mock.Object);
+                personDa_Code_Mock.Object, copyDa_Code_Mock.Object, lendingDa_Code_Mock.Object);
 
             //Act
             var result = materialDm.DeleteCopy(0, 0);
