@@ -1,6 +1,6 @@
 ﻿using Core;
 
-namespace GTLService.DataAccess.Database
+namespace GTLService.DataAccess.Code
 {
     public class PersonDa_Code
     {
@@ -13,12 +13,6 @@ namespace GTLService.DataAccess.Database
         public virtual bool CheckLibrarianSsn(int ssn)
         {
             var person = _context.Librarians.Find(ssn);
-            return person != null;
-        }
-
-        public virtual bool CheckMemberSsn(int ssn)
-        {
-            var person = _context.Members.Find(ssn);
             return person != null;
         }
     }
