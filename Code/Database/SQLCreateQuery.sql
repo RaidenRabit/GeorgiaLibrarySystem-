@@ -11,11 +11,6 @@ Go
 use GTL;
 GO
 
-EXEC sp_configure 'nested triggers', 0 ;  
-GO  
-RECONFIGURE;  
-GO  
-
 --Creates
 
 CREATE TABLE Location (
@@ -120,6 +115,64 @@ ELSE
     END
 GO
 
+drop procedure if exists [CreateMaterials]
+go
+CREATE PROCEDURE [CreateMaterials] @SSN int, @ISBN int, @library varchar(50), @Author nvarchar(50), @Description varchar(max),
+									@Title nvarchar(100), @TypeName varchar(50), @Quantity int
+AS
+if EXISTS(select * from Librarian where Librarian.SSN = @SSN) and
+	exists(select * from Library where Library.LibraryName like @library) and
+	exists(select * from MaterialType where MaterialType.TypeName like @TypeName)
+	begin
+	if not exists(select * from Material where Material.ISBN = @ISBN)
+		begin
+		INSERT INTO Material (ISBN, Title, Description, Author)VALUES (@ISBN,@Title, @Description, @Author)
+		end
+	while @Quantity > 0
+		begin
+		INSERT INTO Copy (ISBN, TypeName, LibraryName)VALUES (@ISBN, @TypeName,@library)
+		set @Quantity = @Quantity - 1
+		end
+	select 1
+	end
+else
+	begin
+	select 0
+	end
+go
+
+drop procedure if exists DeleteMaterial
+go
+CREATE PROCEDURE DeleteMaterial @SSN int, @ISBN int
+AS
+if EXISTS(select * from Librarian where Librarian.SSN = @SSN) and
+   exists(select * from Material where Material.ISBN = @ISBN) and
+   not exists(select * from Copy where Copy.ISBN = @ISBN)
+	begin
+	DELETE FROM Material WHERE Material.ISBN = @ISBN
+	select 1
+	end
+else
+	begin
+	select 0
+	end
+go
+drop procedure if exists DeleteCopy
+go
+CREATE PROCEDURE DeleteCopy @SSN int, @CopyId int
+AS
+if EXISTS(select * from Librarian where Librarian.SSN = @SSN) and
+   exists(select * from Copy where Copy.CopyID = @CopyId)
+   begin
+	DELETE FROM Copy WHERE Copy.CopyID = @CopyId
+	select 1
+	end
+else
+	begin
+	select 0
+	end
+go
+
 CREATE PROCEDURE Returning @CopyId int
 AS
 
@@ -163,6 +216,21 @@ BEGIN
 		END
 End
 GO
+
+
+--Views
+drop view if exists [readAllMaterials]
+go
+CREATE VIEW readAllMaterials AS
+with a as ( 
+  SELECT Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName as Location, copy.TypeName
+  FROM Copy inner join Material on Material.isbn = Copy.isbn inner join Borrow on Copy.CopyID = Borrow.CopyID where Borrow.ToDate is null
+  )
+
+SELECT distinct Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName as Location, copy.TypeName,
+(select COUNT(*) from a where copy.TypeName LIKE a.TypeName and a.Location like copy.LibraryName and a.ISBN = copy.ISBN) as Available_Copies
+  FROM Copy inner join Material on Material.isbn = Copy.isbn 
+go
 
 --Inserts
 
@@ -244,8 +312,10 @@ VALUES (1,'test book', 'TEST++', 'Hala'),
 		(2,'horror book', 'TEST++', 'Pala'),
 		(3,'comedy book', 'TEST++', 'KHala'),
 		(4,'drama book', 'TEST++', 'ala'),
-		(5,'mystery book', 'TEST++', 'alah'),
-		(6,'history book', 'TEST++', 'laha');
+		(5,'mystery book', 'TEST++', 'asdf'),
+		(6,'mystery book', 'TEST++', 'fdsa'),
+		(7,'history book', 'TEST++', 'laha'),
+		(8,'deletable material', 'TEST++', 'laha');
 
 SET IDENTITY_INSERT Copy ON;
 INSERT INTO Copy (CopyID, ISBN, TypeName, LibraryName)
@@ -259,12 +329,14 @@ VALUES (1,1,'books','GTL'),
 		(8,5,'books','Pikalo'),
 		(9,1,'reference books','GTL'),
 		(10,2,'books','GTL'),
-		(11,6,'books','GTL');
+		(11,6,'books','GTL'),
+		(12,1,'books','GTL'),
+		(13,1,'books','GTL'),
+		(14,1,'needed books','Pikalo');
 SET IDENTITY_INSERT Copy OFF;
 
 INSERT INTO Borrow (CopyID, SSN, FromDate, ToDate)
 VALUES (5,123456786,GETDATE(),null),
-		(3,123456788,GETDATE(),null),
 		(2,123456786,GETDATE(),GETDATE()),
 		(6,123456789,GETDATE(),null),
 		(1,123456789,GETDATE(),GETDATE()),
