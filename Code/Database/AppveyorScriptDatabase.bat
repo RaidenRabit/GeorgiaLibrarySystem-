@@ -13,3 +13,5 @@ SET PASSWORD="Password12!"
 SET INPUT=%cd%\SQLCreateQuery.sql
 
 %SQLCMD% -S%SERVER% -d%DB% -U%LOGIN% -P%PASSWORD% -i%INPUT% -b
+SET INPUT=%cd%\InsertScript.sql
+%SQLCMD% -S%SERVER% -d%DB% -U%LOGIN% -P%PASSWORD% -i%INPUT% -b
