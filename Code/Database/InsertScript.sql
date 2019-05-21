@@ -1,16 +1,31 @@
+use GTL;
+GO
 DELETE FROM Borrow;
+GO
 DELETE FROM Copy;
+GO
 DELETE FROM Material;
+GO
 DELETE FROM MaterialType;
+GO
 DELETE FROM Member;
+GO
 DELETE FROM MemberType;
+GO
 DELETE FROM MemberCard;
+GO
 DELETE FROM Librarian;
+GO
 DELETE FROM LibrarianType;
+GO
 DELETE FROM Person;
+GO
 DELETE FROM Library;
+GO
 DELETE FROM Address;
+GO
 DELETE FROM Location;
+GO
 
    --Inserts
 
