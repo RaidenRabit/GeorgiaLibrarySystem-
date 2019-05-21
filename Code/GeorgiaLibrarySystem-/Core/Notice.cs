@@ -12,15 +12,13 @@ namespace Core
     using System;
     using System.Collections.Generic;
     
-    public partial class Borrow
+    public partial class Notice
     {
         public int CopyID { get; set; }
         public int SSN { get; set; }
         public System.DateTime FromDate { get; set; }
-        public Nullable<System.DateTime> ToDate { get; set; }
+        public bool noticeSent { get; set; }
     
-        public virtual Copy Copy { get; set; }
-        public virtual Member Member { get; set; }
-        public virtual Notice Notice { get; set; }
+        public virtual Borrow Borrow { get; set; }
     }
 }

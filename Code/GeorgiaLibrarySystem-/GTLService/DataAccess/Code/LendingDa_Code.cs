@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Core;
 
 namespace GTLService.DataAccess.Code
@@ -43,6 +44,11 @@ namespace GTLService.DataAccess.Code
         public virtual Borrow GetBorrow(int copyId)
         {
             return _context.Borrows.FirstOrDefault(x => x.CopyID == copyId && x.ToDate == null);
+        }
+
+        public virtual List<Borrow> GetAllActiveBorrows()
+        {
+            return _context.Borrows.Where(x => x.ToDate == null ).ToList();
         }
 
         public virtual int MemberBorrowedBooks(int ssn)

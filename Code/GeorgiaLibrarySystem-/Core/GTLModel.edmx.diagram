@@ -33,6 +33,8 @@
         <AssociationConnector Association="GTLModel.FK__Member__SSN__4D94879B" ManuallyRouted="false" />
         <AssociationConnector Association="GTLModel.FK__Member__TypeName__4F7CD00D" ManuallyRouted="false" />
         <EntityTypeShape EntityType="GTLModel.readAllMaterial" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="GTLModel.Notice" Width="1.5" PointX="12" PointY="7.125" />
+        <AssociationConnector Association="GTLModel.FK__Notice__5DCAEF64" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

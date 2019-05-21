@@ -89,14 +89,24 @@ CREATE TABLE Copy (
 CREATE TABLE Borrow (
     CopyID int FOREIGN KEY REFERENCES Copy(CopyID),
 	SSN int FOREIGN KEY REFERENCES Member(SSN),
-	FromDate date,
+	FromDate date NOT NULL,
 	ToDate date,
+	PRIMARY KEY (CopyID, SSN, FromDate)
+);
+
+CREATE TABLE Notice (
+    CopyID int NOT NULL,
+	SSN int NOT NULL,
+	FromDate date NOT NULL,
+	noticeSent bit NOT NULL,
+	FOREIGN KEY (CopyID, SSN, FromDate) REFERENCES Borrow (CopyID, SSN, FromDate),
 	PRIMARY KEY (CopyID, SSN, FromDate)
 );
 GO
 
 --Procedures
-
+DROP PROCEDURE IF EXISTS Login
+GO
 CREATE PROCEDURE Login @SSN int, @Password nvarchar(16)
 AS
 
@@ -157,6 +167,7 @@ else
 	select 0
 	end
 go
+
 drop procedure if exists DeleteCopy
 go
 CREATE PROCEDURE DeleteCopy @SSN int, @CopyId int
@@ -173,6 +184,8 @@ else
 	end
 go
 
+DROP PROCEDURE IF EXISTS Returning
+GO
 CREATE PROCEDURE Returning @CopyId int
 AS
 
@@ -182,6 +195,26 @@ UPDATE Borrow
 	where CopyID = @CopyID
 		AND ToDate is null
 GO
+
+DROP PROCEDURE IF EXISTS NoticeFilling
+GO
+CREATE PROCEDURE NoticeFilling
+AS
+	INSERT INTO Notice (CopyID, SSN, FromDate, noticeSent)
+	SELECT Borrow.CopyID, Borrow.SSN, Borrow.FromDate, 0
+	FROM Borrow 
+		inner join Member on Borrow.SSN = Member.SSN
+		inner join MemberType on Member.TypeName = MemberType.TypeName
+		left join Notice on Borrow.CopyID = Notice.CopyID and
+			Borrow.SSN = Notice.SSN and
+			Borrow.FromDate = Notice.FromDate
+	WHERE ToDate IS NULL 
+		and Notice.SSN IS NULL 
+		and CONVERT(date, getdate()) >= DATEADD(DAY, MemberType.LendingLenght + MemberType.GracePeriod, Borrow.FromDate);
+GO
+
+--sql scheduling
+--EXEC NoticeFilling
 
 --Triggers
 

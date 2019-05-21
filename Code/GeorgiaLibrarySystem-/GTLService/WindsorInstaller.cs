@@ -31,6 +31,7 @@ namespace GTLService
                 Component.For<LendingDa_Code, LendingDa_Code>().LifeStyle.Transient,
                 Component.For<CopyDa_Code, CopyDa_Code>().LifeStyle.Transient,
                 Component.For<LoginDa_Code, LoginDa_Code>().LifeStyle.Transient,
+                Component.For<NoticeDa_Code, NoticeDa_Code>().LifeStyle.Transient,
 
                 Component.For<LendingDa_Database, LendingDa_Database>().LifeStyle.Transient,
                 Component.For<CopyDa_Database, CopyDa_Database>().LifeStyle.Transient,
@@ -54,6 +55,9 @@ namespace GTLService
                         Component.For<IMaterialsDm, MaterialDm_Code>(),
                         Component.For<ICopyDm, CopyDm_Code>(),
                         Component.For<ILendingDm, LendingDm_Code>().LifeStyle.Transient);
+                    Context context = new Context();
+
+                    new NoticeDm_Code(new LendingDa_Code(context), new MemberDa_Code(context), new NoticeDa_Code(context));
                     break;
             }
         }

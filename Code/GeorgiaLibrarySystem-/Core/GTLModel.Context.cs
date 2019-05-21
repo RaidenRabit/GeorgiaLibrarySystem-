@@ -41,6 +41,7 @@ namespace Core
         public virtual DbSet<MemberType> MemberTypes { get; set; }
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<readAllMaterial> readAllMaterials { get; set; }
+        public virtual DbSet<Notice> Notices { get; set; }
     
         public virtual ObjectResult<Nullable<int>> Login(Nullable<int> sSN, string password)
         {
@@ -125,6 +126,11 @@ namespace Core
                 new ObjectParameter("ISBN", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("DeleteMaterial", sSNParameter, iSBNParameter);
+        }
+    
+        public virtual int NoticeSent()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NoticeSent");
         }
     }
 }
