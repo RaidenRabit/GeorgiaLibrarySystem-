@@ -17,21 +17,21 @@ namespace Tests.IntegrationTest
         
         [Test]
         //Code approach
-        [TestCase("", "", 10, null, "0", "Code", 5)]
+        [TestCase("", "", 10, null, "0", "Code", 10)]
         [TestCase("horror book", "", 10, null, "0", "Code", 1)]
         [TestCase("horror book", "Pala", 10, null, "0", "Code", 1)]
-        //[TestCase("", "", 6, null, "0", "Code", 6)]
-        [TestCase("", "", 10, 1, "0", "Code", 3)]
-        //[TestCase("", "", 10, null, "books", "Code", 7)]
+        [TestCase("", "", 6, null, "0", "Code", 6)]
+        [TestCase("", "", 10, 1, "0", "Code", 4)]
+        [TestCase("", "", 10, null, "books", "Code", 7)]
         //Database approach
-        /*[TestCase("", "", 10, null, "0", "Database", 5)]
+        [TestCase("", "", 10, null, "0", "Database", 10)]
         [TestCase("horror book", "", 10, null, "0", "Database", 1)]
         [TestCase("horror book", "Pala", 10, null, "0", "Database", 1)]
         [TestCase("", "", 6, null, "0", "Database", 6)]
-        [TestCase("", "", 10, 1, "0", "Database", 3)]
-        [TestCase("", "", 10, null, "books", "Database", 7)]*/
+        [TestCase("", "", 10, 1, "0", "Database", 4)]
+        [TestCase("", "", 10, null, "books", "Database", 7)]
         public void GetMaterials(string materialTitle, string author, int numOfRecords, int isbn, string jobStatus,
-            string approach, int resultCount)
+            string approach, int expectedResult)
         {
             //Arrange
             Setup(approach);
@@ -40,7 +40,7 @@ namespace Tests.IntegrationTest
             var result = _materialService.GetMaterials(materialTitle, author, numOfRecords, isbn, jobStatus);
 
             //Assert
-            Assert.IsTrue(result.Count.Equals(resultCount));
+            Assert.IsTrue(result.Count.Equals(expectedResult));
 
         }
 

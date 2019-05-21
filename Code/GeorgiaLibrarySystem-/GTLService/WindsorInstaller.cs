@@ -16,7 +16,7 @@ namespace GTLService
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            string approach = "Database";
+            string approach = "Code";
             //used: http://scotthannen.org/blog/2016/04/13/wcf-dependency-injection-in-5-minutes.html
             container.Register(
                 Component.For<IMaterialService, MaterialService>().LifeStyle.Transient,
