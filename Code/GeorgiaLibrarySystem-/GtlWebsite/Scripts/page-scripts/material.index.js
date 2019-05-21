@@ -50,7 +50,7 @@ function GetMaterials() {
                             "<td>" +
                             x +
                             "</td>";
-                        if (x > 0) {
+                        if (x > 0 && data[i].TypeName === "books") {
                             htmlText += "<td>" +
                                 "<button class=\"btn btn-primary\"  onclick=\"Borrow(this)\">" +
                                 "Borrow Book" +
