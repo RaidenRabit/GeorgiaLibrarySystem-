@@ -19,28 +19,32 @@ namespace GTLService.DataManagement.Code
         {
             var copies = _copyDa.GetAvailableCopyId(isbn);
             bool found = false;
-            int i = 0;
-            while (!found)
-            {
-                if (_lendingDa.GetBorrow(copies[i].CopyID) == null)
-                    found = true;
-                else
+            int i = 0, id = 0;
+            if(copies.Count > 0)
+                while (!found)
                 {
-                    i++;
+                    if (_lendingDa.GetBorrow(copies[i].CopyID) == null)
+                    {
+                        found = true;
+                        id = copies[i].CopyID;
+                    }
+                    else
+                    {
+                        i++;
+                    }
                 }
-            }
 
-            return copies[i].CopyID;
+            return id;
         }
 
         public int GetTotalNrCopies(int isbn)
         {
-            return _copyDa.ReadCopies(isbn, "books").Count;
+            return _copyDa.ReadCopies(isbn, "0").Count;
         }
 
         public int GetOutOnLoan(int isbn)
         {
-            var copies = _copyDa.ReadCopies(isbn, "books");
+            var copies = _copyDa.ReadCopies(isbn, "0");
             int count = 0;
             foreach (var copy in copies)
             {

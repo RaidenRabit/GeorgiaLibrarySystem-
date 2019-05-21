@@ -128,7 +128,9 @@ VALUES (1,1,'books','GTL'),
 		(12,1,'books','GTL'),
 		(13,1,'books','GTL'),
 		(14,1,'needed books','Pikalo'),
-		(15,1,'books','HUmm');
+		(15,1,'books','HUmm'),
+		(16,7,'needed books','Pikalo'),
+		(17,7,'needed books','Pikalo');
 SET IDENTITY_INSERT Copy OFF;
 
 INSERT INTO Borrow (CopyID, SSN, FromDate, ToDate)
@@ -141,4 +143,5 @@ VALUES (5,123456786,GETDATE(),null),
 		(7,123456789,GETDATE(),null),
 		(3,123456789,GETDATE(),null),
 		(9,123456786,GETDATE(),GETDATE()),
-		(11,123456789,GETDATE(),null);
+		(11,123456789,GETDATE(),null),
+		(16,123456787,GETDATE(),null);
