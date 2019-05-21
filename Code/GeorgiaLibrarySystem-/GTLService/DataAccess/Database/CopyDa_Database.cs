@@ -16,7 +16,7 @@ namespace GTLService.DataAccess.Database
         public List<Copy> GetAvailableCopies(int isbn)
         {
             return _context.Copies
-                .Where(x => x.CopyID.Equals(isbn.ToString()))
+                .Where(x => x.ISBN.Equals(isbn.ToString()))
                 .ToList();
         }
 
