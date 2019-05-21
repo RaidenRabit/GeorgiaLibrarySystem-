@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Core;
 
 namespace GTLService.DataAccess.Database
@@ -24,6 +25,7 @@ namespace GTLService.DataAccess.Database
                              (jobStatus.Contains("0") || x.TypeName.Equals(jobStatus))
                 )
               .Take(numOfRecords)  
+                .OrderByDescending(x => x.Available_Copies)
               .ToList();
         }
 

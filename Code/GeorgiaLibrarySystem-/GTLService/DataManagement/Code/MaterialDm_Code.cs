@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core;
 using GTLService.DataAccess.Code;
 using GTLService.DataAccess.Database;
@@ -28,11 +30,6 @@ namespace GTLService.DataManagement.Code
         {
             var materials = _materialDa.ReadMaterials(isbn, materialTitle, author, numOfRecords);
             var copies = _copyDa.ReadCopies(isbn, jobStatus);
-            for (int i = copies.Count - 1; i >= 0; i--)
-            {
-                if(_lendingDa.GetBorrow(copies[i].CopyID) != null)
-                    copies.RemoveAt(i);
-            }
 
             List<readAllMaterial> allMaterials = new List<readAllMaterial>();
             readAllMaterial readAllMaterial;
@@ -84,12 +81,14 @@ namespace GTLService.DataManagement.Code
                 foreach (var copy in copies)
                 {
                     if (readAllMaterial.ISBN.Equals(copy.ISBN) && readAllMaterial.Location.Equals(copy.LibraryName)
-                                                               && readAllMaterial.TypeName.Equals(copy.TypeName))
+                                                               && readAllMaterial.TypeName.Equals(copy.TypeName)
+                                                               && (_lendingDa.GetBorrow(copy.CopyID) == null))
                         count++;
                 }
 
                 readAllMaterial.Available_Copies = count;
             }
+            allMaterials = allMaterials.OrderByDescending(x => x.Available_Copies).ToList();
 
             return allMaterials;
         }
