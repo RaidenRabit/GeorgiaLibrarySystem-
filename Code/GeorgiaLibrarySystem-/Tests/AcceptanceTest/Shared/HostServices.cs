@@ -14,8 +14,8 @@ namespace Tests.AcceptanceTest
             var websitePath = GetApplicationPath("GTLService");
             var wcfServicePath = GetApplicationPath("GtlWebsite");
 
-            KillAllIIS();
-            _websiteIisProcess = IISProcess(55400, websitePath);
+            //KillAllIIS();
+            _websiteIisProcess = IISProcess(44308, websitePath);
             _wcfIisProcess = IISProcess(52690, wcfServicePath);
 
         }
