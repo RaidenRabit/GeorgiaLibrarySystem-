@@ -10,20 +10,11 @@ namespace GTLService.DataManagement.Code
     {
         private readonly LendingDa_Code _lendingDa;
         private readonly MemberDa_Code _memberDa;
-        private static Timer _timer;
         
         public LendingDm_Code(LendingDa_Code lendingDa, MemberDa_Code memberDa)
         {
             _lendingDa = lendingDa;
             _memberDa = memberDa;
-
-            _timer = new Timer
-            {
-                Enabled = true
-            };
-            OnTimedEvent(null, null);
-            _timer.Elapsed += OnTimedEvent;
-            _timer.Start();
         }
 
         public bool LendBook(int ssn, int copyId)
@@ -61,15 +52,6 @@ namespace GTLService.DataManagement.Code
             }
         }
 
-        private void OnTimedEvent(Object source, ElapsedEventArgs e)
-        {
-            NoticeFilling();
-
-            DateTime now = DateTime.Now;
-            DateTime tomorrow = now.AddDays(1).Date;
-            _timer.Interval = (tomorrow - now).TotalMilliseconds;//next interval at midnight
-        }
-
         public bool NoticeFilling()
         {
             foreach (var borrow in _lendingDa.GetAllActiveBorrows())
@@ -82,6 +64,32 @@ namespace GTLService.DataManagement.Code
                 }
             }
             return _lendingDa.SaveBorrowChanges();
+        }
+    }
+
+    public class NoticeTimer
+    {
+        private static Timer _timer;
+
+        public NoticeTimer()
+        {
+            _timer = new Timer
+            {
+                Enabled = true
+            };
+            OnTimedEvent(null, null);
+            _timer.Elapsed += OnTimedEvent;
+            _timer.Start();
+        }
+
+        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            Context context = new Context();
+            new LendingDm_Code(new LendingDa_Code(context), new MemberDa_Code(context)).NoticeFilling();
+
+            DateTime now = DateTime.Now;
+            DateTime tomorrow = now.AddDays(1).Date;
+            _timer.Interval = (tomorrow - now).TotalMilliseconds;//next interval at midnight
         }
     }
 }
