@@ -55,7 +55,7 @@ namespace GTLService
                         Component.For<ICopyDm, CopyDm_Code>(),
                         Component.For<ILendingDm, LendingDm_Code>().LifeStyle.Transient);
 
-                    new NoticeTimer();
+                    new TimerDM_Code();
                     break;
             }
         }

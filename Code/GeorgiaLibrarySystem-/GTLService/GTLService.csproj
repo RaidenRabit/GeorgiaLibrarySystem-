@@ -208,6 +208,7 @@
     <Compile Include="DataAccess\Database\LoginDa_Database.cs" />
     <Compile Include="DataManagement\Code\CopyDm_Code.cs" />
     <Compile Include="DataManagement\Code\LendingDm_Code.cs" />
+    <Compile Include="DataManagement\Code\TimerDM_Code.cs" />
     <Compile Include="DataManagement\Database\CopyDm_Database.cs" />
     <Compile Include="DataManagement\Database\LendingDm_Database.cs" />
     <Compile Include="DataManagement\IDataManagement\ICopyDm.cs" />
