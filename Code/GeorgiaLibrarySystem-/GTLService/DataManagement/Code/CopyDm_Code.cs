@@ -1,5 +1,4 @@
-﻿using System;
-using GTLService.DataAccess.Code;
+﻿using GTLService.DataAccess.Code;
 using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.DataManagement.Code
@@ -15,32 +14,42 @@ namespace GTLService.DataManagement.Code
             _lendingDa = lendingDa;
         }
 
-        public int GetAvailableCopyId(int isbn)
+        public int GetAvailableCopyId(string isbn)
         {
             var copies = _copyDa.GetAvailableCopyId(isbn);
-            bool found = false;
             int i = 0;
-            while (!found)
-            {
-                if (_lendingDa.GetBorrow(copies[i].CopyID) == null)
-                    found = true;
-                else
+            if(copies.Count > 0)
+                while (!false)
                 {
-                    i++;
+                    if (_lendingDa.GetBorrow(copies[i].CopyID) == null)
+                    {
+                        return copies[i].CopyID;
+                    }
+                    else
+                    {
+                        i++;
+                    }
                 }
+
+            return 0;
+        }
+
+        public int GetTotalNrCopies(string isbn)
+        {
+            return _copyDa.ReadCopies(isbn, "0").Count;
+        }
+
+        public int GetOutOnLoan(string isbn)
+        {
+            var copies = _copyDa.ReadCopies(isbn, "0");
+            int count = 0;
+            foreach (var copy in copies)
+            {
+                if (_lendingDa.GetBorrow(copy.CopyID) != null)
+                    count++;
             }
 
-            return copies[i].CopyID;
-        }
-
-        public int GetTotalNrCopies(int isbn)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int GetOutOnLoan(int isbn)
-        {
-            throw new NotImplementedException();
+            return count;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Tests
             string connection =
                 "data source=localhost;initial catalog=GTL;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework";
             
-            string script = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../../Database/SQLCreateQuery.sql"));
+            string script = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../../Database/InsertScript.sql"));
             
             using (SqlConnection conn = new SqlConnection(connection))
             {

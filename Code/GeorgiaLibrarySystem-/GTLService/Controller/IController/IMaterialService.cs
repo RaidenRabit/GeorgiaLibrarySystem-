@@ -10,13 +10,13 @@ namespace GTLService.Controller
 	{
         
         [OperationContract]
-        List<readAllMaterial> GetMaterials(string materialTitle, string author, int numOfRecords = 10, int isbn = 0, string jobStatus = "0");
+        List<readAllMaterial> GetMaterials(string materialTitle, string author, int numOfRecords = 10, string isbn = "0", string jobStatus = "0");
 
         [OperationContract]
-        bool CreateMaterial(int ssn, int isbn, string library, string author, string description, string title, string typeName, int quantity);
+        bool CreateMaterial(int ssn, string isbn, string library, string author, string description, string title, string typeName, int quantity);
         
         [OperationContract]
-        bool DeleteMaterial(int ssn, int isbn);
+        bool DeleteMaterial(int ssn, string isbn);
         
         [OperationContract]
         bool DeleteCopy(int ssn, int copyId);

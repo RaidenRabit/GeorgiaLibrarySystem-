@@ -50,7 +50,7 @@ function GetMaterials() {
                             "<td>" +
                             x +
                             "</td>";
-                        if (x > 0) {
+                        if (x > 0 && data[i].TypeName === "books") {
                             htmlText += "<td>" +
                                 "<button class=\"btn btn-primary\"  onclick=\"Borrow(this)\">" +
                                 "Borrow Book" +
@@ -84,6 +84,7 @@ function Borrow(obj) {
         contentType: "application/json; charset=utf-8",
         dataType: "html",
         success: function(response) {
+            $.noConflict();
             GetMaterials();
             InitializeDialog(response);
         }
@@ -94,7 +95,7 @@ function InitializeDialog(data) {
     var dialog = $("#dialog").dialog({
         autoOpen: false,
         modal: true,
-        title: viewDetails,
+        title: "",
         width: 1000,
         buttons: {
             cancel : function () {
@@ -102,7 +103,8 @@ function InitializeDialog(data) {
             }
         }
     });
-
+    
     dialog.html(data);
+    $("#dialog").show();
     dialog.dialog("open");
 };

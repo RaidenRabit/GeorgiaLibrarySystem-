@@ -13,17 +13,17 @@ namespace GTLService.Controller
             _copyDm = copyDm;
         }
 
-        public int GetAvailableCopyId(int isbn)
+        public int GetAvailableCopyId(string isbn)
         {
             return _copyDm.GetAvailableCopyId(isbn);
         }
 
-        public int GetTotalNrCopies(int isbn)
+        public int GetTotalNrCopies(string isbn)
         {
             return _copyDm.GetTotalNrCopies(isbn);
         }
 
-        public int GetOutOnLoan(int isbn)
+        public int GetOutOnLoan(string isbn)
         {
             return _copyDm.GetOutOnLoan(isbn);
         }
