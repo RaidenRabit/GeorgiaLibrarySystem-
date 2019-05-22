@@ -56,7 +56,7 @@ namespace GTLService
                         Component.For<ILendingDm, LendingDm_Code>().LifeStyle.Transient);
                     Context context = new Context();
 
-                    new NoticeDm_Code(new LendingDa_Code(context), new MemberDa_Code(context));
+                    new LendingDm_Code(new LendingDa_Code(context), new MemberDa_Code(context));
                     break;
             }
         }
