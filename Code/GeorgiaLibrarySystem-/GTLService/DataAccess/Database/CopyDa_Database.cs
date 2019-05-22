@@ -13,14 +13,14 @@ namespace GTLService.DataAccess.Database
             _context = context;
         }
 
-        public List<Copy> GetAvailableCopies(int isbn)
+        public List<Copy> GetAvailableCopies(string isbn)
         {
             return _context.Copies
                 .Where(x => x.ISBN.Equals(isbn.ToString()))
                 .ToList();
         }
 
-        public int GetTotalNrCopies(int isbn)
+        public int GetTotalNrCopies(string isbn)
         {
             return _context.Copies.Count(x => x.ISBN.Equals(isbn.ToString()));
         }

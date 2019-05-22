@@ -3,10 +3,10 @@ namespace GTLService.DataManagement.IDataManagement
 {
     public interface ICopyDm
     {
-        int GetAvailableCopyId(int isbn);
+        int GetAvailableCopyId(string isbn);
 
-        int GetTotalNrCopies(int isbn);
+        int GetTotalNrCopies(string isbn);
 
-        int GetOutOnLoan(int isbn);
+        int GetOutOnLoan(string isbn);
     }
 }

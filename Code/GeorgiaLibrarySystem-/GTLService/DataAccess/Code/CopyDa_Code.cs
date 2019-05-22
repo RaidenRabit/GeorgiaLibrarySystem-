@@ -23,13 +23,13 @@ namespace GTLService.DataAccess.Code
             return _context.Copies.FirstOrDefault(x => x.TypeName.Equals(typeName)) != null;
         }
         
-        public virtual bool CreateCopy(int isbn, string libraryName, string typeName)
+        public virtual bool CreateCopy(string isbn, string libraryName, string typeName)
         {
             try
             {
-                Copy copy = new Copy {ISBN = isbn.ToString(), LibraryName = libraryName, TypeName = typeName};
+                Copy copy = new Copy {ISBN = isbn, LibraryName = libraryName, TypeName = typeName};
                 _context.Copies.Add(copy);
-                return true;
+                return _context.SaveChanges() > 0;
             }
             catch (SqlException)
             {
@@ -37,10 +37,10 @@ namespace GTLService.DataAccess.Code
             }
         }
         
-        public virtual List<Copy> ReadCopies(int isbn, string typeName)
+        public virtual List<Copy> ReadCopies(string isbn, string typeName)
         {
             var a = _context.Copies
-                .Where(x => (isbn == 0 || x.ISBN.Equals(isbn.ToString())) &&
+                .Where(x => (isbn.Equals("0") || x.ISBN.Equals(isbn)) &&
                             (typeName.Contains("0") || x.TypeName.Equals(typeName))
                 )
                 .ToList();
@@ -53,8 +53,7 @@ namespace GTLService.DataAccess.Code
             {
                 var copy = _context.Copies.Single(o => o.CopyID == copyId);
                 _context.Copies.Remove(copy);
-                _context.SaveChanges();
-                return true;
+                return _context.SaveChanges() > 0;
             }
             catch (SqlException)
             {
@@ -62,11 +61,11 @@ namespace GTLService.DataAccess.Code
             }
         }
 
-        public virtual List<Copy> GetAvailableCopyId(int isbn)
+        public virtual List<Copy> GetAvailableCopyId(string isbn)
         {
             try
             {
-                return _context.Copies.Where(x => x.ISBN.Equals(isbn.ToString())).ToList();
+                return _context.Copies.Where(x => x.ISBN.Equals(isbn)).ToList();
             }
             catch (SqlException)
             {

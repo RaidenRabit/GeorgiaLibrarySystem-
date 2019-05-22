@@ -37,7 +37,7 @@ namespace Tests.IntegrationTest
             Setup(approach);
             
             //Act
-            var result = _materialService.GetMaterials(materialTitle, author, numOfRecords, isbn, jobStatus);
+            var result = _materialService.GetMaterials(materialTitle, author, numOfRecords, isbn.ToString(), jobStatus);
 
             //Assert
             Assert.IsTrue(result.Count.Equals(expectedResult));
@@ -68,7 +68,7 @@ namespace Tests.IntegrationTest
 
             //Act
             bool result =
-                _materialService.CreateMaterial(ssn, isbn, library, author, description, title, typeName, quantity);
+                _materialService.CreateMaterial(ssn, isbn.ToString(), library, author, description, title, typeName, quantity);
 
             //Assert
             Assert.IsTrue(result.Equals(passing));
@@ -91,7 +91,7 @@ namespace Tests.IntegrationTest
             Setup(approach);
 
             //Act
-            bool result = _materialService.DeleteMaterial(ssn, isbn);
+            bool result = _materialService.DeleteMaterial(ssn, isbn.ToString());
 
             //Assert
             Assert.IsTrue(result.Equals(passing));

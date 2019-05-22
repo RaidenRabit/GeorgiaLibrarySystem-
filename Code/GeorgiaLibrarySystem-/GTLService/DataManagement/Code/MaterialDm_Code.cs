@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core;
 using GTLService.DataAccess.Code;
-using GTLService.DataAccess.Database;
 using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.DataManagement.Code
@@ -26,7 +25,7 @@ namespace GTLService.DataManagement.Code
             _lendingDa = lendingDa;
         }
 
-        public List<readAllMaterial> ReadMaterials(string materialTitle, string author, int numOfRecords = 10, int isbn = 0, string jobStatus = "0")
+        public List<readAllMaterial> ReadMaterials(string materialTitle, string author, int numOfRecords = 10, string isbn = "0", string jobStatus = "0")
         {
             var materials = _materialDa.ReadMaterials(isbn, materialTitle, author, numOfRecords);
             var copies = _copyDa.ReadCopies(isbn, jobStatus);
@@ -93,7 +92,7 @@ namespace GTLService.DataManagement.Code
             return allMaterials;
         }
 
-        public bool CreateMaterial(int ssn, int isbn, string library, string author, string description, string title, string typeName,
+        public bool CreateMaterial(int ssn, string isbn, string library, string author, string description, string title, string typeName,
             int quantity)
         {
             if(_personDa.CheckLibrarianSsn(ssn))
@@ -115,7 +114,7 @@ namespace GTLService.DataManagement.Code
             return false;
         }
 
-        public bool DeleteMaterial(int ssn, int isbn)
+        public bool DeleteMaterial(int ssn, string isbn)
         {
             if (_personDa.CheckLibrarianSsn(ssn) && _materialDa.CheckMaterialIsbn(isbn))
             {

@@ -7,12 +7,12 @@ namespace GTLService.Controller
     public interface ICopyService
     {
         [OperationContract]
-        int GetAvailableCopyId(int isbn);
+        int GetAvailableCopyId(string isbn);
         
         [OperationContract]
-        int GetTotalNrCopies(int isbn);
+        int GetTotalNrCopies(string isbn);
 
         [OperationContract]
-        int GetOutOnLoan(int isbn);
+        int GetOutOnLoan(string isbn);
     }
 }
