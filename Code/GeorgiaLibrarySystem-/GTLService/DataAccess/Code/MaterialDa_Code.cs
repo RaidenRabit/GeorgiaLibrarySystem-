@@ -13,10 +13,10 @@ namespace GTLService.DataAccess.Code
             _context = context;
         }
 
-        public virtual List<Material> ReadMaterials(int isbn, string title, string author, int numOfRecords)
+        public virtual List<Material> ReadMaterials(string isbn, string title, string author, int numOfRecords)
         {
             return _context.Materials
-                .Where(x => (isbn == 0 || x.ISBN.Equals(isbn.ToString())) &&
+                .Where(x => (isbn.Equals("0") || x.ISBN.Equals(isbn)) &&
                             x.Author.Contains(author) &&
                             x.Title.Contains(title)
                 )
@@ -24,24 +24,19 @@ namespace GTLService.DataAccess.Code
                 .ToList();
         }
 
-        public virtual Material ReadMaterials(int isbn)
+        public virtual bool CheckMaterialIsbn(string isbn)
         {
-            return _context.Materials.Find(isbn.ToString());
+            return _context.Materials.Find(isbn) != null;
         }
 
-        public virtual bool CheckMaterialIsbn(int isbn)
-        {
-            return _context.Materials.Find(isbn.ToString()) != null;
-        }
-
-        public virtual bool CreateMaterial(int isbn, string author, string description, string title)
+        public virtual bool CreateMaterial(string isbn, string author, string description, string title)
         {
             try
             {
                 Material material = new Material
-                    {ISBN = isbn.ToString(), Author = author, Title = title, Description = description};
+                    {ISBN = isbn, Author = author, Title = title, Description = description};
                 _context.Materials.Add(material);
-                return true;
+                return _context.SaveChanges() > 0;
             }
             catch (SqlException)
             {
@@ -49,14 +44,13 @@ namespace GTLService.DataAccess.Code
             }
         }
 
-        public virtual bool DeleteMaterial(int isbn)
+        public virtual bool DeleteMaterial(string isbn)
         {
             try
             {
-                var material = _context.Materials.Single(o => o.ISBN.Equals(isbn.ToString()));
+                var material = _context.Materials.Single(o => o.ISBN.Equals(isbn));
                 _context.Materials.Remove(material);
-                _context.SaveChanges();
-                return true;
+                return _context.SaveChanges() > 0;
             }
             catch (SqlException)
             {

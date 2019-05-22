@@ -16,7 +16,7 @@ namespace GTLService.DataManagement.Database
             _lendingDa = lendingDa;
         }
 
-        public int GetAvailableCopyId(int isbn)
+        public int GetAvailableCopyId(string isbn)
         {
             var copies = _copyDa.GetAvailableCopies(isbn);
             foreach (var copy in copies)
@@ -28,12 +28,12 @@ namespace GTLService.DataManagement.Database
             return 0;
         }
 
-        public int GetTotalNrCopies(int isbn)
+        public int GetTotalNrCopies(string isbn)
         {
             return _copyDa.GetTotalNrCopies(isbn);
         }
 
-        public int GetOutOnLoan(int isbn)
+        public int GetOutOnLoan(string isbn)
         {
             int count = 0;
             var copies = _copyDa.GetAvailableCopies(isbn);

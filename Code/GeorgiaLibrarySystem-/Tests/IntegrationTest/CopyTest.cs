@@ -16,12 +16,12 @@ namespace Tests.IntegrationTest
         
         [Test]
         //Code approach
-        [TestCase(1 , "Code", 1)]
-        [TestCase(8 , "Code", 0)]
+        [TestCase("1" , "Code", 1)]
+        [TestCase("8" , "Code", 0)]
         //Database approach
-        [TestCase(1 , "Database", 1)]
-        [TestCase(8 , "Database", 0)]
-        public void GetAvailableCopyId(int isbn, string approach, int expectedResult)
+        [TestCase("1" , "Database", 1)]
+        [TestCase("8" , "Database", 0)]
+        public void GetAvailableCopyId(string isbn, string approach, int expectedResult)
         {
             //Arrange
             Setup(approach);
@@ -35,12 +35,12 @@ namespace Tests.IntegrationTest
         
         [Test]
         //Code approach
-        [TestCase(1 , "Code", 9)]
-        [TestCase(8 , "Code", 0)]
+        [TestCase("1", "Code", 9)]
+        [TestCase("8", "Code", 0)]
         //Database approach
-        [TestCase(1 , "Database", 9)]
-        [TestCase(8 , "Database", 0)]
-        public void GetTotalNrCopies(int isbn, string approach, int expectedResult)
+        [TestCase("1", "Database", 9)]
+        [TestCase("8", "Database", 0)]
+        public void GetTotalNrCopies(string isbn, string approach, int expectedResult)
         {
             //Arrange
             Setup(approach);
@@ -54,16 +54,16 @@ namespace Tests.IntegrationTest
         
         [Test]
         //Code approach
-        [TestCase(3 , "Code", 1)] //all on loan
-        [TestCase(7 , "Code", 1)] //some on loan
-        [TestCase(2 , "Code", 0)] //no copies on loan
-        [TestCase(8 , "Code", 0)] //no copies
+        [TestCase("3" , "Code", 1)] //all on loan
+        [TestCase("7" , "Code", 1)] //some on loan
+        [TestCase("2" , "Code", 0)] //no copies on loan
+        [TestCase("8" , "Code", 0)] //no copies
         //Database approach
-        [TestCase(3 , "Database", 1)] //all on loan
-        [TestCase(7 , "Database", 1)] //some on loan
-        [TestCase(2 , "Database", 0)] //no copies on loan
-        [TestCase(8 , "Database", 0)] //no copies
-        public void GetOutOnLoan(int isbn, string approach, int expectedResult)
+        [TestCase("3" , "Database", 1)] //all on loan
+        [TestCase("7" , "Database", 1)] //some on loan
+        [TestCase("2" , "Database", 0)] //no copies on loan
+        [TestCase("8" , "Database", 0)] //no copies
+        public void GetOutOnLoan(string isbn, string approach, int expectedResult)
         {
             //Arrange
             Setup(approach);
