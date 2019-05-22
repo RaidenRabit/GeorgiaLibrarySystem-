@@ -18,9 +18,9 @@ namespace Core
         public int SSN { get; set; }
         public System.DateTime FromDate { get; set; }
         public Nullable<System.DateTime> ToDate { get; set; }
+        public Nullable<bool> noticeSent { get; set; }
     
         public virtual Copy Copy { get; set; }
         public virtual Member Member { get; set; }
-        public virtual Notice Notice { get; set; }
     }
 }

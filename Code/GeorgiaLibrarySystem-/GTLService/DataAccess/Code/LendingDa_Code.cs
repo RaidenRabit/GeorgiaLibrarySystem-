@@ -48,7 +48,7 @@ namespace GTLService.DataAccess.Code
 
         public virtual List<Borrow> GetAllActiveBorrows()
         {
-            return _context.Borrows.Where(x => x.ToDate == null ).ToList();
+            return _context.Borrows.Where(x => x.ToDate == null && x.noticeSent == null).ToList();
         }
 
         public virtual int MemberBorrowedBooks(int ssn)

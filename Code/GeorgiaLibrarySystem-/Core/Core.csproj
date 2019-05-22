@@ -110,9 +110,6 @@
     <Compile Include="MemberType.cs">
       <DependentUpon>GTLModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Notice.cs">
-      <DependentUpon>GTLModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Person.cs">
       <DependentUpon>GTLModel.tt</DependentUpon>
     </Compile>

@@ -91,15 +91,7 @@ CREATE TABLE Borrow (
 	SSN int FOREIGN KEY REFERENCES Member(SSN),
 	FromDate date NOT NULL,
 	ToDate date,
-	PRIMARY KEY (CopyID, SSN, FromDate)
-);
-
-CREATE TABLE Notice (
-    CopyID int NOT NULL,
-	SSN int NOT NULL,
-	FromDate date NOT NULL,
-	noticeSent bit NOT NULL,
-	FOREIGN KEY (CopyID, SSN, FromDate) REFERENCES Borrow (CopyID, SSN, FromDate),
+	noticeSent bit,
 	PRIMARY KEY (CopyID, SSN, FromDate)
 );
 GO
@@ -196,25 +188,20 @@ UPDATE Borrow
 		AND ToDate is null
 GO
 
+--EXEC NoticeFilling
 DROP PROCEDURE IF EXISTS NoticeFilling
 GO
 CREATE PROCEDURE NoticeFilling
 AS
-	INSERT INTO Notice (CopyID, SSN, FromDate, noticeSent)
-	SELECT Borrow.CopyID, Borrow.SSN, Borrow.FromDate, 0
+	Update Borrow
+	Set noticeSent = 0
 	FROM Borrow 
 		inner join Member on Borrow.SSN = Member.SSN
 		inner join MemberType on Member.TypeName = MemberType.TypeName
-		left join Notice on Borrow.CopyID = Notice.CopyID and
-			Borrow.SSN = Notice.SSN and
-			Borrow.FromDate = Notice.FromDate
 	WHERE ToDate IS NULL 
-		and Notice.SSN IS NULL 
+		and Borrow.noticeSent IS NULL 
 		and CONVERT(date, getdate()) >= DATEADD(DAY, MemberType.LendingLenght + MemberType.GracePeriod, Borrow.FromDate);
 GO
-
---sql scheduling
---EXEC NoticeFilling
 
 --Triggers
 

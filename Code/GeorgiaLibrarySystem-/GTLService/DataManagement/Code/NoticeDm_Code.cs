@@ -9,14 +9,12 @@ namespace GTLService.DataManagement.Code
     {
         private readonly LendingDa_Code _lendingDa;
         private readonly MemberDa_Code _memberDa;
-        private readonly NoticeDa_Code _noticeDa;
         private static Timer _timer;
         
-        public NoticeDm_Code(LendingDa_Code lendingDa, MemberDa_Code memberDa, NoticeDa_Code noticeDa)
+        public NoticeDm_Code(LendingDa_Code lendingDa, MemberDa_Code memberDa)
         {
             _lendingDa = lendingDa;
             _memberDa = memberDa;
-            _noticeDa = noticeDa;
             
             _timer = new Timer
             {
@@ -29,27 +27,25 @@ namespace GTLService.DataManagement.Code
 
         private void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
+            NoticeFilling();
+
+            DateTime now = DateTime.Now;
+            DateTime tomorrow = now.AddDays(1).Date;
+            _timer.Interval = (tomorrow - now).TotalMilliseconds;//next interval at midnight
+        }
+
+        public bool NoticeFilling()
+        {
             foreach (var borrow in _lendingDa.GetAllActiveBorrows())
             {
                 Member member = _memberDa.GetMember(borrow.SSN);
                 
-                if (DateTime.Now >= borrow.FromDate.AddDays(member.MemberType.LendingLenght + member.MemberType.GracePeriod) && _noticeDa.GetNotice(borrow) == null)
+                if (DateTime.Now >= borrow.FromDate.AddDays(member.MemberType.LendingLenght + member.MemberType.GracePeriod) && borrow.noticeSent == null)
                 {
-                    Notice notice = new Notice
-                    {
-                        SSN = borrow.SSN, 
-                        CopyID = borrow.CopyID, 
-                        FromDate = borrow.FromDate,
-                        noticeSent = false
-                    };
-                    _noticeDa.CreateNotice(notice);
+                    borrow.noticeSent = false;
                 }
             }
-
-            DateTime now = DateTime.Now;
-            DateTime tomorrow = now.AddDays(1).Date;
-
-            _timer.Interval = (tomorrow - now).TotalMilliseconds;
+            return _lendingDa.SaveBorrowChanges();
         }
     }
 }

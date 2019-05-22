@@ -27,7 +27,7 @@ GO
 DELETE FROM Location;
 GO
 
-   --Inserts
+--Inserts
 
 INSERT INTO Location (PostalCode, City)
 VALUES (1000, 'Copenhagen K'),
