@@ -17,13 +17,12 @@ namespace GTLService.DataManagement.Code
             _lendingDa = lendingDa;
             _memberDa = memberDa;
             _noticeDa = noticeDa;
-
-            OnTimedEvent(null, null);
+            
             _timer = new Timer
             {
-                Interval = 86400000, 
                 Enabled = true
             };
+            OnTimedEvent(null, null);
             _timer.Elapsed += OnTimedEvent;
             _timer.Start();
         }
@@ -46,6 +45,11 @@ namespace GTLService.DataManagement.Code
                     _noticeDa.CreateNotice(notice);
                 }
             }
+
+            DateTime now = DateTime.Now;
+            DateTime tomorrow = now.AddDays(1).Date;
+
+            _timer.Interval = (tomorrow - now).TotalMilliseconds;
         }
     }
 }
