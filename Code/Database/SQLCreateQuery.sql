@@ -34,6 +34,8 @@ CREATE TABLE Person (
     SSN int PRIMARY KEY,
     AddressID int FOREIGN KEY REFERENCES Address(AddressID),
 	CampusID int FOREIGN KEY REFERENCES Address(AddressID),
+	F_Name varchar(50),
+	L_Name varchar(50),
 	Phone int NOT NULL,
 	Password varchar(16) NOT NULL
 );
@@ -86,7 +88,7 @@ CREATE TABLE Copy (
 	LibraryName varchar(50) FOREIGN KEY REFERENCES Library(LibraryName)
 );
 
-CREATE TABLE Borrow (
+CREATE TABLE Loan (
     CopyID int FOREIGN KEY REFERENCES Copy(CopyID),
 	SSN int FOREIGN KEY REFERENCES Member(SSN),
 	FromDate date NOT NULL,
@@ -97,6 +99,7 @@ CREATE TABLE Borrow (
 GO
 
 --Procedures
+
 DROP PROCEDURE IF EXISTS Login
 GO
 CREATE PROCEDURE Login @SSN int, @Password nvarchar(16)
@@ -117,9 +120,9 @@ ELSE
     END
 GO
 
-drop procedure if exists [CreateMaterials]
+DROP PROCEDURE IF EXISTS CreateMaterials
 go
-CREATE PROCEDURE [CreateMaterials] @SSN int, @ISBN int, @library varchar(50), @Author nvarchar(50), @Description varchar(max),
+CREATE PROCEDURE CreateMaterials @SSN int, @ISBN int, @library varchar(50), @Author nvarchar(50), @Description varchar(max),
 									@Title nvarchar(100), @TypeName varchar(50), @Quantity int
 AS
 if EXISTS(select * from Librarian where Librarian.SSN = @SSN) and
@@ -141,9 +144,9 @@ else
 	begin
 	select 0
 	end
-go
+GO
 
-drop procedure if exists DeleteMaterial
+DROP PROCEDURE IF EXISTS DeleteMaterial
 go
 CREATE PROCEDURE DeleteMaterial @SSN int, @ISBN int
 AS
@@ -158,9 +161,9 @@ else
 	begin
 	select 0
 	end
-go
+GO
 
-drop procedure if exists DeleteCopy
+DROP PROCEDURE IF EXISTS DeleteCopy
 go
 CREATE PROCEDURE DeleteCopy @SSN int, @CopyId int
 AS
@@ -174,16 +177,16 @@ else
 	begin
 	select 0
 	end
-go
+GO
 
 DROP PROCEDURE IF EXISTS Returning
 GO
 CREATE PROCEDURE Returning @CopyId int
 AS
 
-UPDATE Borrow
+UPDATE Loan
 	SET ToDate = GETDATE()
-	FROM Borrow
+	FROM Loan
 	where CopyID = @CopyID
 		AND ToDate is null
 GO
@@ -193,20 +196,20 @@ DROP PROCEDURE IF EXISTS NoticeFilling
 GO
 CREATE PROCEDURE NoticeFilling
 AS
-	Update Borrow
+	Update Loan
 	Set noticeSent = 0
-	FROM Borrow 
-		inner join Member on Borrow.SSN = Member.SSN
+	FROM Loan 
+		inner join Member on Loan.SSN = Member.SSN
 		inner join MemberType on Member.TypeName = MemberType.TypeName
 	WHERE ToDate IS NULL 
-		and Borrow.noticeSent IS NULL 
-		and CONVERT(date, getdate()) >= DATEADD(DAY, MemberType.LendingLenght + MemberType.GracePeriod, Borrow.FromDate);
+		and Loan.noticeSent IS NULL 
+		and CONVERT(date, getdate()) >= DATEADD(DAY, MemberType.LendingLenght + MemberType.GracePeriod, Loan.FromDate);
 GO
 
 --Triggers
 
 CREATE OR ALTER TRIGGER Lending
-ON Borrow
+ON Loan
 FOR INSERT
 AS
 BEGIN
@@ -220,16 +223,16 @@ BEGIN
 	FROM Member INNER JOIN MemberType ON Member.TypeName = MemberType.TypeName
 	WHERE SSN = @SSN;
 
-    IF (Select Count(*) from Borrow where SSN = @SSN AND ToDate IS NULL) > @NrOfBooks OR --user limit not exceeded
-		(Select Count(*) from Borrow where CopyID = @CopyID AND ToDate IS NULL) > 1 --book is available
+    IF (Select Count(*) from Loan where SSN = @SSN AND ToDate IS NULL) > @NrOfBooks OR --user limit not exceeded
+		(Select Count(*) from Loan where CopyID = @CopyID AND ToDate IS NULL) > 1 --book is available
 		BEGIN
 			Rollback transaction
 		END
 	ELSE
 		BEGIN
-			UPDATE Borrow
+			UPDATE Loan
 			SET FromDate = GETDATE(), ToDate = null
-			FROM Borrow
+			FROM Loan
 			where CopyID = @CopyID
 				AND SSN = @SSN
 				AND FromDate = @FromDate
@@ -237,19 +240,18 @@ BEGIN
 End
 GO
 
-
 --Views
-drop view if exists [readAllMaterials]
-go
+
+DROP VIEW IF EXISTS readAllMaterials
+GO
 CREATE VIEW readAllMaterials AS
-with a as ( 
+WITH a AS ( 
   SELECT Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName as Location, copy.TypeName
-  FROM Copy left join Borrow on Copy.CopyID = Borrow.CopyID
-   inner join Material on Material.isbn = Copy.isbn
-   where Borrow.CopyID is null or (Borrow.ToDate is not null and Borrow.CopyID is not null)
+  FROM Copy LEFT JOIN Loan on Copy.CopyID = Loan.CopyID
+   INNER JOIN Material on Material.isbn = Copy.isbn
+   WHERE Loan.CopyID IS NULL OR (Loan.ToDate is not null and Loan.CopyID is not null)
   )
 
 SELECT distinct Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName as Location, copy.TypeName,
 (select COUNT(*) from a where copy.TypeName LIKE a.TypeName and a.Location like copy.LibraryName and a.ISBN = copy.ISBN) as Available_Copies
-  FROM Copy inner join Material on Material.isbn = Copy.isbn 
-go
+  FROM Copy inner join Material on Material.isbn = Copy.isbn

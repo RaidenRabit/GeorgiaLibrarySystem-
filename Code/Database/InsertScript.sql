@@ -1,6 +1,6 @@
 use GTL;
 GO
-DELETE FROM Borrow;
+DELETE FROM Loan;
 GO
 DELETE FROM Copy;
 GO
@@ -52,16 +52,16 @@ VALUES ('GTL', 1),
 		('Pikalo', 3),
 		('HUmm', 7);
 
-INSERT INTO Person (SSN, AddressID, CampusID, Phone, Password)
-VALUES (123456781, 1, 1, 20202020, 'test'),
-		(123456782, 3, 3, 20202020, 'test'),
-		(123456783, 7, 7, 20202020, 'test'),
-		(123456784, 4, 4, 20202020, 'test'),
-		(123456785, 6, 6, 20202020, 'test'),
-		(123456786, 7, 7, 20202020, 'test'),
-		(123456787, 3, 3, 20202020, 'test'),
-		(123456788, 2, 2, 20202020, 'test'),
-		(123456789, 5, 5, 20202020, 'test');
+INSERT INTO Person (SSN, AddressID, CampusID, F_Name, L_Name, Phone, Password)
+VALUES (123456781, 1, 1, 'Maleah', 'Holt', 20202020, 'test'),
+		(123456782, 3, 3, 'Aiden', 'Pena', 20202020, 'test'),
+		(123456783, 7, 7, 'Ashly', 'Nelson', 20202020, 'test'),
+		(123456784, 4, 4, 'Memphis', 'Pacheco', 20202020, 'test'),
+		(123456785, 6, 6, 'Lincoln', 'Rivas', 20202020, 'test'),
+		(123456786, 7, 7, 'Rowan', 'Mcknight', 20202020, 'test'),
+		(123456787, 3, 3, 'Drew', 'Steele', 20202020, 'test'),
+		(123456788, 2, 2, 'Courtney', 'Mann', 20202020, 'test'),
+		(123456789, 5, 5, 'Trinity', 'Knight', 20202020, 'test');
 
 INSERT INTO LibrarianType (TypeName)
 VALUES ('chief librarian'),
@@ -133,7 +133,7 @@ VALUES (1,1,'books','GTL'),
 		(17,7,'needed books','Pikalo');
 SET IDENTITY_INSERT Copy OFF;
 
-INSERT INTO Borrow (CopyID, SSN, FromDate, ToDate)
+INSERT INTO Loan (CopyID, SSN, FromDate, ToDate)
 VALUES (5,123456786,GETDATE(),null),
 		(2,123456786,GETDATE(),GETDATE()),
 		(6,123456789,GETDATE(),null),
