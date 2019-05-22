@@ -198,7 +198,6 @@
     <Compile Include="DataAccess\Code\CopyDa_Code.cs" />
     <Compile Include="DataAccess\Code\LibraryDa_Code.cs" />
     <Compile Include="DataAccess\Code\MaterialDa_Code.cs" />
-    <Compile Include="DataAccess\Code\NoticeDa_Code.cs" />
     <Compile Include="DataAccess\Database\CopyDa_Database.cs" />
     <Compile Include="DataAccess\Database\MaterialsDa_Database.cs" />
     <Compile Include="DataAccess\Code\PersonDa_Code.cs" />
