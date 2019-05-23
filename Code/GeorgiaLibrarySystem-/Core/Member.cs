@@ -17,7 +17,7 @@ namespace Core
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Member()
         {
-            this.Borrows = new HashSet<Borrow>();
+            this.Loans = new HashSet<Loan>();
         }
     
         public int SSN { get; set; }
@@ -25,10 +25,10 @@ namespace Core
         public string TypeName { get; set; }
         public byte[] OnboardDate { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Borrow> Borrows { get; set; }
         public virtual MemberCard MemberCard { get; set; }
         public virtual Person Person { get; set; }
         public virtual MemberType MemberType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Loan> Loans { get; set; }
     }
 }

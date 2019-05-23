@@ -1,8 +1,8 @@
 ﻿namespace GTLService.DataManagement.IDataManagement
 {
-    public interface ILendingDm
+    public interface ILoaningDm
     {
-        bool LendBook(int ssn, int copyId);
+        bool LoanBook(int ssn, int copyId);
         bool ReturnBook(int copyId);
     }
 }

@@ -17,7 +17,7 @@ namespace Core
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Copy()
         {
-            this.Borrows = new HashSet<Borrow>();
+            this.Loans = new HashSet<Loan>();
         }
     
         public int CopyID { get; set; }
@@ -25,10 +25,10 @@ namespace Core
         public string TypeName { get; set; }
         public string LibraryName { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Borrow> Borrows { get; set; }
         public virtual Material Material { get; set; }
         public virtual Library Library { get; set; }
         public virtual MaterialType MaterialType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Loan> Loans { get; set; }
     }
 }

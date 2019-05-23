@@ -13,16 +13,16 @@ namespace GTLService.DataManagement.Code
         private readonly MaterialDa_Code _materialDa;
         private readonly PersonDa_Code _personDa;
         private readonly CopyDa_Code _copyDa;
-        private readonly LendingDa_Code _lendingDa;
+        private readonly LoaningDa_Code _loaningDa;
 
         public MaterialDm_Code(MaterialDa_Code materialDa, LibraryDa_Code libraryDa, PersonDa_Code personDa, CopyDa_Code copyDa,
-            LendingDa_Code lendingDa)
+            LoaningDa_Code loaningDa)
         {
             _materialDa = materialDa;
             _libraryDa = libraryDa;
             _personDa = personDa;
             _copyDa = copyDa;
-            _lendingDa = lendingDa;
+            _loaningDa = loaningDa;
         }
 
         public List<readAllMaterial> ReadMaterials(string materialTitle, string author, int numOfRecords = 10, string isbn = "0", string jobStatus = "0")
@@ -81,7 +81,7 @@ namespace GTLService.DataManagement.Code
                 {
                     if (readAllMaterial.ISBN.Equals(copy.ISBN) && readAllMaterial.Location.Equals(copy.LibraryName)
                                                                && readAllMaterial.TypeName.Equals(copy.TypeName)
-                                                               && (_lendingDa.GetBorrow(copy.CopyID) == null))
+                                                               && (_loaningDa.GetLoan(copy.CopyID) == null))
                         count++;
                 }
 

@@ -199,7 +199,7 @@
     <Compile Include="AcceptanceTest\LendingTest.cs" />
     <Compile Include="DatabaseTesting.cs" />
     <Compile Include="IntegrationTest\CopyTest.cs" />
-    <Compile Include="IntegrationTest\LendingTest.cs" />
+    <Compile Include="IntegrationTest\LoaningTest.cs" />
     <Compile Include="IntegrationTest\LoginTest.cs" />
     <Compile Include="IntegrationTest\MaterialTest.cs" />
     <Compile Include="UnitTest\LoginTest.cs" />

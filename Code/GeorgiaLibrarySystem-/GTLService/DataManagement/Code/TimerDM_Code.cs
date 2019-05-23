@@ -23,7 +23,7 @@ namespace GTLService.DataManagement.Code
         private static void OnTimedEvent(Object source, ElapsedEventArgs e)
         {
             Context context = new Context();
-            new LendingDm_Code(new LendingDa_Code(context), new MemberDa_Code(context)).NoticeFilling();
+            new LoaningDm_Code(new LoaningDa_Code(context), new MemberDa_Code(context)).NoticeFilling();
 
             DateTime now = DateTime.Now;
             DateTime tomorrow = now.AddDays(1).Date;

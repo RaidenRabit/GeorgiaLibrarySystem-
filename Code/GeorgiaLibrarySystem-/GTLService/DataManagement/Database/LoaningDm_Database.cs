@@ -5,20 +5,20 @@ using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.DataManagement.Database
 {
-    public class LendingDm_Database: ILendingDm
+    public class LoaningDm_Database: ILoaningDm
     {
-        private readonly LendingDa_Database _lendingDa;
+        private readonly LoaningDa_Database _loaningDa;
 
-        public LendingDm_Database(LendingDa_Database lendingDa)
+        public LoaningDm_Database(LoaningDa_Database loaningDa)
         {
-            _lendingDa = lendingDa;
+            _loaningDa = loaningDa;
         }
 
-        public bool LendBook(int ssn, int copyId)
+        public bool LoanBook(int ssn, int copyId)
         {
             try
             {
-                return _lendingDa.LendBook(new Borrow {SSN = ssn, CopyID = copyId, FromDate = new DateTime()});
+                return _loaningDa.LoanBook(new Loan {SSN = ssn, CopyID = copyId, FromDate = new DateTime()});
             }
             catch
             {
@@ -30,7 +30,7 @@ namespace GTLService.DataManagement.Database
         {
             try
             {
-                return _lendingDa.ReturnBook(copyId);
+                return _loaningDa.ReturnBook(copyId);
             }
             catch
             {

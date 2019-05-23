@@ -6,12 +6,12 @@ namespace GTLService.DataManagement.Code
     public class CopyDm_Code : ICopyDm
     {
         private CopyDa_Code _copyDa;
-        private LendingDa_Code _lendingDa;
+        private LoaningDa_Code _loaningDa;
 
-        public CopyDm_Code(CopyDa_Code copyDa, LendingDa_Code lendingDa)
+        public CopyDm_Code(CopyDa_Code copyDa, LoaningDa_Code loaningDa)
         {
             _copyDa = copyDa;
-            _lendingDa = lendingDa;
+            _loaningDa = loaningDa;
         }
 
         public int GetAvailableCopyId(string isbn)
@@ -21,7 +21,7 @@ namespace GTLService.DataManagement.Code
             if(copies.Count > 0)
                 while (!false)
                 {
-                    if (_lendingDa.GetBorrow(copies[i].CopyID) == null)
+                    if (_loaningDa.GetLoan(copies[i].CopyID) == null)
                     {
                         return copies[i].CopyID;
                     }
@@ -45,7 +45,7 @@ namespace GTLService.DataManagement.Code
             int count = 0;
             foreach (var copy in copies)
             {
-                if (_lendingDa.GetBorrow(copy.CopyID) != null)
+                if (_loaningDa.GetLoan(copy.CopyID) != null)
                     count++;
             }
 

@@ -122,7 +122,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Connected Services\LendingServiceReference\Reference.cs">
+    <Compile Include="Connected Services\LoaningServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -153,11 +153,11 @@
     <None Include="Connected Services\CopyServiceReference\CopyService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\LendingServiceReference\LendingService.wsdl" />
-    <None Include="Connected Services\LendingServiceReference\LendingService.xsd">
+    <None Include="Connected Services\LoaningServiceReference\LendingService.wsdl" />
+    <None Include="Connected Services\LoaningServiceReference\LendingService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\LendingServiceReference\LendingService1.xsd">
+    <None Include="Connected Services\LoaningServiceReference\LendingService1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\LoginServiceReference\LoginService.disco" />
@@ -184,10 +184,10 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Connected Services\LendingServiceReference\LendingService.disco" />
-    <None Include="Connected Services\LendingServiceReference\configuration91.svcinfo" />
-    <None Include="Connected Services\LendingServiceReference\configuration.svcinfo" />
-    <None Include="Connected Services\LendingServiceReference\Reference.svcmap">
+    <None Include="Connected Services\LoaningServiceReference\LendingService.disco" />
+    <None Include="Connected Services\LoaningServiceReference\configuration91.svcinfo" />
+    <None Include="Connected Services\LoaningServiceReference\configuration.svcinfo" />
+    <None Include="Connected Services\LoaningServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -285,8 +285,8 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Materials\Index.cshtml" />
-    <Content Include="Views\Materials\_failedBorrow.cshtml" />
-    <Content Include="Views\Materials\_succesfullBorrow.cshtml" />
+    <Content Include="Views\Materials\_failedLoan.cshtml" />
+    <Content Include="Views\Materials\_succesfullLoan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -312,7 +312,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\CopyServiceReference\" />
-    <WCFMetadataStorage Include="Connected Services\LendingServiceReference\" />
+    <WCFMetadataStorage Include="Connected Services\LoaningServiceReference\" />
     <WCFMetadataStorage Include="Connected Services\LoginServiceReference\" />
     <WCFMetadataStorage Include="Connected Services\MaterialServiceReference\" />
   </ItemGroup>

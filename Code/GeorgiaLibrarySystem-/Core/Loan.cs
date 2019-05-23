@@ -12,7 +12,7 @@ namespace Core
     using System;
     using System.Collections.Generic;
     
-    public partial class Borrow
+    public partial class Loan
     {
         public int CopyID { get; set; }
         public int SSN { get; set; }

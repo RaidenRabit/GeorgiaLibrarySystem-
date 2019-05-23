@@ -9,9 +9,9 @@ using NUnit.Framework;
 
 namespace Tests.IntegrationTest
 {
-    public class LendingTest
+    public class LoaningTest
     {
-        private LendingService _lendingService;
+        private LoaningService _loaningService;
         
         [Test]
         //Database
@@ -30,13 +30,13 @@ namespace Tests.IntegrationTest
         [TestCase(123456789, 11, false, false, "Code")]//book already lent to you
         [TestCase(123456789, 4, false, false, "Code")]//book already lent to other member
         [TestCase(1, 10, false, false, "Code")]//Person doesn't exist
-        public void LendBook(int ssn, int copyId, bool maxNumberOfBooks, bool passing, string approach)
+        public void LoanBook(int ssn, int copyId, bool maxNumberOfBooks, bool passing, string approach)
         {
             //Arrange
             Setup(approach);
 
             //Act
-            var result = _lendingService.LendBook(ssn, copyId);
+            var result = _loaningService.LoanBook(ssn, copyId);
 
             //Assert
             Assert.IsTrue(result == passing);
@@ -61,7 +61,7 @@ namespace Tests.IntegrationTest
             Setup(approach);
 
             //Act
-            var result = _lendingService.ReturnBook(copyId);
+            var result = _loaningService.ReturnBook(copyId);
 
             //Assert
             Assert.IsTrue(result == passing);
@@ -74,10 +74,10 @@ namespace Tests.IntegrationTest
             switch (approach)
             {
                 case "Code":
-                    _lendingService =  new LendingService(new LendingDm_Code(new LendingDa_Code(context), new MemberDa_Code(context)));
+                    _loaningService =  new LoaningService(new LoaningDm_Code(new LoaningDa_Code(context), new MemberDa_Code(context)));
                     break;
                 case "Database":
-                    _lendingService =  new LendingService(new LendingDm_Database(new LendingDa_Database(context)));
+                    _loaningService =  new LoaningService(new LoaningDm_Database(new LoaningDa_Database(context)));
                     break;
                 default:
                     new NotImplementedException();

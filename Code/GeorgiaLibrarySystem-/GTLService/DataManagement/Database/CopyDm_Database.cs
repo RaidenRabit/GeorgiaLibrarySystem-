@@ -8,12 +8,12 @@ namespace GTLService.DataManagement.Database
     {
         
         private readonly CopyDa_Database _copyDa;
-        private readonly LendingDa_Database _lendingDa;
+        private readonly LoaningDa_Database _loaningDa;
 
-        public CopyDm_Database(CopyDa_Database copyDa, LendingDa_Database lendingDa)
+        public CopyDm_Database(CopyDa_Database copyDa, LoaningDa_Database loaningDa)
         {
             _copyDa = copyDa;
-            _lendingDa = lendingDa;
+            _loaningDa = loaningDa;
         }
 
         public int GetAvailableCopyId(string isbn)
@@ -21,7 +21,7 @@ namespace GTLService.DataManagement.Database
             var copies = _copyDa.GetAvailableCopies(isbn);
             foreach (var copy in copies)
             {
-                if (_lendingDa.CheckAvailable(copy.CopyID))
+                if (_loaningDa.CheckAvailable(copy.CopyID))
                     return copy.CopyID;
             }
 
@@ -39,7 +39,7 @@ namespace GTLService.DataManagement.Database
             var copies = _copyDa.GetAvailableCopies(isbn);
             foreach (var copy in copies)
             {
-                if (!_lendingDa.CheckAvailable(copy.CopyID))
+                if (!_loaningDa.CheckAvailable(copy.CopyID))
                     count++;
             }
 

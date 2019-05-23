@@ -22,17 +22,19 @@ namespace GTLService
                 Component.For<IMaterialService, MaterialService>().LifeStyle.Transient,
                 Component.For<ICopyService, CopyService>().LifeStyle.Transient,
                 Component.For<ILoginService, LoginService>().LifeStyle.Transient,
-                Component.For<ILendingService, LendingService>().LifeStyle.Transient,
+                Component.For<ILoaningService, LoaningService>().LifeStyle.Transient,
 
+                //code
                 Component.For<MaterialDa_Code, MaterialDa_Code>().LifeStyle.Transient,
                 Component.For<PersonDa_Code, PersonDa_Code>().LifeStyle.Transient,
                 Component.For<MemberDa_Code, MemberDa_Code>().LifeStyle.Transient,
                 Component.For<LibraryDa_Code, LibraryDa_Code>().LifeStyle.Transient,
-                Component.For<LendingDa_Code, LendingDa_Code>().LifeStyle.Transient,
+                Component.For<LoaningDa_Code, LoaningDa_Code>().LifeStyle.Transient,
                 Component.For<CopyDa_Code, CopyDa_Code>().LifeStyle.Transient,
                 Component.For<LoginDa_Code, LoginDa_Code>().LifeStyle.Transient,
 
-                Component.For<LendingDa_Database, LendingDa_Database>().LifeStyle.Transient,
+                //database
+                Component.For<LoaningDa_Database, LoaningDa_Database>().LifeStyle.Transient,
                 Component.For<CopyDa_Database, CopyDa_Database>().LifeStyle.Transient,
                 Component.For<MaterialsDa_Database, MaterialsDa_Database>().LifeStyle.Transient,
                 Component.For<LoginDa_Database, LoginDa_Database>().LifeStyle.Transient,
@@ -46,14 +48,14 @@ namespace GTLService
                         Component.For<ILoginDm, LoginDm_Database>().LifeStyle.Transient,
                         Component.For<IMaterialsDm, MaterialsDm_Database>(),
                         Component.For<ICopyDm, CopyDm_Database>(),
-                        Component.For<ILendingDm, LendingDm_Database>().LifeStyle.Transient);
+                        Component.For<ILoaningDm, LoaningDm_Database>().LifeStyle.Transient);
                     break;
                 case "Code":
                     container.Register(
                         Component.For<ILoginDm, LoginDm_Code>().LifeStyle.Transient,
                         Component.For<IMaterialsDm, MaterialDm_Code>(),
                         Component.For<ICopyDm, CopyDm_Code>(),
-                        Component.For<ILendingDm, LendingDm_Code>().LifeStyle.Transient);
+                        Component.For<ILoaningDm, LoaningDm_Code>().LifeStyle.Transient);
 
                     new TimerDM_Code();
                     break;

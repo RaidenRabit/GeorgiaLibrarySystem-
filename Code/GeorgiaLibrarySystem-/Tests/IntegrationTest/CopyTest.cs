@@ -5,7 +5,6 @@ using GTLService.DataAccess.Code;
 using GTLService.DataAccess.Database;
 using GTLService.DataManagement.Code;
 using GTLService.DataManagement.Database;
-using GTLService.DataManagement.IDataManagement;
 using NUnit.Framework;
 
 namespace Tests.IntegrationTest
@@ -83,14 +82,14 @@ namespace Tests.IntegrationTest
             {
                 case "Code":
                     CopyDa_Code copDa_Code = new CopyDa_Code(context);
-                    LendingDa_Code lendingDa_Code = new LendingDa_Code(context);
-                    CopyDm_Code copyDm_Code = new CopyDm_Code(copDa_Code, lendingDa_Code);
+                    LoaningDa_Code loaningDaCode = new LoaningDa_Code(context);
+                    CopyDm_Code copyDm_Code = new CopyDm_Code(copDa_Code, loaningDaCode);
                     _copyService = new CopyService(copyDm_Code);
                     break;
                 case "Database":
                     CopyDa_Database copyDa_Database = new CopyDa_Database(context);
-                    LendingDa_Database lendingDa_Database = new LendingDa_Database(context);
-                    CopyDm_Database copyDm_Database = new CopyDm_Database(copyDa_Database, lendingDa_Database);
+                    LoaningDa_Database loaningDaDatabase = new LoaningDa_Database(context);
+                    CopyDm_Database copyDm_Database = new CopyDm_Database(copyDa_Database, loaningDaDatabase);
                     _copyService = new CopyService(copyDm_Database);
                     break;
                 default:

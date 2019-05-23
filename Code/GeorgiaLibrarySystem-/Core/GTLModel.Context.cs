@@ -28,7 +28,6 @@ namespace Core
         }
     
         public virtual DbSet<Address> Addresses { get; set; }
-        public virtual DbSet<Borrow> Borrows { get; set; }
         public virtual DbSet<Copy> Copies { get; set; }
         public virtual DbSet<Librarian> Librarians { get; set; }
         public virtual DbSet<LibrarianType> LibrarianTypes { get; set; }
@@ -41,6 +40,7 @@ namespace Core
         public virtual DbSet<MemberType> MemberTypes { get; set; }
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<readAllMaterial> readAllMaterials { get; set; }
+        public virtual DbSet<Loan> Loans { get; set; }
     
         public virtual ObjectResult<Nullable<int>> Login(Nullable<int> sSN, string password)
         {

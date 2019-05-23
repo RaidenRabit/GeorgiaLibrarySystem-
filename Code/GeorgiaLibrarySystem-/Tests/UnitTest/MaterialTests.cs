@@ -21,7 +21,7 @@ namespace Tests.UnitTest
             var libraryDa_Code_Mock = new Mock<LibraryDa_Code>(null);
             var personDa_Code_Mock = new Mock<PersonDa_Code>(null);
             var copyDa_Code_Mock = new Mock<CopyDa_Code>(null);
-            var lendingDa_Code_Mock = new Mock<LendingDa_Code>(null);
+            var lendingDa_Code_Mock = new Mock<LoaningDa_Code>(null);
             var objects = MaterialsSetUp();
 
             materialDa_Code_Mock.Setup(x => x.ReadMaterials(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
@@ -55,7 +55,7 @@ namespace Tests.UnitTest
             var libraryDa_Code_Mock = new Mock<LibraryDa_Code>(null);
             var personDa_Code_Mock = new Mock<PersonDa_Code>(null);
             var copyDa_Code_Mock = new Mock<CopyDa_Code>(null);
-            var lendingDa_Code_Mock = new Mock<LendingDa_Code>(null);
+            var lendingDa_Code_Mock = new Mock<LoaningDa_Code>(null);
             var objects = MaterialsSetUp();
             
             personDa_Code_Mock.Setup(x => x.CheckLibrarianSsn(It.IsAny<int>()))
@@ -91,7 +91,7 @@ namespace Tests.UnitTest
             var libraryDa_Code_Mock = new Mock<LibraryDa_Code>(null);
             var personDa_Code_Mock = new Mock<PersonDa_Code>(null);
             var copyDa_Code_Mock = new Mock<CopyDa_Code>(null);
-            var lendingDa_Code_Mock = new Mock<LendingDa_Code>(null);
+            var lendingDa_Code_Mock = new Mock<LoaningDa_Code>(null);
             
             personDa_Code_Mock.Setup(x => x.CheckLibrarianSsn(It.IsAny<int>()))
                 .Returns(ssnPassing);
@@ -120,7 +120,7 @@ namespace Tests.UnitTest
             var libraryDa_Code_Mock = new Mock<LibraryDa_Code>(null);
             var personDa_Code_Mock = new Mock<PersonDa_Code>(null);
             var copyDa_Code_Mock = new Mock<CopyDa_Code>(null);
-            var lendingDa_Code_Mock = new Mock<LendingDa_Code>(null);
+            var lendingDa_Code_Mock = new Mock<LoaningDa_Code>(null);
             
             personDa_Code_Mock.Setup(x => x.CheckLibrarianSsn(It.IsAny<int>()))
                 .Returns(ssnPassing);

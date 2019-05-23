@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using GtlWebsite.CopyServiceReference;
-using GtlWebsite.LendingServiceReference;
+using GtlWebsite.LoaningServiceReference;
 using GtlWebsite.MaterialServiceReference;
 
 namespace GtlWebsite.Controllers
@@ -11,13 +11,13 @@ namespace GtlWebsite.Controllers
     {
         private MaterialServiceClient _materialClient;
         private CopyServiceClient _copyClient;
-        private LendingServiceClient _lendingClient;
+        private LoaningServiceClient _loaningClient;
 
         public MaterialsController()
         {
             _materialClient = new MaterialServiceClient();
             _copyClient = new CopyServiceClient();
-            _lendingClient = new LendingServiceClient();
+            _loaningClient = new LoaningServiceClient();
         }
         // GET: Materials
         public ActionResult Index()
@@ -43,14 +43,14 @@ namespace GtlWebsite.Controllers
                 id = _copyClient.GetAvailableCopyId(Int32.Parse(isbn));
                 if (id != 0)
                 {
-                    if(_lendingClient.LendBook(Int32.Parse(Session["SSN"].ToString()), id))
-                        return PartialView("_succesfullBorrow", id);
+                    if(_loaningClient.LoanBook(Int32.Parse(Session["SSN"].ToString()), id))
+                        return PartialView("_succesfullLoan", id);
                 }
 
                 copies--;
             }
 
-            return PartialView("_failedBorrow");
+            return PartialView("_failedLoan");
         }
     }
 }
