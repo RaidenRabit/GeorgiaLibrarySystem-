@@ -34,7 +34,7 @@ namespace Tests.AcceptanceTest
             //Assert
             try
             {
-                _chromeDriver.FindElement(By.Id("failedBorrow"));
+                _chromeDriver.FindElement(By.Id("failedLoan"));
                 Assert.IsTrue(true);
             }
             catch
@@ -67,7 +67,7 @@ namespace Tests.AcceptanceTest
             //Assert
             try
             {
-                _chromeDriver.FindElement(By.Id("succesfullBorrow"));
+                _chromeDriver.FindElement(By.Id("succesfullLoan"));
                 Assert.IsTrue(true);
             }
             catch
