@@ -184,7 +184,7 @@
     </Compile>
     <Compile Include="Controller\IController\ILoginService.cs" />
     <Compile Include="Controller\IController\IMaterialService.cs" />
-    <Compile Include="Controller\IController\ILendingService.cs" />
+    <Compile Include="Controller\IController\ILoaningService.cs" />
     <Compile Include="Controller\IController\ICopyService.cs" />
     <Compile Include="Controller\LendingService.svc.cs">
       <DependentUpon>LendingService.svc</DependentUpon>
@@ -201,18 +201,18 @@
     <Compile Include="DataAccess\Database\CopyDa_Database.cs" />
     <Compile Include="DataAccess\Database\MaterialsDa_Database.cs" />
     <Compile Include="DataAccess\Code\PersonDa_Code.cs" />
-    <Compile Include="DataAccess\Code\LendingDa_Code.cs" />
+    <Compile Include="DataAccess\Code\LoaningDa_Code.cs" />
     <Compile Include="DataAccess\Code\MemberDa_Code.cs" />
-    <Compile Include="DataAccess\Database\LendingDa_Database.cs" />
+    <Compile Include="DataAccess\Database\LoaningDa_Database.cs" />
     <Compile Include="DataAccess\Code\LoginDa_Code.cs" />
     <Compile Include="DataAccess\Database\LoginDa_Database.cs" />
     <Compile Include="DataManagement\Code\CopyDm_Code.cs" />
-    <Compile Include="DataManagement\Code\LendingDm_Code.cs" />
+    <Compile Include="DataManagement\Code\LoaningDm_Code.cs" />
     <Compile Include="DataManagement\Code\TimerDM_Code.cs" />
     <Compile Include="DataManagement\Database\CopyDm_Database.cs" />
-    <Compile Include="DataManagement\Database\LendingDm_Database.cs" />
+    <Compile Include="DataManagement\Database\LoaningDm_Database.cs" />
     <Compile Include="DataManagement\IDataManagement\ICopyDm.cs" />
-    <Compile Include="DataManagement\IDataManagement\ILendingDm.cs" />
+    <Compile Include="DataManagement\IDataManagement\ILoaningDm.cs" />
     <Compile Include="DataManagement\Code\MaterialDm_Code.cs" />
     <Compile Include="DataManagement\Database\MaterialsDm_Database.cs" />
     <Compile Include="DataManagement\IDataManagement\ILoginDm.cs" />
