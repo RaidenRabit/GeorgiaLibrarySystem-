@@ -7,70 +7,42 @@ namespace GTLService.DataAccess.Code
 {
     public class CopyDa_Code
     {
-        private readonly Context _context;
-        public CopyDa_Code(Context context)
+        //todo fix?
+        public virtual bool CheckCopyId(int id, Context context)
         {
-            _context = context;
+            return context.Copies.Find(id) != null;
         }
 
-        public virtual bool CheckCopyId(int id)
+        //todo fix?
+        public virtual bool CheckTypeName(string typeName, Context context)
         {
-            return _context.Copies.Find(id) != null;
-        }
-
-        public virtual bool CheckTypeName(string typeName)
-        {
-            return _context.Copies.FirstOrDefault(x => x.TypeName.Equals(typeName)) != null;
+            return context.Copies.FirstOrDefault(x => x.TypeName.Equals(typeName)) != null;
         }
         
-        public virtual bool CreateCopy(string isbn, string libraryName, string typeName)
+        public virtual bool CreateCopy(Copy copy, Context context)
         {
-            try
-            {
-                Copy copy = new Copy {ISBN = isbn, LibraryName = libraryName, TypeName = typeName};
-                _context.Copies.Add(copy);
-                return _context.SaveChanges() > 0;
-            }
-            catch (SqlException)
-            {
-                return false;
-            }
+                context.Copies.Add(copy);
+                return context.SaveChanges() > 0;
         }
         
-        public virtual List<Copy> ReadCopies(string isbn, string typeName)
+        public virtual List<Copy> ReadCopies(string isbn, string typeName, Context context)
         {
-            var a = _context.Copies
+            return context.Copies
                 .Where(x => (isbn.Equals("0") || x.ISBN.Equals(isbn)) &&
-                            (typeName.Contains("0") || x.TypeName.Equals(typeName))
-                )
+                            (typeName.Contains("0") || x.TypeName.Equals(typeName)))
                 .ToList();
-            return a;
         }
         
-        public virtual bool DeleteCopy(int copyId)
+        //todo fix?
+        public virtual bool DeleteCopy(int copyId, Context context)
         {
-            try
-            {
-                var copy = _context.Copies.Single(o => o.CopyID == copyId);
-                _context.Copies.Remove(copy);
-                return _context.SaveChanges() > 0;
-            }
-            catch (SqlException)
-            {
-                return false;
-            }
+            context.Copies.Remove(context.Copies.SingleOrDefault(o => o.CopyID == copyId));
+            return context.SaveChanges() > 0;
         }
 
-        public virtual List<Copy> GetAvailableCopyId(string isbn)
+        public virtual List<Copy> GetAvailableCopyId(string isbn, Context context)
         {
-            try
-            {
-                return _context.Copies.Where(x => x.ISBN.Equals(isbn)).ToList();
-            }
-            catch (SqlException)
-            {
-                return null;
-            }
+            return context.Copies.Where(x => x.ISBN.Equals(isbn)).ToList();
         }
     }
 }

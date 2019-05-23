@@ -22,24 +22,26 @@ namespace Tests.UnitTest
         public void LoaningDm_Code_LendBook(int allowedNumberOfBooks, int currentNumberOfBooks, bool loanExists, int ssn, int copyId, bool passing)
         {
             //Arrange
-            var mockLendingDa = new Mock<LoaningDa_Code>(null);
-            mockLendingDa.Setup(x => x.MemberLoanBooks(It.IsAny<int>()))
+            var mockLendingDa = new Mock<LoaningDa_Code>();
+            var context_Mock = new Mock<Context>();
+
+            mockLendingDa.Setup(x => x.MemberLoanBooks(It.IsAny<int>(), It.IsAny<Context>()))
                 .Returns(currentNumberOfBooks);
             Loan loan = null;
             if (loanExists)
             {
                 loan = new Loan();
             }
-            mockLendingDa.Setup(x => x.GetLoan(It.IsAny<int>()))
+            mockLendingDa.Setup(x => x.GetLoan(It.IsAny<int>(), It.IsAny<Context>()))
                 .Returns(loan);
-            mockLendingDa.Setup(x => x.LoanBook(It.IsAny<Loan>()))
+            mockLendingDa.Setup(x => x.LoanBook(It.IsAny<Loan>(), It.IsAny<Context>()))
                 .Returns(true);
 
-            var mockMemberDa = new Mock<MemberDa_Code>(null);
-            mockMemberDa.Setup(x => x.GetMember(It.IsAny<int>()))
+            var mockMemberDa = new Mock<MemberDa_Code>();
+            mockMemberDa.Setup(x => x.GetMember(It.IsAny<int>(), It.IsAny<Context>()))
                 .Returns(new Member{MemberType = new MemberType{NrOfBooks = allowedNumberOfBooks}});
 
-            var lendingDm = new LoaningDm_Code(mockLendingDa.Object,mockMemberDa.Object);
+            var lendingDm = new LoaningDm_Code(mockLendingDa.Object,mockMemberDa.Object,context_Mock.Object);
 
             //Act
             var result = lendingDm.LoanBook(ssn,copyId);
@@ -56,20 +58,22 @@ namespace Tests.UnitTest
         public void LoaningDm_Code_ReturnBook(bool loanExists, int copyId, bool passing)
         {
             //Arrange
-            var mockLendingDa = new Mock<LoaningDa_Code>(null);
+            var mockLendingDa = new Mock<LoaningDa_Code>();
+            var context_Mock = new Mock<Context>();
+
             Loan loan = null;
             if (loanExists)
             {
                 loan = new Loan();
             }
-            mockLendingDa.Setup(x => x.GetLoan(It.IsAny<int>()))
+            mockLendingDa.Setup(x => x.GetLoan(It.IsAny<int>(), It.IsAny<Context>()))
                 .Returns(loan);
-            mockLendingDa.Setup(x => x.SaveLoanChanges())
+            mockLendingDa.Setup(x => x.UpdateLoan(It.IsAny<Loan>(), It.IsAny<Context>()))
                 .Returns(true);
 
-            var mockMemberDa = new Mock<MemberDa_Code>(null);
+            var mockMemberDa = new Mock<MemberDa_Code>();
 
-            var lendingDm = new LoaningDm_Code(mockLendingDa.Object,mockMemberDa.Object);
+            var lendingDm = new LoaningDm_Code(mockLendingDa.Object,mockMemberDa.Object,context_Mock.Object);
 
             //Act
             var result = lendingDm.ReturnBook(copyId);
@@ -85,19 +89,21 @@ namespace Tests.UnitTest
         public void LoaningDm_Code_NoticeFilling(bool passing)
         {
             //Arrange
-            var mockLendingDa = new Mock<LoaningDa_Code>(null);
+            var mockLendingDa = new Mock<LoaningDa_Code>();
+            var context_Mock = new Mock<Context>();
+
             List<Loan> loans = new List<Loan>();
-            mockLendingDa.Setup(x => x.GetAllActiveLoans())
+            mockLendingDa.Setup(x => x.GetAllActiveLoans(It.IsAny<Context>()))
                 .Returns(loans);
-            mockLendingDa.Setup(x => x.SaveLoanChanges())
+            mockLendingDa.Setup(x => x.UpdateLoan(It.IsAny<Loan>(), It.IsAny<Context>()))
                 .Returns(true);
 
-            var mockMemberDa = new Mock<MemberDa_Code>(null);
+            var mockMemberDa = new Mock<MemberDa_Code>();
             Member member = new Member();
-            mockMemberDa.Setup(x => x.GetMember(It.IsAny<int>()))
+            mockMemberDa.Setup(x => x.GetMember(It.IsAny<int>(), It.IsAny<Context>()))
                 .Returns(member);
 
-            var lendingDm = new LoaningDm_Code(mockLendingDa.Object,mockMemberDa.Object);
+            var lendingDm = new LoaningDm_Code(mockLendingDa.Object, mockMemberDa.Object, context_Mock.Object);
 
             //Act
             var result = lendingDm.NoticeFilling();

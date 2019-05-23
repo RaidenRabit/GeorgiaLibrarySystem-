@@ -74,7 +74,7 @@ namespace Tests.IntegrationTest
             switch (approach)
             {
                 case "Code":
-                    _loaningService =  new LoaningService(new LoaningDm_Code(new LoaningDa_Code(context), new MemberDa_Code(context)));
+                    _loaningService =  new LoaningService(new LoaningDm_Code(new LoaningDa_Code(), new MemberDa_Code(),context));
                     break;
                 case "Database":
                     _loaningService =  new LoaningService(new LoaningDm_Database(new LoaningDa_Database(context)));

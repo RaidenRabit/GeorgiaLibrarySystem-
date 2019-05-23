@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using Core;
 
@@ -6,54 +7,36 @@ namespace GTLService.DataAccess.Code
 {
     public class LoaningDa_Code
     {
-        private readonly Context _context;
-        public LoaningDa_Code(Context context)
+        public virtual bool LoanBook(Loan loan, Context context)
         {
-            _context = context;
+            context.Database.ExecuteSqlCommand("ALTER TABLE Loan DISABLE TRIGGER Lending");//so trigger wouldn't be run
+            context.SaveChanges();
+            context.Loans.Add(loan);
+            bool result = context.SaveChanges() > 0;
+            context.Database.ExecuteSqlCommand("ALTER TABLE Loan ENABLE TRIGGER Lending");
+            context.SaveChanges();
+            return result;
         }
 
-        public virtual bool LoanBook(Loan loan)
+        public virtual Loan GetLoan(int copyId, Context context)
         {
-            using (var dbContextTransaction = _context.Database.BeginTransaction())
-            {
-                bool result = false;
-                try
-                {
-                    _context.Database.ExecuteSqlCommand("ALTER TABLE Loan DISABLE TRIGGER Lending");//so trigger wouldn't be run
-                    _context.SaveChanges();
-                    _context.Loans.Add(loan);
-                    result = _context.SaveChanges() > 0;
-                    _context.Database.ExecuteSqlCommand("ALTER TABLE Loan ENABLE TRIGGER Lending");
-                    _context.SaveChanges();
-
-                    dbContextTransaction.Commit();
-                }
-                catch
-                {
-                    dbContextTransaction.Rollback();
-                }
-                return result;
-            }
-        }
-        
-        public virtual bool SaveLoanChanges()
-        {
-            return _context.SaveChanges() > 0;
+            return context.Loans.FirstOrDefault(x => x.CopyID == copyId && x.ToDate == null);
         }
 
-        public virtual Loan GetLoan(int copyId)
+        public virtual bool UpdateLoan(Loan loan, Context context)
         {
-            return _context.Loans.FirstOrDefault(x => x.CopyID == copyId && x.ToDate == null);
+            context.Loans.AddOrUpdate(loan);
+            return context.SaveChanges() > 0;
         }
 
-        public virtual List<Loan> GetAllActiveLoans()
+        public virtual List<Loan> GetAllActiveLoans(Context context)
         {
-            return _context.Loans.Where(x => x.ToDate == null && x.noticeSent == null).ToList();
+            return context.Loans.Where(x => x.ToDate == null && x.noticeSent == null).ToList();
         }
 
-        public virtual int MemberLoanBooks(int ssn)
+        public virtual int MemberLoanBooks(int ssn, Context context)
         {
-            return _context.Loans.Count(x => x.SSN == ssn && x.ToDate == null);
+            return context.Loans.Count(x => x.SSN == ssn && x.ToDate == null);
         }
     }
 }

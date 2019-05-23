@@ -11,65 +11,83 @@ namespace GTLService.DataManagement.Code
     {
         private readonly LibraryDa_Code _libraryDa;
         private readonly MaterialDa_Code _materialDa;
-        private readonly PersonDa_Code _personDa;
+        private readonly LibrarianDa_Code _librarianDa;
         private readonly CopyDa_Code _copyDa;
         private readonly LoaningDa_Code _loaningDa;
+        private readonly Context _context;
 
-        public MaterialDm_Code(MaterialDa_Code materialDa, LibraryDa_Code libraryDa, PersonDa_Code personDa, CopyDa_Code copyDa,
-            LoaningDa_Code loaningDa)
+        public MaterialDm_Code(MaterialDa_Code materialDa, LibraryDa_Code libraryDa, LibrarianDa_Code librarianDa, CopyDa_Code copyDa,
+            LoaningDa_Code loaningDa, Context context)
         {
             _materialDa = materialDa;
             _libraryDa = libraryDa;
-            _personDa = personDa;
+            _librarianDa = librarianDa;
             _copyDa = copyDa;
             _loaningDa = loaningDa;
+            _context = context;
         }
 
+        //todo this seams weird
         public List<readAllMaterial> ReadMaterials(string materialTitle, string author, int numOfRecords = 10, string isbn = "0", string jobStatus = "0")
         {
-            var materials = _materialDa.ReadMaterials(isbn, materialTitle, author, numOfRecords);
-            var copies = _copyDa.ReadCopies(isbn, jobStatus);
-
-            List<readAllMaterial> allMaterials = new List<readAllMaterial>();
-            readAllMaterial readAllMaterial;
-
-            foreach (var c in copies)
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
             {
-                bool unique = true;
-                foreach (var allMaterial in allMaterials)
+                try
                 {
-                    if (allMaterial.ISBN == c.ISBN && allMaterial.TypeName == c.TypeName &&
-                        allMaterial.Location == c.LibraryName)
-                        unique = false;
-                }
+                    var materials = _materialDa.ReadMaterials(isbn, materialTitle, author, numOfRecords, _context);
+                    var copies = _copyDa.ReadCopies(isbn, jobStatus, _context);
 
-                if (unique)
-                {
-                    foreach (var m in materials)
+                    List<readAllMaterial> allMaterials = new List<readAllMaterial>();
+                    readAllMaterial readAllMaterial;
+
+                    foreach (var c in copies)
                     {
-                        if (m.ISBN.Equals(c.ISBN))
+                        bool unique = true;
+                        foreach (var allMaterial in allMaterials)
                         {
-                            readAllMaterial = new readAllMaterial
+                            if (allMaterial.ISBN == c.ISBN && allMaterial.TypeName == c.TypeName &&
+                                allMaterial.Location == c.LibraryName)
+                                unique = false;
+                        }
+
+                        if (unique)
+                        {
+                            foreach (var m in materials)
                             {
-                                ISBN = c.ISBN, TypeName = c.TypeName, Location = c.LibraryName,
-                                Description = m.Description,
-                                Author = m.Author, Title = m.Author
-                            };
-                            allMaterials.Add(readAllMaterial);
+                                if (m.ISBN.Equals(c.ISBN))
+                                {
+                                    readAllMaterial = new readAllMaterial
+                                    {
+                                        ISBN = c.ISBN, TypeName = c.TypeName, Location = c.LibraryName,
+                                        Description = m.Description,
+                                        Author = m.Author, Title = m.Author
+                                    };
+                                    allMaterials.Add(readAllMaterial);
+                                }
+                            }
+
+                        }
+
+                    }
+
+                    if (allMaterials.Count > numOfRecords)
+                    {
+                        for (int i = allMaterials.Count - 1; i >= numOfRecords; i--)
+                        {
+                            allMaterials.RemoveAt(i);
                         }
                     }
-                   
-                }
 
-            }
-            if(allMaterials.Count > numOfRecords)
-                for (int i = allMaterials.Count - 1; i >= numOfRecords; i--)
+                    allMaterials = CountAvailableCopies(allMaterials, copies);
+                    dbContextTransaction.Commit();
+                    return allMaterials;
+                }
+                catch
                 {
-                    allMaterials.RemoveAt(i);
+                    dbContextTransaction.Rollback();
+                    return null;
                 }
-
-            allMaterials = CountAvailableCopies(allMaterials, copies);
-            return allMaterials;
+            }
         }
 
         private List<readAllMaterial> CountAvailableCopies(List<readAllMaterial> allMaterials, List<Copy> copies)
@@ -81,7 +99,7 @@ namespace GTLService.DataManagement.Code
                 {
                     if (readAllMaterial.ISBN.Equals(copy.ISBN) && readAllMaterial.Location.Equals(copy.LibraryName)
                                                                && readAllMaterial.TypeName.Equals(copy.TypeName)
-                                                               && (_loaningDa.GetLoan(copy.CopyID) == null))
+                                                               && (_loaningDa.GetLoan(copy.CopyID, _context) == null))
                         count++;
                 }
 
@@ -95,45 +113,79 @@ namespace GTLService.DataManagement.Code
         public bool CreateMaterial(int ssn, string isbn, string library, string author, string description, string title, string typeName,
             int quantity)
         {
-            if(_personDa.CheckLibrarianSsn(ssn))
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
             {
-                if (_libraryDa.CheckLibraryName(library) && _copyDa.CheckTypeName(typeName))
+                try
                 {
-                    if (!_materialDa.CheckMaterialIsbn(isbn))
-                        _materialDa.CreateMaterial(isbn, author, description, title);
-                    for (int i = 0; i < quantity; i++)
+                    if (_librarianDa.CheckLibrarianSsn(ssn, _context) && _libraryDa.CheckLibraryName(library, _context) && _copyDa.CheckTypeName(typeName, _context))
                     {
-                        _copyDa.CreateCopy(isbn, library, typeName);
+                        if (!_materialDa.CheckMaterialIsbn(isbn, _context))
+                            _materialDa.CreateMaterial( new Material {ISBN = isbn, Author = author, Title = title, Description = description}, _context);
+                        for (int i = 0; i < quantity; i++)
+                        {
+                            _copyDa.CreateCopy(new Copy {ISBN = isbn, LibraryName = library, TypeName = typeName}, _context);
+                        }
+
+                        dbContextTransaction.Commit();
+                        return true;
                     }
-
-                    return true;
+                    dbContextTransaction.Rollback();
+                    return false;
                 }
-                
+                catch
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
             }
-
-            return false;
         }
 
         public bool DeleteMaterial(int ssn, string isbn)
         {
-            if (_personDa.CheckLibrarianSsn(ssn) && _materialDa.CheckMaterialIsbn(isbn))
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
             {
-                _materialDa.DeleteMaterial(isbn);
-                return true;
-            }
+                try
+                {
+                    if (_librarianDa.CheckLibrarianSsn(ssn, _context) && _materialDa.CheckMaterialIsbn(isbn, _context))
+                    {
+                        var result = _materialDa.DeleteMaterial(isbn, _context);
+                        dbContextTransaction.Commit();
+                        return result;
+                    }
 
-            return false;
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
+                catch
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
+            }
         }
 
         public bool DeleteCopy(int ssn, int copyId)
         {
-            if (_personDa.CheckLibrarianSsn(ssn) && _copyDa.CheckCopyId(copyId))
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
             {
-                _copyDa.DeleteCopy(copyId);
-                return true;
-            }
+                try
+                {
+                    if (_librarianDa.CheckLibrarianSsn(ssn, _context) && _copyDa.CheckCopyId(copyId, _context))
+                    {
+                        var result = _copyDa.DeleteCopy(copyId, _context);
+                        dbContextTransaction.Commit();
+                        return result;
+                    }
 
-            return false;
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
+                catch
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
+            }
         }
     }
 }

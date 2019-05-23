@@ -26,7 +26,7 @@ namespace GTLService
 
                 //code
                 Component.For<MaterialDa_Code, MaterialDa_Code>().LifeStyle.Transient,
-                Component.For<PersonDa_Code, PersonDa_Code>().LifeStyle.Transient,
+                Component.For<LibrarianDa_Code, LibrarianDa_Code>().LifeStyle.Transient,
                 Component.For<MemberDa_Code, MemberDa_Code>().LifeStyle.Transient,
                 Component.For<LibraryDa_Code, LibraryDa_Code>().LifeStyle.Transient,
                 Component.For<LoaningDa_Code, LoaningDa_Code>().LifeStyle.Transient,

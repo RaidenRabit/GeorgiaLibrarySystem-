@@ -9,60 +9,87 @@ namespace GTLService.DataManagement.Code
     {
         private readonly LoaningDa_Code _loaningDa;
         private readonly MemberDa_Code _memberDa;
+        private readonly Context _context;
         
-        public LoaningDm_Code(LoaningDa_Code loaningDa, MemberDa_Code memberDa)
+        public LoaningDm_Code(LoaningDa_Code loaningDa, MemberDa_Code memberDa, Context context)
         {
             _loaningDa = loaningDa;
             _memberDa = memberDa;
+            _context = context;
         }
 
         public bool LoanBook(int ssn, int copyId)
         {
-            try
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
             {
-                if (_loaningDa.MemberLoanBooks(ssn) < _memberDa.GetMember(ssn).MemberType.NrOfBooks //member is allowed to Loan more
-                        && _loaningDa.GetLoan(copyId) == null)//not Loaned at the time
+                try
                 {
-                    return _loaningDa.LoanBook(new Loan {SSN = ssn, CopyID = copyId, FromDate = DateTime.Now});
+                    if (_loaningDa.MemberLoanBooks(ssn, _context) < _memberDa.GetMember(ssn, _context).MemberType.NrOfBooks //member is allowed to Loan more
+                        && _loaningDa.GetLoan(copyId, _context) == null //not Loaned at the time
+                        && _loaningDa.LoanBook(new Loan {SSN = ssn, CopyID = copyId, FromDate = DateTime.Now}, _context))//loan successful
+                    {
+                        dbContextTransaction.Commit();
+                        return true;
+                    }
+                    dbContextTransaction.Rollback();
+                    return false;
                 }
-                return false;
-            }
-            catch
-            {
-                return false;
+                catch
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
             }
         }
 
         public bool ReturnBook(int copyId)
         {
-            try
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
             {
-                Loan loan = _loaningDa.GetLoan(copyId);
-                if (loan != null)
+                try
                 {
+                    Loan loan = _loaningDa.GetLoan(copyId, _context);
                     loan.ToDate = DateTime.Now;
-                    return _loaningDa.SaveLoanChanges();
+                    var result = _loaningDa.UpdateLoan(loan, _context);
+                    dbContextTransaction.Commit();
+                    return result;
                 }
-                return false;
-            }
-            catch
-            {
-                return false;
+                catch
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
             }
         }
 
         public bool NoticeFilling()
         {
-            foreach (var loan in _loaningDa.GetAllActiveLoans())
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
             {
-                Member member = _memberDa.GetMember(loan.SSN);
-                
-                if (DateTime.Now >= loan.FromDate.AddDays(member.MemberType.LendingLenght + member.MemberType.GracePeriod) && loan.noticeSent == null)
+                try
                 {
-                    loan.noticeSent = false;
+                    foreach (var loan in _loaningDa.GetAllActiveLoans(_context))
+                    {
+                        Member member = _memberDa.GetMember(loan.SSN, _context);
+
+                        if (DateTime.Now >=
+                            loan.FromDate.AddDays(member.MemberType.LendingLenght + member.MemberType.GracePeriod) &&
+                            loan.noticeSent == null)
+                        {
+                            loan.noticeSent = false;
+                            _loaningDa.UpdateLoan(loan, _context);
+                        }
+                    }
+
+                    dbContextTransaction.Commit();
+                    return true;
+                }
+                catch
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
                 }
             }
-            return _loaningDa.SaveLoanChanges();
         }
     }
 }

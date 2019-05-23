@@ -1,4 +1,5 @@
-﻿using GTLService.DataAccess.Code;
+﻿using Core;
+using GTLService.DataAccess.Code;
 using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.DataManagement.Code
@@ -6,24 +7,34 @@ namespace GTLService.DataManagement.Code
     public class LoginDm_Code : ILoginDm
     {
         private readonly LoginDa_Code _loginDa;
+        private readonly Context _context;
 
-        public LoginDm_Code(LoginDa_Code loginDa)
+        public LoginDm_Code(LoginDa_Code loginDa, Context context)
         {
             _loginDa = loginDa;
+            _context = context;
         }
 
         public bool Login(int ssn, string password)
         {
-            try
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
             {
-                if (ssn.ToString().Length == 9 && password.Length <= 16 && password.Length > 0)
-                    return _loginDa.Login(ssn, password);
-                else
+                try
+                {
+                    if (ssn.ToString().Length == 9 && password.Length <= 16 && password.Length > 0)
+                    {
+                        dbContextTransaction.Commit();
+                        return _loginDa.Login(ssn, password, _context);
+                    }
+
+                    dbContextTransaction.Rollback();
                     return false;
-            }
-            catch
-            {
-                return false;
+                }
+                catch
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
             }
         }
     }

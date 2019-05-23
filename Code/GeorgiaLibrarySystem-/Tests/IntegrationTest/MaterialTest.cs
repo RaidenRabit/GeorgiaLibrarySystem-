@@ -127,12 +127,12 @@ namespace Tests.IntegrationTest
             switch (approach)
             {
                 case "Code":
-                    MaterialDa_Code materialDa_Code = new MaterialDa_Code(context);
-                    LibraryDa_Code libraryDa_Code = new LibraryDa_Code(context);
-                    PersonDa_Code personDa_Code = new PersonDa_Code(context);
-                    CopyDa_Code copyDa_Code = new CopyDa_Code(context);
-                    LoaningDa_Code loaningDaCode = new LoaningDa_Code(context);
-                    MaterialDm_Code materialsDm_Code = new MaterialDm_Code(materialDa_Code, libraryDa_Code, personDa_Code, copyDa_Code, loaningDaCode);
+                    MaterialDa_Code materialDa_Code = new MaterialDa_Code();
+                    LibraryDa_Code libraryDa_Code = new LibraryDa_Code();
+                    LibrarianDa_Code librarianDaCode = new LibrarianDa_Code();
+                    CopyDa_Code copyDa_Code = new CopyDa_Code();
+                    LoaningDa_Code loaningDaCode = new LoaningDa_Code();
+                    MaterialDm_Code materialsDm_Code = new MaterialDm_Code(materialDa_Code, libraryDa_Code, librarianDaCode, copyDa_Code, loaningDaCode, context);
                     _materialService = new MaterialService(materialsDm_Code);
                     break;
                 case "Database":

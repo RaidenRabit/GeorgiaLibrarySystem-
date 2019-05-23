@@ -81,9 +81,9 @@ namespace Tests.IntegrationTest
             switch (approach)
             {
                 case "Code":
-                    CopyDa_Code copDa_Code = new CopyDa_Code(context);
-                    LoaningDa_Code loaningDaCode = new LoaningDa_Code(context);
-                    CopyDm_Code copyDm_Code = new CopyDm_Code(copDa_Code, loaningDaCode);
+                    CopyDa_Code copDa_Code = new CopyDa_Code();
+                    LoaningDa_Code loaningDaCode = new LoaningDa_Code();
+                    CopyDm_Code copyDm_Code = new CopyDm_Code(copDa_Code, loaningDaCode, context);
                     _copyService = new CopyService(copyDm_Code);
                     break;
                 case "Database":
