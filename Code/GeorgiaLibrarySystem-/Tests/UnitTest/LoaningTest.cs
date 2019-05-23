@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace Tests.UnitTest
 {
-    public class LendingTest
+    public class LoaningTest
     {
         #region Code
         [Test]
@@ -19,20 +19,20 @@ namespace Tests.UnitTest
         [TestCase(0, 5, false, 1, 2, false)]
         [TestCase(5,5,true,1,2,false)]
         [TestCase(5,4,true,1,2,false)]
-        public void LendingDm_Code_LendBook(int allowedNumberOfBooks, int currentNumberOfBooks, bool borrowExists, int ssn, int copyId, bool passing)
+        public void LoaningDm_Code_LendBook(int allowedNumberOfBooks, int currentNumberOfBooks, bool loanExists, int ssn, int copyId, bool passing)
         {
             //Arrange
             var mockLendingDa = new Mock<LoaningDa_Code>(null);
-            mockLendingDa.Setup(x => x.MemberBorrowedBooks(It.IsAny<int>()))
+            mockLendingDa.Setup(x => x.MemberLoanBooks(It.IsAny<int>()))
                 .Returns(currentNumberOfBooks);
-            Borrow borrow = null;
-            if (borrowExists)
+            Loan loan = null;
+            if (loanExists)
             {
-                borrow = new Borrow();
+                loan = new Loan();
             }
-            mockLendingDa.Setup(x => x.GetBorrow(It.IsAny<int>()))
-                .Returns(borrow);
-            mockLendingDa.Setup(x => x.LendBook(It.IsAny<Borrow>()))
+            mockLendingDa.Setup(x => x.GetLoan(It.IsAny<int>()))
+                .Returns(loan);
+            mockLendingDa.Setup(x => x.LoanBook(It.IsAny<Loan>()))
                 .Returns(true);
 
             var mockMemberDa = new Mock<MemberDa_Code>(null);
@@ -42,7 +42,7 @@ namespace Tests.UnitTest
             var lendingDm = new LoaningDm_Code(mockLendingDa.Object,mockMemberDa.Object);
 
             //Act
-            var result = lendingDm.LendBook(ssn,copyId);
+            var result = lendingDm.LoanBook(ssn,copyId);
 
             //Assert
             Assert.IsTrue(result == passing);
@@ -53,18 +53,18 @@ namespace Tests.UnitTest
         [TestCase(true, 1, true)]
         //fail
         [TestCase(false, 1, false)]
-        public void LendingDm_Code_ReturnBook(bool borrowExists, int copyId, bool passing)
+        public void LoaningDm_Code_ReturnBook(bool loanExists, int copyId, bool passing)
         {
             //Arrange
             var mockLendingDa = new Mock<LoaningDa_Code>(null);
-            Borrow borrow = null;
-            if (borrowExists)
+            Loan loan = null;
+            if (loanExists)
             {
-                borrow = new Borrow();
+                loan = new Loan();
             }
-            mockLendingDa.Setup(x => x.GetBorrow(It.IsAny<int>()))
-                .Returns(borrow);
-            mockLendingDa.Setup(x => x.SaveBorrowChanges())
+            mockLendingDa.Setup(x => x.GetLoan(It.IsAny<int>()))
+                .Returns(loan);
+            mockLendingDa.Setup(x => x.SaveLoanChanges())
                 .Returns(true);
 
             var mockMemberDa = new Mock<MemberDa_Code>(null);
@@ -82,14 +82,14 @@ namespace Tests.UnitTest
         //pass
         [TestCase(true)]
         //fail
-        public void LendingDm_Code_NoticeFilling(bool passing)
+        public void LoaningDm_Code_NoticeFilling(bool passing)
         {
             //Arrange
             var mockLendingDa = new Mock<LoaningDa_Code>(null);
-            List<Borrow> borrows = new List<Borrow>();
-            mockLendingDa.Setup(x => x.GetAllActiveBorrows())
-                .Returns(borrows);
-            mockLendingDa.Setup(x => x.SaveBorrowChanges())
+            List<Loan> loans = new List<Loan>();
+            mockLendingDa.Setup(x => x.GetAllActiveLoans())
+                .Returns(loans);
+            mockLendingDa.Setup(x => x.SaveLoanChanges())
                 .Returns(true);
 
             var mockMemberDa = new Mock<MemberDa_Code>(null);
