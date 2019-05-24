@@ -175,6 +175,7 @@
     <Content Include="Controller\LendingService.svc" />
     <Content Include="Controller\LoginService.svc" />
     <Content Include="Controller\MaterialService.svc" />
+    <Content Include="Controller\StatisticsService.svc" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -186,6 +187,7 @@
     <Compile Include="Controller\IController\IMaterialService.cs" />
     <Compile Include="Controller\IController\ILoaningService.cs" />
     <Compile Include="Controller\IController\ICopyService.cs" />
+    <Compile Include="Controller\IController\IStatisticsService.cs" />
     <Compile Include="Controller\LendingService.svc.cs">
       <DependentUpon>LendingService.svc</DependentUpon>
     </Compile>
@@ -194,6 +196,9 @@
     </Compile>
     <Compile Include="Controller\MaterialService.svc.cs">
       <DependentUpon>MaterialService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\StatisticsService.svc.cs">
+      <DependentUpon>StatisticsService.svc</DependentUpon>
     </Compile>
     <Compile Include="DataAccess\Code\CopyDa_Code.cs" />
     <Compile Include="DataAccess\Code\LibraryDa_Code.cs" />
@@ -206,11 +211,13 @@
     <Compile Include="DataAccess\Database\LoaningDa_Database.cs" />
     <Compile Include="DataAccess\Code\LoginDa_Code.cs" />
     <Compile Include="DataAccess\Database\LoginDa_Database.cs" />
+    <Compile Include="DataAccess\Database\StatisticsDa_Database.cs" />
     <Compile Include="DataManagement\Code\CopyDm_Code.cs" />
     <Compile Include="DataManagement\Code\LoaningDm_Code.cs" />
     <Compile Include="DataManagement\Code\TimerDM_Code.cs" />
     <Compile Include="DataManagement\Database\CopyDm_Database.cs" />
     <Compile Include="DataManagement\Database\LoaningDm_Database.cs" />
+    <Compile Include="DataManagement\Database\StatisticsDm_Database.cs" />
     <Compile Include="DataManagement\IDataManagement\ICopyDm.cs" />
     <Compile Include="DataManagement\IDataManagement\ILoaningDm.cs" />
     <Compile Include="DataManagement\Code\MaterialDm_Code.cs" />
@@ -219,6 +226,7 @@
     <Compile Include="DataManagement\Code\LoginDm_Code.cs" />
     <Compile Include="DataManagement\Database\LoginDm_Database.cs" />
     <Compile Include="DataManagement\IDataManagement\IMaterialsDm.cs" />
+    <Compile Include="DataManagement\IDataManagement\IStatisticsDm.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -33,6 +33,7 @@
         <EntityTypeShape EntityType="GTLModel.Loan" Width="1.5" PointX="12.75" PointY="6.875" />
         <AssociationConnector Association="GTLModel.FK__Loan__CopyID__59FA5E80" />
         <AssociationConnector Association="GTLModel.FK__Loan__SSN__5AEE82B9" />
+        <EntityTypeShape EntityType="GTLModel.topLoanedBook" Width="1.5" PointX="2.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
