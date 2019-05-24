@@ -23,6 +23,8 @@ namespace GTLService
                 Component.For<ICopyService, CopyService>().LifeStyle.Transient,
                 Component.For<ILoginService, LoginService>().LifeStyle.Transient,
                 Component.For<ILoaningService, LoaningService>().LifeStyle.Transient,
+                Component.For<IStatisticsService, StatisticsService>().LifeStyle.Transient,
+                
 
                 //code
                 Component.For<MaterialDa_Code, MaterialDa_Code>().LifeStyle.Transient,
@@ -38,6 +40,8 @@ namespace GTLService
                 Component.For<CopyDa_Database, CopyDa_Database>().LifeStyle.Transient,
                 Component.For<MaterialsDa_Database, MaterialsDa_Database>().LifeStyle.Transient,
                 Component.For<LoginDa_Database, LoginDa_Database>().LifeStyle.Transient,
+                Component.For<IStatisticsDm, StatisticsDm_Database>().LifeStyle.Transient,
+                Component.For<StatisticsDa_Database, StatisticsDa_Database>().LifeStyle.Transient,
 
                 Component.For<Context,Context>().LifeStyle.Transient);
 

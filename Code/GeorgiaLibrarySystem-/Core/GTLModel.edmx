@@ -134,6 +134,19 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
           <Property Name="TypeName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Available_Copies" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'GTL.dbo.topLoanedBooks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="topLoanedBooks">
+          <Key>
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Description" />
+          </Key>
+          <Property Name="ISBN" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Author" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar(max)" Nullable="false" />
+          <Property Name="loaned_count" Type="int" />
+        </EntityType>
         <Association Name="FK__Address__PostalC__398D8EEE">
           <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
           <End Role="Address" Type="Self.Address" Multiplicity="*" />
@@ -302,6 +315,7 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AverageLoanTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CreateMaterials" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SSN" Type="int" Mode="In" />
           <Parameter Name="ISBN" Type="int" Mode="In" />
@@ -328,6 +342,7 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
         <Function Name="Returning" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CopyId" Type="int" Mode="In" />
         </Function>
+        <Function Name="TopLoaningLibrary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="GTLModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Copy" EntityType="Self.Copy" Schema="dbo" store:Type="Tables" />
@@ -352,6 +367,15 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
     [readAllMaterials].[TypeName] AS [TypeName], 
     [readAllMaterials].[Available_Copies] AS [Available_Copies]
     FROM [dbo].[readAllMaterials] AS [readAllMaterials]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="topLoanedBooks" EntityType="Self.topLoanedBooks" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [topLoanedBooks].[ISBN] AS [ISBN], 
+    [topLoanedBooks].[Title] AS [Title], 
+    [topLoanedBooks].[Author] AS [Author], 
+    [topLoanedBooks].[Description] AS [Description], 
+    [topLoanedBooks].[loaned_count] AS [loaned_count]
+    FROM [dbo].[topLoanedBooks] AS [topLoanedBooks]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK__Address__PostalC__398D8EEE" Association="Self.FK__Address__PostalC__398D8EEE">
             <End Role="Location" EntitySet="Location" />
@@ -781,6 +805,9 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
             <End Role="Member" EntitySet="Members" />
             <End Role="Loan" EntitySet="Loans" />
           </AssociationSet>
+          <EntitySet Name="topLoanedBooks" EntityType="GTLModel.topLoanedBook" />
+          <FunctionImport Name="AverageLoanTime" ReturnType="Collection(Decimal)" />
+          <FunctionImport Name="TopLoaningLibrary" ReturnType="Collection(GTLModel.TopLoaningLibrary_Result)" />
         </EntityContainer>
         <EntityType Name="readAllMaterial">
           <Key>
@@ -836,6 +863,21 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="topLoanedBook">
+          <Key>
+            <PropertyRef Name="Title" />
+            <PropertyRef Name="Description" />
+          </Key>
+          <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="loaned_count" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="TopLoaningLibrary_Result">
+          <Property Type="Int32" Name="loaned_count" Nullable="true" />
+          <Property Type="String" Name="Location" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -983,6 +1025,26 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="topLoanedBooks">
+            <EntityTypeMapping TypeName="GTLModel.topLoanedBook">
+              <MappingFragment StoreEntitySet="topLoanedBooks">
+                <ScalarProperty Name="loaned_count" ColumnName="loaned_count" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AverageLoanTime" FunctionName="GTLModel.Store.AverageLoanTime" />
+          <FunctionImportMapping FunctionImportName="TopLoaningLibrary" FunctionName="GTLModel.Store.TopLoaningLibrary">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GTLModel.TopLoaningLibrary_Result">
+                <ScalarProperty Name="loaned_count" ColumnName="loaned_count" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

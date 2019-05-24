@@ -117,6 +117,12 @@
     <Compile Include="readAllMaterial.cs">
       <DependentUpon>GTLModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="topLoanedBook.cs">
+      <DependentUpon>GTLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TopLoaningLibrary_Result.cs">
+      <DependentUpon>GTLModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="GTLModel.edmx">

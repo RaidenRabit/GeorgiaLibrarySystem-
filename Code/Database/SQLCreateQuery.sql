@@ -237,6 +237,29 @@ BEGIN
 END
 GO
 
+DROP PROCEDURE IF EXISTS AverageLoanTime
+GO
+CREATE PROCEDURE AverageLoanTime
+AS
+BEGIN
+	WITH a AS ( 
+	SELECT FromDate, ToDate FROM Loan where ToDate is NOT null
+	  )
+
+	SELECT CAST((SELECT SUM(DATEDIFF(DAY, FromDate, ToDate)) FROM a)/(SELECT COUNT(*) FROM a) AS DECIMAL(10, 2)) AS AverageLoaningTime
+END
+GO
+
+DROP PROCEDURE IF EXISTS TopLoaningLibrary
+GO
+CREATE PROCEDURE TopLoaningLibrary
+AS
+BEGIN
+	SELECT COUNT(Copy.CopyID) AS loaned_count, copy.LibraryName AS Location FROM Loan
+	JOIN Copy ON Copy.CopyID = Loan.CopyID WHERE copy.LibraryName NOT LIKE 'GTL'
+	GROUP BY LibraryName
+END
+GO
 --Triggers
 
 CREATE OR ALTER TRIGGER Lending
@@ -289,3 +312,18 @@ CREATE VIEW readAllMaterials AS
 	SELECT DISTINCT Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName AS Location, copy.TypeName,
 	(SELECT COUNT(*) FROM a WHERE copy.TypeName LIKE a.TypeName AND a.Location LIKE copy.LibraryName AND a.ISBN = copy.ISBN) AS Available_Copies
 	  FROM Copy INNER JOIN Material ON Material.isbn = Copy.isbn
+GO
+
+DROP VIEW IF EXISTS topLoanedBooks
+GO
+CREATE VIEW topLoanedBooks AS
+	WITH a AS ( 
+	SELECT ISBN FROM Loan
+	JOIN Copy ON Copy.CopyID = Loan.CopyID
+	  )
+
+	SELECT DISTINCT top(10) a.ISBN, Material.Title, Material.Author, Material.Description,
+	(SELECT COUNT(*) FROM a WHERE a.ISBN = copy.ISBN) AS loaned_count
+	  FROM Copy INNER JOIN Material ON Material.isbn = Copy.isbn
+	  JOIN a ON a.ISBN = Copy.ISBN
+GO 

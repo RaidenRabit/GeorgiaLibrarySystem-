@@ -41,6 +41,7 @@ namespace Core
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<readAllMaterial> readAllMaterials { get; set; }
         public virtual DbSet<Loan> Loans { get; set; }
+        public virtual DbSet<topLoanedBook> topLoanedBooks { get; set; }
     
         public virtual ObjectResult<Nullable<int>> Login(Nullable<int> sSN, string password)
         {
@@ -135,6 +136,16 @@ namespace Core
         public virtual int NoticeFilling()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NoticeFilling");
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> AverageLoanTime()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("AverageLoanTime");
+        }
+    
+        public virtual ObjectResult<TopLoaningLibrary_Result> TopLoaningLibrary()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TopLoaningLibrary_Result>("TopLoaningLibrary");
         }
     }
 }
