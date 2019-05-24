@@ -58,7 +58,7 @@ namespace Tests.IntegrationTest
             string result = _statisticsService.MostLoaningLibraries();
 
             //Assert
-            Assert.Equals(result,library);
+            Assert.AreEqual(result,library);
         }
 
         private void Setup(string approach)
