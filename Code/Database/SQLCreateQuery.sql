@@ -1,17 +1,17 @@
 USE master
-go
+GO
 IF DB_ID('GTL') IS NOT NULL
 ALTER DATABASE GTL SET SINGLE_USER WITH ROLLBACK IMMEDIATE
 DROP DATABASE IF EXISTS GTL;
 GO
 
 CREATE DATABASE GTL;
-Go
-
-use GTL;
 GO
 
---Creates
+USE GTL;
+GO
+
+--CREATE
 
 CREATE TABLE Location (
     PostalCode int PRIMARY KEY,
@@ -20,7 +20,7 @@ CREATE TABLE Location (
 
 CREATE TABLE Address (
     AddressID int PRIMARY KEY IDENTITY,
-	PostalCode int FOREIGN KEY REFERENCES Location(PostalCode),
+PostalCode int FOREIGN KEY REFERENCES Location(PostalCode),
     Street varchar(100) NOT NULL,
     Number int NOT NULL
 );
@@ -104,106 +104,131 @@ DROP PROCEDURE IF EXISTS Login
 GO
 CREATE PROCEDURE Login @SSN int, @Password nvarchar(16)
 AS
-
-IF (LEN(@Password) > 0) AND (LEN(@Password) <= 16) AND (LEN(@SSN) = 9) AND EXISTS
-    (
-		SELECT * 
-		FROM Person 
-		WHERE SSN = @SSN AND Password = @Password
-    )
-    BEGIN
-        SELECT 1
-    END
-ELSE
-    BEGIN
-        SELECT 0
-    END
+BEGIN
+	BEGIN TRANSACTION
+	IF (LEN(@Password) > 0) AND (LEN(@Password) <= 16) AND (LEN(@SSN) = 9) AND EXISTS
+		(
+			SELECT * 
+			FROM Person 
+			WHERE SSN = @SSN AND Password = @Password
+		)
+		BEGIN
+			COMMIT
+			SELECT 1
+		END
+	ELSE
+		BEGIN
+			ROLLBACK
+			SELECT 0
+		END
+END
 GO
 
 DROP PROCEDURE IF EXISTS CreateMaterials
-go
+GO
 CREATE PROCEDURE CreateMaterials @SSN int, @ISBN int, @library varchar(50), @Author nvarchar(50), @Description varchar(max),
 									@Title nvarchar(100), @TypeName varchar(50), @Quantity int
 AS
-if EXISTS(select * from Librarian where Librarian.SSN = @SSN) and
-	exists(select * from Library where Library.LibraryName like @library) and
-	exists(select * from MaterialType where MaterialType.TypeName like @TypeName)
-	begin
-	if not exists(select * from Material where Material.ISBN = @ISBN)
-		begin
-		INSERT INTO Material (ISBN, Title, Description, Author)VALUES (@ISBN,@Title, @Description, @Author)
-		end
-	while @Quantity > 0
-		begin
-		INSERT INTO Copy (ISBN, TypeName, LibraryName)VALUES (@ISBN, @TypeName,@library)
-		set @Quantity = @Quantity - 1
-		end
-	select 1
-	end
-else
-	begin
-	select 0
-	end
+BEGIN
+	BEGIN TRANSACTION
+	IF EXISTS(SELECT * FROM Librarian WHERE Librarian.SSN = @SSN) AND
+		EXISTS(SELECT * FROM Library WHERE Library.LibraryName LIKE @library) AND
+		EXISTS(SELECT * FROM MaterialType WHERE MaterialType.TypeName LIKE @TypeName)
+		BEGIN
+		IF NOT EXISTS(SELECT * FROM Material WHERE Material.ISBN = @ISBN)
+			BEGIN
+			INSERT INTO Material (ISBN, Title, Description, Author)VALUES (@ISBN,@Title, @Description, @Author)
+			END
+		WHILE @Quantity > 0
+			BEGIN
+			INSERT INTO Copy (ISBN, TypeName, LibraryName)VALUES (@ISBN, @TypeName,@library)
+			SET @Quantity = @Quantity - 1
+			END
+		COMMIT
+		SELECT 1
+		END
+	ELSE
+		BEGIN
+		ROLLBACK
+		SELECT 0
+		END
+END
 GO
 
 DROP PROCEDURE IF EXISTS DeleteMaterial
-go
+GO
 CREATE PROCEDURE DeleteMaterial @SSN int, @ISBN int
 AS
-if EXISTS(select * from Librarian where Librarian.SSN = @SSN) and
-   exists(select * from Material where Material.ISBN = @ISBN) and
-   not exists(select * from Copy where Copy.ISBN = @ISBN)
-	begin
-	DELETE FROM Material WHERE Material.ISBN = @ISBN
-	select 1
-	end
-else
-	begin
-	select 0
-	end
+BEGIN
+	BEGIN TRANSACTION
+	IF EXISTS(SELECT * FROM Librarian WHERE Librarian.SSN = @SSN) AND
+	   EXISTS(SELECT * FROM Material WHERE Material.ISBN = @ISBN) AND
+	   NOT EXISTS(SELECT * FROM Copy WHERE Copy.ISBN = @ISBN)
+		BEGIN
+		DELETE FROM Material WHERE Material.ISBN = @ISBN
+		COMMIT
+		SELECT 1
+		END
+	ELSE
+		BEGIN
+		ROLLBACK
+		SELECT 0
+		END
+END
 GO
 
 DROP PROCEDURE IF EXISTS DeleteCopy
-go
+GO
 CREATE PROCEDURE DeleteCopy @SSN int, @CopyId int
 AS
-if EXISTS(select * from Librarian where Librarian.SSN = @SSN) and
-   exists(select * from Copy where Copy.CopyID = @CopyId)
-   begin
-	DELETE FROM Copy WHERE Copy.CopyID = @CopyId
-	select 1
-	end
-else
-	begin
-	select 0
-	end
+BEGIN
+	BEGIN TRANSACTION
+	IF EXISTS(SELECT * FROM Librarian WHERE Librarian.SSN = @SSN) AND
+	   EXISTS(SELECT * FROM Copy WHERE Copy.CopyID = @CopyId)
+	   BEGIN
+		DELETE FROM Copy WHERE Copy.CopyID = @CopyId
+		COMMIT
+		SELECT 1
+		END
+	ELSE
+		BEGIN
+		ROLLBACK
+		SELECT 0
+		END
+END
 GO
 
 DROP PROCEDURE IF EXISTS Returning
 GO
 CREATE PROCEDURE Returning @CopyId int
 AS
-
-UPDATE Loan
-	SET ToDate = GETDATE()
-	FROM Loan
-	where CopyID = @CopyID
-		AND ToDate is null
+BEGIN
+	BEGIN TRANSACTION
+	UPDATE Loan
+		SET ToDate = GETDATE()
+		FROM Loan
+		WHERE CopyID = @CopyID
+			AND ToDate IS NULL
+	Commit
+END
 GO
 
---EXEC NoticeFilling
 DROP PROCEDURE IF EXISTS NoticeFilling
 GO
 CREATE PROCEDURE NoticeFilling
 AS
-	Update Loan
-	Set noticeSent = 0
+BEGIN
+	BEGIN TRANSACTION
+	UPDATE Loan
+	SET noticeSent = 0
 	FROM Loan 
-		inner join Member on Loan.SSN = Member.SSN
-		inner join MemberType on Member.TypeName = MemberType.TypeName
+		INNER JOIN Member ON Loan.SSN = Member.SSN
+		INNER JOIN MemberType ON Member.TypeName = MemberType.TypeName
 	WHERE ToDate IS NULL 
-		and Loan.noticeSent IS NULL 
-		and CONVERT(date, getdate()) >= DATEADD(DAY, MemberType.LendingLenght + MemberType.GracePeriod, Loan.FromDate);
+		AND Loan.noticeSent IS NULL 
+		AND CONVERT(date, getdate()) >= DATEADD(DAY, MemberType.LendingLenght + MemberType.GracePeriod, Loan.FromDate);
+	COMMIT
+END
 GO
 
 --Triggers
@@ -213,6 +238,7 @@ ON Loan
 FOR INSERT
 AS
 BEGIN
+	BEGIN TRANSACTION
 	DECLARE @CopyID INT;
 	DECLARE @SSN INT;
 	DECLARE @FromDate Date;
@@ -223,19 +249,20 @@ BEGIN
 	FROM Member INNER JOIN MemberType ON Member.TypeName = MemberType.TypeName
 	WHERE SSN = @SSN;
 
-    IF (Select Count(*) from Loan where SSN = @SSN AND ToDate IS NULL) > @NrOfBooks OR --user limit not exceeded
-		(Select Count(*) from Loan where CopyID = @CopyID AND ToDate IS NULL) > 1 --book is available
+    IF (SELECT COUNT(*) FROM Loan WHERE SSN = @SSN AND ToDate IS NULL) > @NrOfBooks OR --user limit not exceeded
+		(SELECT COUNT(*) FROM Loan WHERE CopyID = @CopyID AND ToDate IS NULL) > 1 --book is available
 		BEGIN
-			Rollback transaction
+			ROLLBACK
 		END
 	ELSE
 		BEGIN
 			UPDATE Loan
-			SET FromDate = GETDATE(), ToDate = null
+			SET FromDate = GETDATE(), ToDate = NULL
 			FROM Loan
-			where CopyID = @CopyID
+			WHERE CopyID = @CopyID
 				AND SSN = @SSN
 				AND FromDate = @FromDate
+			COMMIT
 		END
 End
 GO
@@ -245,13 +272,13 @@ GO
 DROP VIEW IF EXISTS readAllMaterials
 GO
 CREATE VIEW readAllMaterials AS
-WITH a AS ( 
-  SELECT Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName as Location, copy.TypeName
-  FROM Copy LEFT JOIN Loan on Copy.CopyID = Loan.CopyID
-   INNER JOIN Material on Material.isbn = Copy.isbn
-   WHERE Loan.CopyID IS NULL OR (Loan.ToDate is not null and Loan.CopyID is not null)
-  )
+	WITH a AS ( 
+	  SELECT Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName as Location, copy.TypeName
+	  FROM Copy LEFT JOIN Loan ON Copy.CopyID = Loan.CopyID
+	   INNER JOIN Material ON Material.isbn = Copy.isbn
+	   WHERE Loan.CopyID IS NULL OR (Loan.ToDate IS NOT NULL and Loan.CopyID IS NOT NULL)
+	  )
 
-SELECT distinct Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName as Location, copy.TypeName,
-(select COUNT(*) from a where copy.TypeName LIKE a.TypeName and a.Location like copy.LibraryName and a.ISBN = copy.ISBN) as Available_Copies
-  FROM Copy inner join Material on Material.isbn = Copy.isbn
+	SELECT DISTINCT Material.ISBN, Material.Title, Material.Author, Material.Description, copy.LibraryName AS Location, copy.TypeName,
+	(SELECT COUNT(*) FROM a WHERE copy.TypeName LIKE a.TypeName AND a.Location LIKE copy.LibraryName AND a.ISBN = copy.ISBN) AS Available_Copies
+	  FROM Copy INNER JOIN Material ON Material.isbn = Copy.isbn

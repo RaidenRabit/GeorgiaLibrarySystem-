@@ -27,8 +27,7 @@ namespace GTLService.DataAccess.Code
             context.Materials.Add(material);
             return context.SaveChanges() > 0;
         }
-
-        //todo fix?
+        
         public virtual bool DeleteMaterial(string isbn, Context context)
         {
             context.Materials.Remove(context.Materials.Single(o => o.ISBN.Equals(isbn)));

@@ -26,8 +26,7 @@ namespace GTLService.DataManagement.Code
             _loaningDa = loaningDa;
             _context = context;
         }
-
-        //todo this seams weird
+        
         public List<readAllMaterial> ReadMaterials(string materialTitle, string author, int numOfRecords = 10, string isbn = "0", string jobStatus = "0")
         {
             using (var dbContextTransaction = _context.Database.BeginTransaction())

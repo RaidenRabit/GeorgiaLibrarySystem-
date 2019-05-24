@@ -7,13 +7,11 @@ namespace GTLService.DataAccess.Code
 {
     public class CopyDa_Code
     {
-        //todo fix?
         public virtual bool CheckCopyId(int id, Context context)
         {
             return context.Copies.Find(id) != null;
         }
-
-        //todo fix?
+        
         public virtual bool CheckTypeName(string typeName, Context context)
         {
             return context.Copies.FirstOrDefault(x => x.TypeName.Equals(typeName)) != null;
@@ -33,7 +31,6 @@ namespace GTLService.DataAccess.Code
                 .ToList();
         }
         
-        //todo fix?
         public virtual bool DeleteCopy(int copyId, Context context)
         {
             context.Copies.Remove(context.Copies.SingleOrDefault(o => o.CopyID == copyId));
