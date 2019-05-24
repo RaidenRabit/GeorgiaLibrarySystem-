@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Data;
+using Core;
 using GTLService.DataAccess.Code;
 using GTLService.DataManagement.IDataManagement;
 
@@ -19,7 +20,7 @@ namespace GTLService.DataManagement.Code
 
         public int GetAvailableCopyId(string isbn)
         {
-            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            using (var dbContextTransaction = _context.Database.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
                 try
                 {
@@ -65,7 +66,7 @@ namespace GTLService.DataManagement.Code
 
         public int GetOutOnLoan(string isbn)
         {
-            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            using (var dbContextTransaction = _context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
             {
                 try
                 {

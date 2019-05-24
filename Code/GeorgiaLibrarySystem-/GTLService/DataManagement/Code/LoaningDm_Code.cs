@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using Core;
 using GTLService.DataAccess.Code;
 using GTLService.DataManagement.IDataManagement;
@@ -20,7 +21,7 @@ namespace GTLService.DataManagement.Code
 
         public bool LoanBook(int ssn, int copyId)
         {
-            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            using (var dbContextTransaction = _context.Database.BeginTransaction(IsolationLevel.Serializable))
             {
                 try
                 {
@@ -44,7 +45,7 @@ namespace GTLService.DataManagement.Code
 
         public bool ReturnBook(int copyId)
         {
-            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            using (var dbContextTransaction = _context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
             {
                 try
                 {
@@ -64,7 +65,7 @@ namespace GTLService.DataManagement.Code
 
         public bool NoticeFilling()
         {
-            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            using (var dbContextTransaction = _context.Database.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
                 try
                 {

@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Data;
+using Core;
 using GTLService.DataAccess.Code;
 using GTLService.DataManagement.IDataManagement;
 
@@ -17,7 +18,7 @@ namespace GTLService.DataManagement.Code
 
         public bool Login(int ssn, string password)
         {
-            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            using (var dbContextTransaction = _context.Database.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
                 try
                 {

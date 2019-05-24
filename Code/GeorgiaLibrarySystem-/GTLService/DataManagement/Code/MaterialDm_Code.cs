@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using Core;
 using GTLService.DataAccess.Code;
@@ -29,7 +29,7 @@ namespace GTLService.DataManagement.Code
         
         public List<readAllMaterial> ReadMaterials(string materialTitle, string author, int numOfRecords = 10, string isbn = "0", string jobStatus = "0")
         {
-            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            using (var dbContextTransaction = _context.Database.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
                 try
                 {
@@ -89,6 +89,7 @@ namespace GTLService.DataManagement.Code
             }
         }
 
+        //todo wrong location
         private List<readAllMaterial> CountAvailableCopies(List<readAllMaterial> allMaterials, List<Copy> copies)
         {
             foreach (var readAllMaterial in allMaterials)
@@ -112,7 +113,7 @@ namespace GTLService.DataManagement.Code
         public bool CreateMaterial(int ssn, string isbn, string library, string author, string description, string title, string typeName,
             int quantity)
         {
-            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            using (var dbContextTransaction = _context.Database.BeginTransaction(IsolationLevel.RepeatableRead))
             {
                 try
                 {
@@ -141,7 +142,7 @@ namespace GTLService.DataManagement.Code
 
         public bool DeleteMaterial(int ssn, string isbn)
         {
-            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            using (var dbContextTransaction = _context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
             {
                 try
                 {
@@ -163,9 +164,10 @@ namespace GTLService.DataManagement.Code
             }
         }
 
+        //todo wrong location
         public bool DeleteCopy(int ssn, int copyId)
         {
-            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            using (var dbContextTransaction = _context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
             {
                 try
                 {
