@@ -98,6 +98,14 @@ CREATE TABLE Loan (
 );
 GO
 
+CREATE NONCLUSTERED INDEX ix_CopyIsbn_ReferenceMaterialIsbn
+ON [dbo].[Copy]
+(
+    [ISBN] ASC 
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE=OFF, SORT_IN_TEMPDB=OFF);
+GO
+
+
 --Procedures
 
 DROP PROCEDURE IF EXISTS Login
