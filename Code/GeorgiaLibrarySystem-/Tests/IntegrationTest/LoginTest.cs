@@ -53,7 +53,7 @@ namespace Tests.IntegrationTest
             switch (approach)
             {
                 case "Code":
-                    _loginService = new LoginService(new LoginDm_Code(new LoginDa_Code(context)));
+                    _loginService = new LoginService(new LoginDm_Code(new LoginDa_Code(),context));
                     break;
                 case "Database":
                     _loginService = new LoginService(new LoginDm_Database(new LoginDa_Database(context)));

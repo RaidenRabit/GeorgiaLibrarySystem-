@@ -5,22 +5,22 @@ using GTLService.DataManagement.IDataManagement;
 namespace GTLService.Controller
 {
     [ServiceBehavior(IncludeExceptionDetailInFaults = true, InstanceContextMode = InstanceContextMode.PerCall)] 
-    public class LendingService : ILendingService
+    public class LoaningService : ILoaningService
     {
-        private readonly ILendingDm _lendingDm;
-        public LendingService(ILendingDm lendingDm)
+        private readonly ILoaningDm _loaningDm;
+        public LoaningService(ILoaningDm loaningDm)
         {
-            _lendingDm = lendingDm;
+            _loaningDm = loaningDm;
         }
 
-        public bool LendBook(int ssn, int copyId)
+        public bool LoanBook(int ssn, int copyId)
         {
-            return _lendingDm.LendBook(ssn, copyId);
+            return _loaningDm.LoanBook(ssn, copyId);
         }
 
         public bool ReturnBook(int copyId)
         {
-            return _lendingDm.ReturnBook(copyId);
+            return _loaningDm.ReturnBook(copyId);
         }
     }
 }

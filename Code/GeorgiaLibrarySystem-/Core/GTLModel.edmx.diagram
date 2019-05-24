@@ -6,7 +6,6 @@
     <edmx:Diagrams>
       <Diagram DiagramId="5d716f93b6db486f8e3757655f4daefc" Name="Diagram1">
         <EntityTypeShape EntityType="GTLModel.Address" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="GTLModel.Borrow" Width="1.5" PointX="9.75" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="GTLModel.Copy" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="GTLModel.Librarian" Width="1.5" PointX="7.5" PointY="7" IsExpanded="true" />
         <EntityTypeShape EntityType="GTLModel.LibrarianType" Width="1.5" PointX="5.25" PointY="19.25" IsExpanded="true" />
@@ -22,8 +21,6 @@
         <AssociationConnector Association="GTLModel.FK__Library__Address__3D5E1FD2" ManuallyRouted="false" />
         <AssociationConnector Association="GTLModel.FK__Person__AddressI__403A8C7D" ManuallyRouted="false" />
         <AssociationConnector Association="GTLModel.FK__Person__CampusID__412EB0B6" ManuallyRouted="false" />
-        <AssociationConnector Association="GTLModel.FK__Borrow__CopyID__5AEE82B9" ManuallyRouted="false" />
-        <AssociationConnector Association="GTLModel.FK__Borrow__SSN__5BE2A6F2" ManuallyRouted="false" />
         <AssociationConnector Association="GTLModel.FK__Copy__ISBN__5629CD9C" ManuallyRouted="false" />
         <AssociationConnector Association="GTLModel.FK__Copy__LibraryNam__5812160E" ManuallyRouted="false" />
         <AssociationConnector Association="GTLModel.FK__Copy__TypeName__571DF1D5" ManuallyRouted="false" />
@@ -33,6 +30,9 @@
         <AssociationConnector Association="GTLModel.FK__Member__SSN__4D94879B" ManuallyRouted="false" />
         <AssociationConnector Association="GTLModel.FK__Member__TypeName__4F7CD00D" ManuallyRouted="false" />
         <EntityTypeShape EntityType="GTLModel.readAllMaterial" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="GTLModel.Loan" Width="1.5" PointX="12.75" PointY="6.875" />
+        <AssociationConnector Association="GTLModel.FK__Loan__CopyID__59FA5E80" />
+        <AssociationConnector Association="GTLModel.FK__Loan__SSN__5AEE82B9" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

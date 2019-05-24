@@ -19,20 +19,3 @@ namespace GTLService.Controller
         }
     }
 }
-
-//new file?
-//public class LoginDmFactory
-//{
-//    public ILoginDm Get(int id)
-//    {
-//        switch (id)
-//        {
-//            case 0:
-//                return new LoginDmDatabase(new LoginDaDatabase(new GTLEntities()));
-//            case 1:
-//                return new LoginDmCode(new LoginDa_Code(new GTLEntities()));;
-//            default:
-//                return null;            
-//        }
-//    }
-//}
