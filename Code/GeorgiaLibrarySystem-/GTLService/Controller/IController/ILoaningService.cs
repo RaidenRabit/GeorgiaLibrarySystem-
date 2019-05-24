@@ -3,10 +3,10 @@
 namespace GTLService.Controller.IController
 {
     [ServiceContract]
-    public interface ILendingService
+    public interface ILoaningService
     {
         [OperationContract]
-        bool LendBook(int ssn, int copyId);
+        bool LoanBook(int ssn, int copyId);
 
         [OperationContract]
         bool ReturnBook(int copyId);

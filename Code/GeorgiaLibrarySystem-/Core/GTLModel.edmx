@@ -14,17 +14,6 @@
           <Property Name="Street" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Number" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Borrow">
-          <Key>
-            <PropertyRef Name="CopyID" />
-            <PropertyRef Name="SSN" />
-            <PropertyRef Name="FromDate" />
-          </Key>
-          <Property Name="CopyID" Type="int" Nullable="false" />
-          <Property Name="SSN" Type="int" Nullable="false" />
-          <Property Name="FromDate" Type="date" Nullable="false" />
-          <Property Name="ToDate" Type="date" />
-        </EntityType>
         <EntityType Name="Copy">
           <Key>
             <PropertyRef Name="CopyID" />
@@ -53,6 +42,18 @@
           </Key>
           <Property Name="LibraryName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AddressID" Type="int" />
+        </EntityType>
+        <EntityType Name="Loan">
+          <Key>
+            <PropertyRef Name="CopyID" />
+            <PropertyRef Name="SSN" />
+            <PropertyRef Name="FromDate" />
+          </Key>
+          <Property Name="CopyID" Type="int" Nullable="false" />
+          <Property Name="SSN" Type="int" Nullable="false" />
+          <Property Name="FromDate" Type="date" Nullable="false" />
+          <Property Name="ToDate" Type="date" />
+          <Property Name="noticeSent" Type="bit" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -110,6 +111,8 @@
           <Property Name="SSN" Type="int" Nullable="false" />
           <Property Name="AddressID" Type="int" />
           <Property Name="CampusID" Type="int" />
+          <Property Name="F_Name" Type="varchar" MaxLength="50" />
+          <Property Name="L_Name" Type="varchar" MaxLength="50" />
           <Property Name="Phone" Type="int" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="16" Nullable="false" />
         </EntityType>
@@ -140,30 +143,6 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
             </Principal>
             <Dependent Role="Address">
               <PropertyRef Name="PostalCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Borrow__CopyID__59FA5E80">
-          <End Role="Copy" Type="Self.Copy" Multiplicity="1" />
-          <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Copy">
-              <PropertyRef Name="CopyID" />
-            </Principal>
-            <Dependent Role="Borrow">
-              <PropertyRef Name="CopyID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Borrow__SSN__5AEE82B9">
-          <End Role="Member" Type="Self.Member" Multiplicity="1" />
-          <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Member">
-              <PropertyRef Name="SSN" />
-            </Principal>
-            <Dependent Role="Borrow">
-              <PropertyRef Name="SSN" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -236,6 +215,30 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
             </Principal>
             <Dependent Role="Library">
               <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Loan__CopyID__59FA5E80">
+          <End Role="Copy" Type="Self.Copy" Multiplicity="1" />
+          <End Role="Loan" Type="Self.Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Copy">
+              <PropertyRef Name="CopyID" />
+            </Principal>
+            <Dependent Role="Loan">
+              <PropertyRef Name="CopyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Loan__SSN__5AEE82B9">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Loan" Type="Self.Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="SSN" />
+            </Principal>
+            <Dependent Role="Loan">
+              <PropertyRef Name="SSN" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -321,16 +324,17 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
           <Parameter Name="SSN" Type="int" Mode="In" />
           <Parameter Name="Password" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="NoticeFilling" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="Returning" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CopyId" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="GTLModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Borrow" EntityType="Self.Borrow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Copy" EntityType="Self.Copy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Librarian" EntityType="Self.Librarian" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LibrarianType" EntityType="Self.LibrarianType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Library" EntityType="Self.Library" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Loan" EntityType="Self.Loan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MaterialType" EntityType="Self.MaterialType" Schema="dbo" store:Type="Tables" />
@@ -352,14 +356,6 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
           <AssociationSet Name="FK__Address__PostalC__398D8EEE" Association="Self.FK__Address__PostalC__398D8EEE">
             <End Role="Location" EntitySet="Location" />
             <End Role="Address" EntitySet="Address" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Borrow__CopyID__59FA5E80" Association="Self.FK__Borrow__CopyID__59FA5E80">
-            <End Role="Copy" EntitySet="Copy" />
-            <End Role="Borrow" EntitySet="Borrow" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Borrow__SSN__5AEE82B9" Association="Self.FK__Borrow__SSN__5AEE82B9">
-            <End Role="Member" EntitySet="Member" />
-            <End Role="Borrow" EntitySet="Borrow" />
           </AssociationSet>
           <AssociationSet Name="FK__Copy__ISBN__5535A963" Association="Self.FK__Copy__ISBN__5535A963">
             <End Role="Material" EntitySet="Material" />
@@ -384,6 +380,14 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
           <AssociationSet Name="FK__Library__Address__3C69FB99" Association="Self.FK__Library__Address__3C69FB99">
             <End Role="Address" EntitySet="Address" />
             <End Role="Library" EntitySet="Library" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Loan__CopyID__59FA5E80" Association="Self.FK__Loan__CopyID__59FA5E80">
+            <End Role="Copy" EntitySet="Copy" />
+            <End Role="Loan" EntitySet="Loan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Loan__SSN__5AEE82B9" Association="Self.FK__Loan__SSN__5AEE82B9">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Loan" EntitySet="Loan" />
           </AssociationSet>
           <AssociationSet Name="FK__Member__MemberCa__4D94879B" Association="Self.FK__Member__MemberCa__4D94879B">
             <End Role="MemberCard" EntitySet="MemberCard" />
@@ -423,19 +427,6 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
           <NavigationProperty Name="People" Relationship="Self.FK__Person__AddressI__403A8C7D" FromRole="Address" ToRole="Person" />
           <NavigationProperty Name="People1" Relationship="Self.FK__Person__CampusID__412EB0B6" FromRole="Address" ToRole="Person" />
         </EntityType>
-        <EntityType Name="Borrow">
-          <Key>
-            <PropertyRef Name="CopyID" />
-            <PropertyRef Name="SSN" />
-            <PropertyRef Name="FromDate" />
-          </Key>
-          <Property Name="CopyID" Type="Int32" Nullable="false" />
-          <Property Name="SSN" Type="Int32" Nullable="false" />
-          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ToDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Copy" Relationship="Self.FK__Borrow__CopyID__5AEE82B9" FromRole="Borrow" ToRole="Copy" />
-          <NavigationProperty Name="Member" Relationship="Self.FK__Borrow__SSN__5BE2A6F2" FromRole="Borrow" ToRole="Member" />
-        </EntityType>
         <EntityType Name="Copy">
           <Key>
             <PropertyRef Name="CopyID" />
@@ -444,10 +435,10 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
           <Property Name="ISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="LibraryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Borrows" Relationship="Self.FK__Borrow__CopyID__5AEE82B9" FromRole="Copy" ToRole="Borrow" />
           <NavigationProperty Name="Material" Relationship="Self.FK__Copy__ISBN__5629CD9C" FromRole="Copy" ToRole="Material" />
           <NavigationProperty Name="Library" Relationship="Self.FK__Copy__LibraryNam__5812160E" FromRole="Copy" ToRole="Library" />
           <NavigationProperty Name="MaterialType" Relationship="Self.FK__Copy__TypeName__571DF1D5" FromRole="Copy" ToRole="MaterialType" />
+          <NavigationProperty Name="Loans" Relationship="GTLModel.FK__Loan__CopyID__59FA5E80" FromRole="Copy" ToRole="Loan" />
         </EntityType>
         <EntityType Name="Librarian">
           <Key>
@@ -508,10 +499,10 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
           <Property Name="MemberCardID" Type="Int32" />
           <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="OnboardDate" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Borrows" Relationship="Self.FK__Borrow__SSN__5BE2A6F2" FromRole="Member" ToRole="Borrow" />
           <NavigationProperty Name="MemberCard" Relationship="Self.FK__Member__MemberCa__4E88ABD4" FromRole="Member" ToRole="MemberCard" />
           <NavigationProperty Name="Person" Relationship="Self.FK__Member__SSN__4D94879B" FromRole="Member" ToRole="Person" />
           <NavigationProperty Name="MemberType" Relationship="Self.FK__Member__TypeName__4F7CD00D" FromRole="Member" ToRole="MemberType" />
+          <NavigationProperty Name="Loans" Relationship="GTLModel.FK__Loan__SSN__5AEE82B9" FromRole="Member" ToRole="Loan" />
         </EntityType>
         <EntityType Name="MemberCard">
           <Key>
@@ -545,6 +536,8 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
           <NavigationProperty Name="Address1" Relationship="Self.FK__Person__CampusID__412EB0B6" FromRole="Person" ToRole="Address" />
           <NavigationProperty Name="Librarian" Relationship="Self.FK__Librarian__SSN__45F365D3" FromRole="Person" ToRole="Librarian" />
           <NavigationProperty Name="Member" Relationship="Self.FK__Member__SSN__4D94879B" FromRole="Person" ToRole="Member" />
+          <Property Name="F_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="L_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__Address__PostalC__3A81B327">
           <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
@@ -591,30 +584,6 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
             </Principal>
             <Dependent Role="Person">
               <PropertyRef Name="CampusID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Borrow__CopyID__5AEE82B9">
-          <End Role="Copy" Type="Self.Copy" Multiplicity="1" />
-          <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Copy">
-              <PropertyRef Name="CopyID" />
-            </Principal>
-            <Dependent Role="Borrow">
-              <PropertyRef Name="CopyID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Borrow__SSN__5BE2A6F2">
-          <End Role="Member" Type="Self.Member" Multiplicity="1" />
-          <End Role="Borrow" Type="Self.Borrow" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Member">
-              <PropertyRef Name="SSN" />
-            </Principal>
-            <Dependent Role="Borrow">
-              <PropertyRef Name="SSN" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -716,7 +685,6 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
         </Association>
         <EntityContainer Name="Context" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Addresses" EntityType="Self.Address" />
-          <EntitySet Name="Borrows" EntityType="Self.Borrow" />
           <EntitySet Name="Copies" EntityType="Self.Copy" />
           <EntitySet Name="Librarians" EntityType="Self.Librarian" />
           <EntitySet Name="LibrarianTypes" EntityType="Self.LibrarianType" />
@@ -743,14 +711,6 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
           <AssociationSet Name="FK__Person__CampusID__412EB0B6" Association="Self.FK__Person__CampusID__412EB0B6">
             <End Role="Address" EntitySet="Addresses" />
             <End Role="Person" EntitySet="People" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Borrow__CopyID__5AEE82B9" Association="Self.FK__Borrow__CopyID__5AEE82B9">
-            <End Role="Copy" EntitySet="Copies" />
-            <End Role="Borrow" EntitySet="Borrows" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Borrow__SSN__5BE2A6F2" Association="Self.FK__Borrow__SSN__5BE2A6F2">
-            <End Role="Member" EntitySet="Members" />
-            <End Role="Borrow" EntitySet="Borrows" />
           </AssociationSet>
           <AssociationSet Name="FK__Copy__ISBN__5629CD9C" Association="Self.FK__Copy__ISBN__5629CD9C">
             <End Role="Material" EntitySet="Materials" />
@@ -810,6 +770,17 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
             <Parameter Name="SSN" Mode="In" Type="Int32" />
             <Parameter Name="ISBN" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="NoticeSent" />
+          <FunctionImport Name="NoticeFilling" />
+          <EntitySet Name="Loans" EntityType="GTLModel.Loan" />
+          <AssociationSet Name="FK__Loan__CopyID__59FA5E80" Association="GTLModel.FK__Loan__CopyID__59FA5E80">
+            <End Role="Copy" EntitySet="Copies" />
+            <End Role="Loan" EntitySet="Loans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Loan__SSN__5AEE82B9" Association="GTLModel.FK__Loan__SSN__5AEE82B9">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Loan" EntitySet="Loans" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="readAllMaterial">
           <Key>
@@ -827,6 +798,44 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
           <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Available_Copies" Type="Int32" />
         </EntityType>
+        <EntityType Name="Loan">
+          <Key>
+            <PropertyRef Name="CopyID" />
+            <PropertyRef Name="SSN" />
+            <PropertyRef Name="FromDate" />
+          </Key>
+          <Property Name="CopyID" Type="Int32" Nullable="false" />
+          <Property Name="SSN" Type="Int32" Nullable="false" />
+          <Property Name="FromDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ToDate" Type="DateTime" Precision="0" />
+          <Property Name="noticeSent" Type="Boolean" />
+          <NavigationProperty Name="Copy" Relationship="GTLModel.FK__Loan__CopyID__59FA5E80" FromRole="Loan" ToRole="Copy" />
+          <NavigationProperty Name="Member" Relationship="GTLModel.FK__Loan__SSN__5AEE82B9" FromRole="Loan" ToRole="Member" />
+        </EntityType>
+        <Association Name="FK__Loan__CopyID__59FA5E80">
+          <End Type="GTLModel.Copy" Role="Copy" Multiplicity="1" />
+          <End Type="GTLModel.Loan" Role="Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Copy">
+              <PropertyRef Name="CopyID" />
+            </Principal>
+            <Dependent Role="Loan">
+              <PropertyRef Name="CopyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Loan__SSN__5AEE82B9">
+          <End Type="GTLModel.Member" Role="Member" Multiplicity="1" />
+          <End Type="GTLModel.Loan" Role="Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="SSN" />
+            </Principal>
+            <Dependent Role="Loan">
+              <PropertyRef Name="SSN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -840,16 +849,6 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
                 <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Borrows">
-            <EntityTypeMapping TypeName="GTLModel.Borrow">
-              <MappingFragment StoreEntitySet="Borrow">
-                <ScalarProperty Name="CopyID" ColumnName="CopyID" />
-                <ScalarProperty Name="SSN" ColumnName="SSN" />
-                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
-                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -944,6 +943,8 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
           <EntitySetMapping Name="People">
             <EntityTypeMapping TypeName="GTLModel.Person">
               <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="L_Name" ColumnName="L_Name" />
+                <ScalarProperty Name="F_Name" ColumnName="F_Name" />
                 <ScalarProperty Name="SSN" ColumnName="SSN" />
                 <ScalarProperty Name="AddressID" ColumnName="AddressID" />
                 <ScalarProperty Name="CampusID" ColumnName="CampusID" />
@@ -970,7 +971,19 @@ warning 6002: The table/view 'GTL.dbo.readAllMaterials' does not have a primary 
           <FunctionImportMapping FunctionImportName="CreateMaterials" FunctionName="GTLModel.Store.CreateMaterials" />
           <FunctionImportMapping FunctionImportName="DeleteCopy" FunctionName="GTLModel.Store.DeleteCopy" />
           <FunctionImportMapping FunctionImportName="DeleteMaterial" FunctionName="GTLModel.Store.DeleteMaterial" />
-        </EntityContainerMapping>
+          <FunctionImportMapping FunctionImportName="NoticeFilling" FunctionName="GTLModel.Store.NoticeFilling" />
+          <EntitySetMapping Name="Loans">
+            <EntityTypeMapping TypeName="GTLModel.Loan">
+              <MappingFragment StoreEntitySet="Loan">
+                <ScalarProperty Name="noticeSent" ColumnName="noticeSent" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="CopyID" ColumnName="CopyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

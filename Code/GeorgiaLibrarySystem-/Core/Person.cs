@@ -19,6 +19,8 @@ namespace Core
         public Nullable<int> CampusID { get; set; }
         public int Phone { get; set; }
         public string Password { get; set; }
+        public string F_Name { get; set; }
+        public string L_Name { get; set; }
     
         public virtual Address Address { get; set; }
         public virtual Address Address1 { get; set; }

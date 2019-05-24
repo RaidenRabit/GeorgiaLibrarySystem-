@@ -3,17 +3,17 @@ using Core;
 
 namespace GTLService.DataAccess.Database
 {
-    public class LendingDa_Database
+    public class LoaningDa_Database
     {
         private readonly Context _context;
-        public LendingDa_Database(Context context)
+        public LoaningDa_Database(Context context)
         {
             _context = context;
         }
 
-        public bool LendBook(Borrow borrow)
+        public bool LoanBook(Loan loan)
         {
-            _context.Borrows.Add(borrow);
+            _context.Loans.Add(loan);
             return _context.SaveChanges() > 0;
         }
 
@@ -24,7 +24,7 @@ namespace GTLService.DataAccess.Database
 
         public bool CheckAvailable(int copyId)
         {
-            return _context.Borrows.FirstOrDefault(x => x.CopyID == copyId && x.ToDate == null) == null;
+            return _context.Loans.FirstOrDefault(x => x.CopyID == copyId && x.ToDate == null) == null;
         }
     }
 }

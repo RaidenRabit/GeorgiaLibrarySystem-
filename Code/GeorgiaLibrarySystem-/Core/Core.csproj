@@ -62,9 +62,6 @@
     <Compile Include="Address.cs">
       <DependentUpon>GTLModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Borrow.cs">
-      <DependentUpon>GTLModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Copy.cs">
       <DependentUpon>GTLModel.tt</DependentUpon>
     </Compile>
@@ -90,6 +87,9 @@
       <DependentUpon>GTLModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Library.cs">
+      <DependentUpon>GTLModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Loan.cs">
       <DependentUpon>GTLModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Location.cs">
