@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>408</x>
+      <y>272</y>
+      <w>144</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Member
+-
+SSN: int P/FK
+MemberCardID: int FK
+TypeName: varchar(50) FK
+OnboardDate: timestamp </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>232</x>
+      <y>312</y>
+      <w>136</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>MemberCard
+-
+MemberCardID: int PK
+Photo: varbinary(max)
+ExpirationDate: datetime</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>608</x>
+      <y>256</y>
+      <w>112</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>Loan 
+-
+CopyID: int C/FK
+SSN: int C/FK
+FromDate: date C
+ToDate: date
+noticeSent: bit</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>560</x>
+      <y>448</y>
+      <w>160</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>halign=left
+Library
+-
+LibraryName: varchar(50) PK
+AddressID: int FK</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>248</x>
+      <y>408</y>
+      <w>160</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>halign=left
+Address
+-
+AddressID: int PK
+PostalCode: int FK
+Street: varchar(100)
+Number: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>752</x>
+      <y>328</y>
+      <w>152</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>Copy
+-
+CopyID: int PK
+ISBN: varchar(50) FK
+TypeName: varchar(50) FK
+LibraryName: varchar(50) FK</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>424</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;190.0;10.0;190.0;80.0;200.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>896</x>
+      <y>280</y>
+      <w>56</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;30.0;10.0;30.0;110.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>360</x>
+      <y>304</y>
+      <w>64</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;40.0;40.0;40.0;40.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>712</x>
+      <y>272</y>
+      <w>56</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;100.0;30.0;100.0;30.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>544</x>
+      <y>288</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>712</x>
+      <y>384</y>
+      <w>56</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;110.0;40.0;110.0;40.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>184</x>
+      <y>208</y>
+      <w>80</w>
+      <h>232</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;30.0;10.0;30.0;270.0;10.0;270.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>576</x>
+      <y>360</y>
+      <w>152</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>MemberType
+-
+TypeName: varchar(50) PK
+LendingLenght: int
+GracePeriod: int
+NrOfBooks: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>544</x>
+      <y>320</y>
+      <w>48</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>40.0;80.0;20.0;80.0;20.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>936</x>
+      <y>376</y>
+      <w>144</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>MaterialType
+-
+TypeName: varchar(50) PK
+Lendable: bit</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>896</x>
+      <y>376</y>
+      <w>56</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;30.0;30.0;30.0;30.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>248</x>
+      <y>192</y>
+      <w>120</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Person
+-
+SSN: int PK
+AddressID: int FK
+CampusID: int FK
+F_Name: varchar(50)
+L_Name: varchar(50)
+Phone: int
+Password: varchar(16)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>360</x>
+      <y>208</y>
+      <w>64</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;10.0;40.0;110.0;60.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>208</x>
+      <y>224</y>
+      <w>56</w>
+      <h>232</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;270.0;10.0;270.0;10.0;10.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>936</x>
+      <y>264</y>
+      <w>136</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Material
+-
+ISBN: varchar(50) PK
+Title: varchar(100)
+Description: varchar(max)
+Author: varchar(50)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>216</x>
+      <y>232</y>
+      <w>48</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>40.0;250.0;10.0;250.0;10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>432</x>
+      <y>440</y>
+      <w>112</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>halign=left
+Location
+-
+PostalCode: int PK
+City: varchar(100)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>440</y>
+      <w>48</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>40.0;30.0;20.0;30.0;20.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>8</x>
+      <y>352</y>
+      <w>64</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0;10.0;110.0;40.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>56</x>
+      <y>336</y>
+      <w>144</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>halign=left
+LibrarianType
+-
+TypeName: varchar(50) PK</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>40</x>
+      <y>400</y>
+      <w>152</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>halign=left
+Librarian
+-
+SSN: int PK
+TypeName: varchar(50) FK</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
