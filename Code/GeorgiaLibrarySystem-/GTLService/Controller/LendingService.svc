@@ -1,0 +1,5 @@
+﻿<%@ ServiceHost Language="C#"Debug="true"
+        Service="GTLService.Controller.LoaningService"
+        CodeBehind="LendingService.svc.cs"
+        Factory="Castle.Facilities.WcfIntegration.DefaultServiceHostFactory, Castle.Facilities.WcfIntegration"
+    %>
