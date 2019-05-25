@@ -30,10 +30,5 @@ namespace GTLService.DataManagement.Database
         {
             return _materialDa.DeleteMaterial(ssn, isbn);
         }
-
-        public bool DeleteCopy(int ssn, int copyId)
-        {
-            return _materialDa.DeleteCopy(ssn, copyId);
-        }
     }
 }

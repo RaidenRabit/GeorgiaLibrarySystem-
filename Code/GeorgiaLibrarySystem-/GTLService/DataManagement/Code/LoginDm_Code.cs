@@ -18,24 +18,18 @@ namespace GTLService.DataManagement.Code
 
         public bool Login(int ssn, string password)
         {
-            using (var dbContextTransaction = _context.Database.BeginTransaction(IsolationLevel.ReadUncommitted))
+            try
             {
-                try
+                if (ssn.ToString().Length == 9 && password.Length <= 16 && password.Length > 0)
                 {
-                    if (ssn.ToString().Length == 9 && password.Length <= 16 && password.Length > 0)
-                    {
-                        dbContextTransaction.Commit();
-                        return _loginDa.Login(ssn, password, _context);
-                    }
+                    return _loginDa.Login(ssn, password, _context);
+                }
 
-                    dbContextTransaction.Rollback();
-                    return false;
-                }
-                catch
-                {
-                    dbContextTransaction.Rollback();
-                    return false;
-                }
+                return false;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

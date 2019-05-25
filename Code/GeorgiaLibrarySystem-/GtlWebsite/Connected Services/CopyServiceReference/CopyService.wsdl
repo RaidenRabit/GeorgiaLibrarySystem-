@@ -24,6 +24,12 @@
   <wsdl:message name="ICopyService_GetOutOnLoan_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetOutOnLoanResponse" />
   </wsdl:message>
+  <wsdl:message name="ICopyService_DeleteCopy_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCopy" />
+  </wsdl:message>
+  <wsdl:message name="ICopyService_DeleteCopy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteCopyResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICopyService">
     <wsdl:operation name="GetAvailableCopyId">
       <wsdl:input wsaw:Action="http://tempuri.org/ICopyService/GetAvailableCopyId" message="tns:ICopyService_GetAvailableCopyId_InputMessage" />
@@ -36,6 +42,10 @@
     <wsdl:operation name="GetOutOnLoan">
       <wsdl:input wsaw:Action="http://tempuri.org/ICopyService/GetOutOnLoan" message="tns:ICopyService_GetOutOnLoan_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICopyService/GetOutOnLoanResponse" message="tns:ICopyService_GetOutOnLoan_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCopy">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICopyService/DeleteCopy" message="tns:ICopyService_DeleteCopy_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICopyService/DeleteCopyResponse" message="tns:ICopyService_DeleteCopy_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICopyService" type="tns:ICopyService">
@@ -60,6 +70,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetOutOnLoan">
       <soap:operation soapAction="http://tempuri.org/ICopyService/GetOutOnLoan" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteCopy">
+      <soap:operation soapAction="http://tempuri.org/ICopyService/DeleteCopy" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

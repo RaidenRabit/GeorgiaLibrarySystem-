@@ -120,44 +120,6 @@ namespace Tests.UnitTest
             Assert.IsTrue(result == testPassing);
         }
 
-        [Test]
-        //pass
-        [TestCase(true, true, true, true)]
-        //fail
-        [TestCase(true, true, false, false)]
-        [TestCase(true, false, true, false)]
-        [TestCase(false, true, true, false)]
-        [TestCase(false, false, true, false)]
-        [TestCase(false, true, false, false)]
-        [TestCase(true, false, false, false)]
-        [TestCase(false, false, false, false)]
-        public void MaterialDmDeleteCopyTest(bool ssnPassing, bool idPassing, bool deleteResult, bool testPassing)
-        {
-            //Arrange
-            var materialDa_Code_Mock = new Mock<MaterialDa_Code>();
-            var libraryDa_Code_Mock = new Mock<LibraryDa_Code>();
-            var personDa_Code_Mock = new Mock<LibrarianDa_Code>();
-            var copyDa_Code_Mock = new Mock<CopyDa_Code>();
-            var lendingDa_Code_Mock = new Mock<LoaningDa_Code>();
-            var context_Mock = new Mock<Context>();
-            
-            personDa_Code_Mock.Setup(x => x.CheckLibrarianSsn(It.IsAny<int>(), It.IsAny<Context>()))
-                .Returns(ssnPassing);
-            copyDa_Code_Mock.Setup(x => x.CheckCopyId(It.IsAny<int>(), It.IsAny<Context>()))
-                .Returns(idPassing);
-            copyDa_Code_Mock.Setup(x => x.DeleteCopy(It.IsAny<int>(), It.IsAny<Context>()))
-                .Returns(deleteResult);
-
-            var materialDm = new MaterialDm_Code(materialDa_Code_Mock.Object, libraryDa_Code_Mock.Object,
-                personDa_Code_Mock.Object, copyDa_Code_Mock.Object, lendingDa_Code_Mock.Object, context_Mock.Object);
-
-            //Act
-            var result = materialDm.DeleteCopy(0, 0);
-
-            //Assert
-            Assert.IsTrue(result == testPassing);
-        }
-
         private Tuple<List<Copy>, List<Material>> MaterialsSetUp()
         {
             Material material = new Material {ISBN = "1", Title = "test book", Description = "TEST++", Author = "Hala"};

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core;
+using GTLService.Controller.IController;
 using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.Controller
@@ -26,11 +27,6 @@ namespace GTLService.Controller
         public bool DeleteMaterial(int ssn, string isbn)
         {
             return _materialsDm.DeleteMaterial(ssn, isbn);
-        }
-
-        public bool DeleteCopy(int ssn, int copyId)
-        {
-            return _materialsDm.DeleteCopy(ssn, copyId);
         }
     }
 }

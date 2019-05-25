@@ -13,16 +13,54 @@
   <wsdl:message name="IMaterialService_GetMaterials_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMaterialsResponse" />
   </wsdl:message>
+  <wsdl:message name="IMaterialService_CreateMaterial_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateMaterial" />
+  </wsdl:message>
+  <wsdl:message name="IMaterialService_CreateMaterial_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateMaterialResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMaterialService_DeleteMaterial_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMaterial" />
+  </wsdl:message>
+  <wsdl:message name="IMaterialService_DeleteMaterial_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMaterialResponse" />
+  </wsdl:message>
   <wsdl:portType name="IMaterialService">
     <wsdl:operation name="GetMaterials">
       <wsdl:input wsaw:Action="http://tempuri.org/IMaterialService/GetMaterials" message="tns:IMaterialService_GetMaterials_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMaterialService/GetMaterialsResponse" message="tns:IMaterialService_GetMaterials_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateMaterial">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMaterialService/CreateMaterial" message="tns:IMaterialService_CreateMaterial_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMaterialService/CreateMaterialResponse" message="tns:IMaterialService_CreateMaterial_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMaterial">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMaterialService/DeleteMaterial" message="tns:IMaterialService_DeleteMaterial_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMaterialService/DeleteMaterialResponse" message="tns:IMaterialService_DeleteMaterial_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IMaterialService" type="tns:IMaterialService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetMaterials">
       <soap:operation soapAction="http://tempuri.org/IMaterialService/GetMaterials" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMaterial">
+      <soap:operation soapAction="http://tempuri.org/IMaterialService/CreateMaterial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMaterial">
+      <soap:operation soapAction="http://tempuri.org/IMaterialService/DeleteMaterial" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

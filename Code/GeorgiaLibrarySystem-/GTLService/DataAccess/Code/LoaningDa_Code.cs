@@ -9,13 +9,8 @@ namespace GTLService.DataAccess.Code
     {
         public virtual bool LoanBook(Loan loan, Context context)
         {
-            context.Database.ExecuteSqlCommand("ALTER TABLE Loan DISABLE TRIGGER Lending");//so trigger wouldn't be run
-            context.SaveChanges();
             context.Loans.Add(loan);
-            bool result = context.SaveChanges() > 0;
-            context.Database.ExecuteSqlCommand("ALTER TABLE Loan ENABLE TRIGGER Lending");
-            context.SaveChanges();
-            return result;
+            return context.SaveChanges() > 0;
         }
 
         public virtual Loan GetLoan(int copyId, Context context)

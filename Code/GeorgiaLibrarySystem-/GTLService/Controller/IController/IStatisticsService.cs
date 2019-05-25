@@ -2,7 +2,7 @@
 using System.ServiceModel;
 using Core;
 
-namespace GTLService.Controller
+namespace GTLService.Controller.IController
 {
     [ServiceContract]
     public interface IStatisticsService

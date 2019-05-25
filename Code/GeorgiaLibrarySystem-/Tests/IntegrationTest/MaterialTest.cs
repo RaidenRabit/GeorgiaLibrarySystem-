@@ -1,6 +1,7 @@
 ﻿using System;
 using Core;
 using GTLService.Controller;
+using GTLService.Controller.IController;
 using GTLService.DataAccess.Code;
 using GTLService.DataAccess.Database;
 using GTLService.DataManagement.Code;
@@ -92,29 +93,6 @@ namespace Tests.IntegrationTest
 
             //Act
             bool result = _materialService.DeleteMaterial(ssn, isbn.ToString());
-
-            //Assert
-            Assert.IsTrue(result.Equals(passing));
-        }
-
-        [Test]
-        //Code approach
-        [TestCase(0,0, "Code", false)] //invalid ssn and id
-        [TestCase(123456785,0, "Code", false)] //valid ssn, invalid id
-        [TestCase(0,1, "Code", false)] //invalid ssn, valid id
-        [TestCase(123456785,12, "Code", true)] //valid ssn and id
-        //Db approach
-        [TestCase(0,0, "Database", false)] //invalid ssn and id
-        [TestCase(123456785,0, "Database", false)] //valid ssn, invalid id
-        [TestCase(0,1, "Database", false)] //invalid ssn, valid id
-        [TestCase(123456785,13, "Database", true)] //valid ssn and id
-        public void DeleteCopy(int ssn, int copyId, string approach, bool passing)
-        {
-            //Arrange
-            Setup(approach);
-
-            //Act
-            bool result = _materialService.DeleteCopy(ssn, copyId);
 
             //Assert
             Assert.IsTrue(result.Equals(passing));

@@ -45,5 +45,10 @@ namespace GTLService.DataManagement.Database
 
             return count;
         }
+
+        public bool DeleteCopy(int ssn, int copyId)
+        {
+            return _copyDa.DeleteCopy(ssn, copyId);
+        }
     }
 }

@@ -2,7 +2,7 @@
 using System.ServiceModel;
 using Core;
 
-namespace GTLService.Controller
+namespace GTLService.Controller.IController
 {
 	
 	[ServiceContract]
@@ -17,8 +17,5 @@ namespace GTLService.Controller
         
         [OperationContract]
         bool DeleteMaterial(int ssn, string isbn);
-        
-        [OperationContract]
-        bool DeleteCopy(int ssn, int copyId);
 	}
 }
