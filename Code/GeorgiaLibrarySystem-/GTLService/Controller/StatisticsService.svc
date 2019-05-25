@@ -1,5 +1,0 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" 
-    Service="GTLService.Controller.StatisticsService" 
-    CodeBehind="StatisticsService.svc.cs"     
-    Factory="Castle.Facilities.WcfIntegration.DefaultServiceHostFactory, Castle.Facilities.WcfIntegration"
-    %>
