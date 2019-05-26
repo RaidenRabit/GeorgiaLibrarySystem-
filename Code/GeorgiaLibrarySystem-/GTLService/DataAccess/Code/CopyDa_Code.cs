@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using Core;
 
@@ -7,9 +6,9 @@ namespace GTLService.DataAccess.Code
 {
     public class CopyDa_Code
     {
-        public virtual bool CheckCopyId(int id, Context context)
+        public virtual Copy GetCopy(int id, Context context)
         {
-            return context.Copies.Find(id) != null;
+            return context.Copies.Find(id);
         }
         
         public virtual bool CheckTypeName(string typeName, Context context)
@@ -31,9 +30,9 @@ namespace GTLService.DataAccess.Code
                 .ToList();
         }
         
-        public virtual bool DeleteCopy(int copyId, Context context)
+        public virtual bool DeleteCopy(Copy copy, Context context)
         {
-            context.Copies.Remove(context.Copies.SingleOrDefault(o => o.CopyID == copyId));
+            context.Copies.Remove(copy);
             return context.SaveChanges() > 0;
         }
 

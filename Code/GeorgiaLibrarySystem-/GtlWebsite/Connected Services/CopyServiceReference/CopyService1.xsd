@@ -3,7 +3,7 @@
   <xs:element name="GetAvailableCopyId">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="isbn" type="xs:int" />
+        <xs:element minOccurs="0" name="isbn" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -17,7 +17,7 @@
   <xs:element name="GetTotalNrCopies">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="isbn" type="xs:int" />
+        <xs:element minOccurs="0" name="isbn" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -31,7 +31,7 @@
   <xs:element name="GetOutOnLoan">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="isbn" type="xs:int" />
+        <xs:element minOccurs="0" name="isbn" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -39,6 +39,21 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="GetOutOnLoanResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteCopy">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ssn" type="xs:int" />
+        <xs:element minOccurs="0" name="copyId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteCopyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteCopyResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

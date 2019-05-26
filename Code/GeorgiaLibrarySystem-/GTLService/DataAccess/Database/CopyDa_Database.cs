@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
@@ -23,6 +24,12 @@ namespace GTLService.DataAccess.Database
         public int GetTotalNrCopies(string isbn)
         {
             return _context.Copies.Count(x => x.ISBN.Equals(isbn.ToString()));
+        }
+
+        public bool DeleteCopy(int ssn, int copyId)
+        {
+            var value = _context.DeleteCopy(ssn, copyId).First();
+            return Convert.ToBoolean(value);
         }
     }
 }

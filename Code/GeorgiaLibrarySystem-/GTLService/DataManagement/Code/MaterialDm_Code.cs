@@ -88,8 +88,7 @@ namespace GTLService.DataManagement.Code
                 }
             }
         }
-
-        //todo wrong location
+        
         private List<readAllMaterial> CountAvailableCopies(List<readAllMaterial> allMaterials, List<Copy> copies)
         {
             foreach (var readAllMaterial in allMaterials)
@@ -149,31 +148,6 @@ namespace GTLService.DataManagement.Code
                     if (_librarianDa.CheckLibrarianSsn(ssn, _context) && _materialDa.CheckMaterialIsbn(isbn, _context))
                     {
                         var result = _materialDa.DeleteMaterial(isbn, _context);
-                        dbContextTransaction.Commit();
-                        return result;
-                    }
-
-                    dbContextTransaction.Rollback();
-                    return false;
-                }
-                catch
-                {
-                    dbContextTransaction.Rollback();
-                    return false;
-                }
-            }
-        }
-
-        //todo wrong location
-        public bool DeleteCopy(int ssn, int copyId)
-        {
-            using (var dbContextTransaction = _context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
-            {
-                try
-                {
-                    if (_librarianDa.CheckLibrarianSsn(ssn, _context) && _copyDa.CheckCopyId(copyId, _context))
-                    {
-                        var result = _copyDa.DeleteCopy(copyId, _context);
                         dbContextTransaction.Commit();
                         return result;
                     }

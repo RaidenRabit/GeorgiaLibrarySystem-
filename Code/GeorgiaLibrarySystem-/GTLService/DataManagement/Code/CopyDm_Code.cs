@@ -9,12 +9,14 @@ namespace GTLService.DataManagement.Code
     {
         private CopyDa_Code _copyDa;
         private LoaningDa_Code _loaningDa;
+        private readonly LibrarianDa_Code _librarianDa;
         private readonly Context _context;
 
-        public CopyDm_Code(CopyDa_Code copyDa, LoaningDa_Code loaningDa, Context context)
+        public CopyDm_Code(CopyDa_Code copyDa, LoaningDa_Code loaningDa, LibrarianDa_Code librarianDa, Context context)
         {
             _copyDa = copyDa;
             _loaningDa = loaningDa;
+            _librarianDa = librarianDa;
             _context = context;
         }
 
@@ -87,6 +89,31 @@ namespace GTLService.DataManagement.Code
                 {
                     dbContextTransaction.Rollback();
                     return 0;
+                }
+            }
+        }
+
+        public bool DeleteCopy(int ssn, int copyId)
+        {
+            using (var dbContextTransaction = _context.Database.BeginTransaction(IsolationLevel.ReadCommitted))
+            {
+                try
+                {
+                    Copy copy = _copyDa.GetCopy(copyId, _context);
+                    if (_librarianDa.CheckLibrarianSsn(ssn, _context) && copy != null)
+                    {
+                        var result = _copyDa.DeleteCopy(copy, _context);
+                        dbContextTransaction.Commit();
+                        return result;
+                    }
+
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
+                catch
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
                 }
             }
         }

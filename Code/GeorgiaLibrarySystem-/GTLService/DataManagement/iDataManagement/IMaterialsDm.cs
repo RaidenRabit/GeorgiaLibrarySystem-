@@ -12,7 +12,5 @@ namespace GTLService.DataManagement.IDataManagement
             string typeName, int quantity);
 
         bool DeleteMaterial(int ssn, string isbn);
-
-        bool DeleteCopy(int ssn, int copyId);
     }
 }

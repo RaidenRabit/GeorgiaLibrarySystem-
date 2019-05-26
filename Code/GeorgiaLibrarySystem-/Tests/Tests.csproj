@@ -204,6 +204,7 @@
     <Compile Include="IntegrationTest\LoginTest.cs" />
     <Compile Include="IntegrationTest\MaterialTest.cs" />
     <Compile Include="IntegrationTest\StatisticsTest.cs" />
+    <Compile Include="UnitTest\CopyTest.cs" />
     <Compile Include="UnitTest\LoginTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTest\LoaningTest.cs" />

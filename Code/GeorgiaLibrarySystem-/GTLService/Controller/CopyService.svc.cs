@@ -1,4 +1,5 @@
 ﻿using System;
+using GTLService.Controller.IController;
 using GTLService.DataManagement.IDataManagement;
 
 namespace GTLService.Controller
@@ -26,6 +27,11 @@ namespace GTLService.Controller
         public int GetOutOnLoan(string isbn)
         {
             return _copyDm.GetOutOnLoan(isbn);
+        }
+
+        public bool DeleteCopy(int ssn, int copyId)
+        {
+            return _copyDm.DeleteCopy(ssn, copyId);
         }
     }
 }

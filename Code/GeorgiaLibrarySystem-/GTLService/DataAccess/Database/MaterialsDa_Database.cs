@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Core;
 
 namespace GTLService.DataAccess.Database
@@ -39,12 +38,6 @@ namespace GTLService.DataAccess.Database
         public bool DeleteMaterial(int ssn, string isbn)
         {
             var value = _context.DeleteMaterial(ssn, Int32.Parse(isbn)).First();
-            return Convert.ToBoolean(value);
-        }
-
-        public bool DeleteCopy(int ssn, int copyId)
-        {
-            var value = _context.DeleteCopy(ssn, copyId).First();
             return Convert.ToBoolean(value);
         }
     }

@@ -28,7 +28,7 @@ namespace GtlWebsite.Controllers
         [HttpGet]
         public string GetMaterialsAjax(string materialTitle, string author, int numOfRecords = 10, int isbn = 0, string jobStatus = "0")
         {
-            var response = _materialClient.GetMaterials(materialTitle,author,numOfRecords,isbn,jobStatus);
+            var response = _materialClient.GetMaterials(materialTitle,author,numOfRecords,isbn.ToString(),jobStatus);
             var jsonSerialiser = new JavaScriptSerializer();
             var json = jsonSerialiser.Serialize(response);
             return json;
@@ -40,7 +40,7 @@ namespace GtlWebsite.Controllers
             int id, copies = Int32.Parse(availableCopies);
             while (copies >= 0)
             {
-                id = _copyClient.GetAvailableCopyId(Int32.Parse(isbn));
+                id = _copyClient.GetAvailableCopyId(isbn);
                 if (id != 0)
                 {
                     if(_loaningClient.LoanBook(Int32.Parse(Session["SSN"].ToString()), id))

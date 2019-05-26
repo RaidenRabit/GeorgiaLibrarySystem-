@@ -16,22 +16,28 @@ namespace GtlWebsite.CopyServiceReference {
     public interface ICopyService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICopyService/GetAvailableCopyId", ReplyAction="http://tempuri.org/ICopyService/GetAvailableCopyIdResponse")]
-        int GetAvailableCopyId(int isbn);
+        int GetAvailableCopyId(string isbn);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICopyService/GetAvailableCopyId", ReplyAction="http://tempuri.org/ICopyService/GetAvailableCopyIdResponse")]
-        System.Threading.Tasks.Task<int> GetAvailableCopyIdAsync(int isbn);
+        System.Threading.Tasks.Task<int> GetAvailableCopyIdAsync(string isbn);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICopyService/GetTotalNrCopies", ReplyAction="http://tempuri.org/ICopyService/GetTotalNrCopiesResponse")]
-        int GetTotalNrCopies(int isbn);
+        int GetTotalNrCopies(string isbn);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICopyService/GetTotalNrCopies", ReplyAction="http://tempuri.org/ICopyService/GetTotalNrCopiesResponse")]
-        System.Threading.Tasks.Task<int> GetTotalNrCopiesAsync(int isbn);
+        System.Threading.Tasks.Task<int> GetTotalNrCopiesAsync(string isbn);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICopyService/GetOutOnLoan", ReplyAction="http://tempuri.org/ICopyService/GetOutOnLoanResponse")]
-        int GetOutOnLoan(int isbn);
+        int GetOutOnLoan(string isbn);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICopyService/GetOutOnLoan", ReplyAction="http://tempuri.org/ICopyService/GetOutOnLoanResponse")]
-        System.Threading.Tasks.Task<int> GetOutOnLoanAsync(int isbn);
+        System.Threading.Tasks.Task<int> GetOutOnLoanAsync(string isbn);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICopyService/DeleteCopy", ReplyAction="http://tempuri.org/ICopyService/DeleteCopyResponse")]
+        bool DeleteCopy(int ssn, int copyId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICopyService/DeleteCopy", ReplyAction="http://tempuri.org/ICopyService/DeleteCopyResponse")]
+        System.Threading.Tasks.Task<bool> DeleteCopyAsync(int ssn, int copyId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -61,28 +67,36 @@ namespace GtlWebsite.CopyServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public int GetAvailableCopyId(int isbn) {
+        public int GetAvailableCopyId(string isbn) {
             return base.Channel.GetAvailableCopyId(isbn);
         }
         
-        public System.Threading.Tasks.Task<int> GetAvailableCopyIdAsync(int isbn) {
+        public System.Threading.Tasks.Task<int> GetAvailableCopyIdAsync(string isbn) {
             return base.Channel.GetAvailableCopyIdAsync(isbn);
         }
         
-        public int GetTotalNrCopies(int isbn) {
+        public int GetTotalNrCopies(string isbn) {
             return base.Channel.GetTotalNrCopies(isbn);
         }
         
-        public System.Threading.Tasks.Task<int> GetTotalNrCopiesAsync(int isbn) {
+        public System.Threading.Tasks.Task<int> GetTotalNrCopiesAsync(string isbn) {
             return base.Channel.GetTotalNrCopiesAsync(isbn);
         }
         
-        public int GetOutOnLoan(int isbn) {
+        public int GetOutOnLoan(string isbn) {
             return base.Channel.GetOutOnLoan(isbn);
         }
         
-        public System.Threading.Tasks.Task<int> GetOutOnLoanAsync(int isbn) {
+        public System.Threading.Tasks.Task<int> GetOutOnLoanAsync(string isbn) {
             return base.Channel.GetOutOnLoanAsync(isbn);
+        }
+        
+        public bool DeleteCopy(int ssn, int copyId) {
+            return base.Channel.DeleteCopy(ssn, copyId);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeleteCopyAsync(int ssn, int copyId) {
+            return base.Channel.DeleteCopyAsync(ssn, copyId);
         }
     }
 }

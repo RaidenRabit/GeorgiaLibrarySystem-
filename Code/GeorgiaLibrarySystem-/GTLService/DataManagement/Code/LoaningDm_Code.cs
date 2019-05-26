@@ -26,11 +26,19 @@ namespace GTLService.DataManagement.Code
                 try
                 {
                     if (_loaningDa.MemberLoanBooks(ssn, _context) < _memberDa.GetMember(ssn, _context).MemberType.NrOfBooks //member is allowed to Loan more
-                        && _loaningDa.GetLoan(copyId, _context) == null //not Loaned at the time
-                        && _loaningDa.LoanBook(new Loan {SSN = ssn, CopyID = copyId, FromDate = DateTime.Now}, _context))//loan successful
+                        && _loaningDa.GetLoan(copyId, _context) == null)//not Loaned at the time
                     {
-                        dbContextTransaction.Commit();
-                        return true;
+                        _context.Database.ExecuteSqlCommand("ALTER TABLE Loan DISABLE TRIGGER Lending");//so trigger wouldn't be run
+                        _context.SaveChanges();
+                        var result = _loaningDa.LoanBook(new Loan {SSN = ssn, CopyID = copyId, FromDate = DateTime.Now}, _context);
+                        _context.Database.ExecuteSqlCommand("ALTER TABLE Loan ENABLE TRIGGER Lending");
+                        _context.SaveChanges();
+
+                        if (result)
+                        {
+                            dbContextTransaction.Commit();
+                            return true;
+                        }
                     }
                     dbContextTransaction.Rollback();
                     return false;

@@ -16,10 +16,22 @@ namespace GtlWebsite.MaterialServiceReference {
     public interface IMaterialService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMaterialService/GetMaterials", ReplyAction="http://tempuri.org/IMaterialService/GetMaterialsResponse")]
-        Core.readAllMaterial[] GetMaterials(string materialTitle, string author, int numOfRecords, int isbn, string jobStatus);
+        Core.readAllMaterial[] GetMaterials(string materialTitle, string author, int numOfRecords, string isbn, string jobStatus);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMaterialService/GetMaterials", ReplyAction="http://tempuri.org/IMaterialService/GetMaterialsResponse")]
-        System.Threading.Tasks.Task<Core.readAllMaterial[]> GetMaterialsAsync(string materialTitle, string author, int numOfRecords, int isbn, string jobStatus);
+        System.Threading.Tasks.Task<Core.readAllMaterial[]> GetMaterialsAsync(string materialTitle, string author, int numOfRecords, string isbn, string jobStatus);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMaterialService/CreateMaterial", ReplyAction="http://tempuri.org/IMaterialService/CreateMaterialResponse")]
+        bool CreateMaterial(int ssn, string isbn, string library, string author, string description, string title, string typeName, int quantity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMaterialService/CreateMaterial", ReplyAction="http://tempuri.org/IMaterialService/CreateMaterialResponse")]
+        System.Threading.Tasks.Task<bool> CreateMaterialAsync(int ssn, string isbn, string library, string author, string description, string title, string typeName, int quantity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMaterialService/DeleteMaterial", ReplyAction="http://tempuri.org/IMaterialService/DeleteMaterialResponse")]
+        bool DeleteMaterial(int ssn, string isbn);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMaterialService/DeleteMaterial", ReplyAction="http://tempuri.org/IMaterialService/DeleteMaterialResponse")]
+        System.Threading.Tasks.Task<bool> DeleteMaterialAsync(int ssn, string isbn);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,12 +61,28 @@ namespace GtlWebsite.MaterialServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public Core.readAllMaterial[] GetMaterials(string materialTitle, string author, int numOfRecords, int isbn, string jobStatus) {
+        public Core.readAllMaterial[] GetMaterials(string materialTitle, string author, int numOfRecords, string isbn, string jobStatus) {
             return base.Channel.GetMaterials(materialTitle, author, numOfRecords, isbn, jobStatus);
         }
         
-        public System.Threading.Tasks.Task<Core.readAllMaterial[]> GetMaterialsAsync(string materialTitle, string author, int numOfRecords, int isbn, string jobStatus) {
+        public System.Threading.Tasks.Task<Core.readAllMaterial[]> GetMaterialsAsync(string materialTitle, string author, int numOfRecords, string isbn, string jobStatus) {
             return base.Channel.GetMaterialsAsync(materialTitle, author, numOfRecords, isbn, jobStatus);
+        }
+        
+        public bool CreateMaterial(int ssn, string isbn, string library, string author, string description, string title, string typeName, int quantity) {
+            return base.Channel.CreateMaterial(ssn, isbn, library, author, description, title, typeName, quantity);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CreateMaterialAsync(int ssn, string isbn, string library, string author, string description, string title, string typeName, int quantity) {
+            return base.Channel.CreateMaterialAsync(ssn, isbn, library, author, description, title, typeName, quantity);
+        }
+        
+        public bool DeleteMaterial(int ssn, string isbn) {
+            return base.Channel.DeleteMaterial(ssn, isbn);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeleteMaterialAsync(int ssn, string isbn) {
+            return base.Channel.DeleteMaterialAsync(ssn, isbn);
         }
     }
 }
