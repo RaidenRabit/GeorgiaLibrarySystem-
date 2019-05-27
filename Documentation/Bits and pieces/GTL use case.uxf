@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>3</zoom_level>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>324</x>
+      <y>315</y>
+      <w>18</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>Student</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>330</x>
+      <y>228</y>
+      <w>30</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>other library</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>318</x>
+      <y>399</y>
+      <w>24</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Teacher
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>330</x>
+      <y>360</y>
+      <w>24</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Member
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>384</x>
+      <y>366</y>
+      <w>36</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>Borrow book</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>312</x>
+      <y>324</y>
+      <w>27</w>
+      <h>54</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>70.0;160.0;10.0;10.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>306</x>
+      <y>369</y>
+      <w>33</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>90.0;10.0;10.0;140.0;50.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>348</x>
+      <y>366</y>
+      <w>42</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>384</x>
+      <y>270</y>
+      <w>57</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>How many loaned books</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>384</x>
+      <y>288</y>
+      <w>51</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>How many books
+in library right now</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>348</x>
+      <y>285</y>
+      <w>42</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;120.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>348</x>
+      <y>273</y>
+      <w>42</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;50.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>384</x>
+      <y>345</y>
+      <w>39</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>Request info
+about book</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>348</x>
+      <y>351</y>
+      <w>42</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;70.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>621</x>
+      <y>204</y>
+      <w>48</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>Library saff enum
+- librarian chief
+- departmental
+associate librarians
+- reference librarian
+- check-out staff
+- library assistant</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>705</x>
+      <y>204</y>
+      <w>81</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>
+- Members can have only 5
+books at a time
+- Typical return time: 3-4 weeks
+- 5% of the members need reminders
+to return the books
+- 5% of the overdue books are
+are never returned
+- The most active memvers
+borrow at least 10 times a year
+- 1% of the members are responsible
+for 15% of the borrowing
+- 10% of the members are responsible
+for 40% of the borrowing
+- 20% of the members never borrow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>621</x>
+      <y>423</y>
+      <w>60</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>bg=blue
+- card is good for 4 years
+- 1 month before exp.
+notice for renewal is sent</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>384</x>
+      <y>381</y>
+      <w>36</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>Renew card</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>348</x>
+      <y>369</y>
+      <w>42</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;120.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>621</x>
+      <y>249</y>
+      <w>66</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>bg=blue
+Student rules:
+- Books can be checked out
+for 21 days
+- 1 week of grace period
+- renewal notice sent to home</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>621</x>
+      <y>288</y>
+      <w>66</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>bg=blue
+Teacher rules:
+- Books can be checked out
+for 3 months
+- 2 week of grace period
+- renewal notice sent to
+campus address</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>627</x>
+      <y>396</y>
+      <w>39</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>bg=blue
+MemberType:
+- teacher
+- student</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>705</x>
+      <y>300</y>
+      <w>90</w>
+      <h>51</h>
+    </coordinates>
+    <panel_attributes>Must expose:
+- users
+- books and their status
+- give books
+- get books
+- average loan time,
+- which university has lent out most books
+- which book (or top 10) 
+are the most loaned</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>705</x>
+      <y>357</y>
+      <w>90</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>The system should be a working prototype 
+with UI, business logic and a
+(heavy) database access layer.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>627</x>
+      <y>348</y>
+      <w>39</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>bg=blue
+ClassEnum:
+- ok
+- reference books
+- rareBooks
+- maps
+- wanted</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>333</x>
+      <y>282</y>
+      <w>24</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>Librarian
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>393</x>
+      <y>234</y>
+      <w>36</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>Fetch info</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>351</x>
+      <y>234</y>
+      <w>48</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>348</x>
+      <y>285</y>
+      <w>42</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;10.0;120.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>567</x>
+      <y>288</y>
+      <w>51</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>bg=red
+16 000 members
+100 000 titles
+250 000 volumes
+2.5 copies per book</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>486</x>
+      <y>462</y>
+      <w>39</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>bg=blue
+ER
+EER
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
